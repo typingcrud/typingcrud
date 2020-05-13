@@ -29,7 +29,7 @@ npx create-react-app typingcrud --template redux-typescript
 
 - state
   - redux のコードを格納するディレクトリです
-  - `index.ts` で `store` を作成し， `State`, `actions`, `useAppDispatch` などを定義しています
+  - `index.ts` で `store` を作成し， `State`, `actions`, `useAppSelector`, `useAppDispatch` などを定義しています
   - その他のファイルでは `slice` を作成します
   - `slice` は命名規則を設定しているので記述する際は参照してください
 - utils
@@ -42,6 +42,7 @@ npx create-react-app typingcrud --template redux-typescript
       - ディレクトリ名は機能を代表するコンポート名と一致させます
       - `index.tsx` に主要なコードを書きます
       - 関連するコンポーネントを同じディレクトリ内に書きます
+  - `useAppSelector` と `useAppDispatch` には store の型情報が自動的に載るように設定したのでこっちを使ってください
 
 ## 命名規則
 
