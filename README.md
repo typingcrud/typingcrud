@@ -1,44 +1,58 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-## Available Scripts
+# ドキュメント
 
-In the project directory, you can run:
+**README を master で編集しないで下さい．**
 
-### `yarn start`
+作業ブランチがなければ change-readme というブランチを作り，プルリクエストを作成してください．
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## パッケージ
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### create-react-app
 
-### `yarn test`
+```sh
+npx create-react-app typingcrud --template redux-typescript
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### パッケージ
 
-### `yarn build`
+- react-router-dom
+- @types/react-router-dom
+- amazon-cognito-identity-js
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ディレクトリ構成
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+基本的に `src/` 以外は変更しません．
+以下では `src/` を省略しています．
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`tsconfig.json` で `"baseUrl": "src"` と設定しているのでインポートする際は `src/` を除いたプロジェクトの絶対パスでインポートできます．
 
-### `yarn eject`
+- state
+  - redux のコードを格納するディレクトリです
+  - `index.ts` で `store` を作成し， `State`, `actions`, `useAppDispatch` などを定義しています
+  - その他のファイルでは `slice` を作成します
+  - `slice` は命名規則を設定しているので記述する際は参照してください
+- utils
+  - 共通するメソッドなどを格納するディレクトリです
+  - 命名規則など現時点ではありません
+- views
+  - React の関数コンポーネントを格納するディレクトリです
+  - `App.tsx` でルーティングの設定を行なっています
+  - その他のコンポーネントは機能と対応するディレクトリにコードを書きます
+      - ディレクトリ名は機能を代表するコンポート名と一致させます
+      - `index.tsx` に主要なコードを書きます
+      - 関連するコンポーネントを同じディレクトリ内に書きます
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 命名規則
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### state
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### slice について
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- createSlice を代入する定数の名前は "ファイル名（キャメルケース）+Slice" にしてください．
+- createSlice の第一引数の名前は "ファイル名（キャメルケース）" にしてください．
+- initialState の型の名前は "ファイル名(キャメルケース）" にしてください．
 
-## Learn More
+### views
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[準備中]
