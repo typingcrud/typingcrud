@@ -15,10 +15,10 @@ export const actions = {
   [authSlice.name]: authSlice.actions,
 }
 
-export type State = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch = () => useDispatch<AppDispatch>()
+export type AppState = ReturnType<typeof store.getState>
 export const useAppSelector: <TSelected>(
-  selector: (state: State) => TSelected,
+  selector: (state: AppState) => TSelected,
   equalityFn?: (left: TSelected, right: TSelected) => boolean,
 ) => TSelected = useSelector;
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
