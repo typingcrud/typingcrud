@@ -54,5 +54,3 @@ npx create-react-app typingcrud --template redux-typescript
 - initialState の型の名前は "ファイル名(キャメルケース）" にしてください．
 
 ### views
-
-[準備中]
