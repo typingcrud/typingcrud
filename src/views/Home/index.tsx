@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 const Home: React.FC = () => {
   const example = useAppSelector(state => state.example.text)
@@ -11,12 +11,19 @@ const Home: React.FC = () => {
     }, [dispatch]
   )
 
+  const handleSetExampleAsync = useCallback(
+    () => dispatch(thunkActions.example.setExampleAsync("thunkActions")), [dispatch]
+  )
+
   return (
-    <input
-      type='text'
-      value={example}
-      onChange={handleSetExample}
-    />
+    <>
+      <input
+        type='text'
+        value={example}
+        onChange={handleSetExample}
+      />
+      <button onClick={handleSetExampleAsync}>Async</button>
+    </>
   )
 }
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AppThunk } from 'state'
 
 type Example = {
   text: string
@@ -17,5 +18,15 @@ const exampleSlice = createSlice({
     }
   }
 })
+
+const setExampleAsync = (text: Example['text']): AppThunk => dispatch => {
+  setTimeout(() => {
+    dispatch(exampleSlice.actions.setExample(text))
+  }, 2000)
+}
+
+export const exampleThunkActions = {
+  setExampleAsync
+}
 
 export default exampleSlice
