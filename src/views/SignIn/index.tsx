@@ -18,6 +18,9 @@ const SignIn: React.FC = () => {
   const handleSignInThunk = useCallback(
     () => dispatch(thunkActions.auth.signInThunk()), [dispatch]
   )
+  const handleEST = useCallback(
+    () => dispatch(thunkActions.auth.establishSessionThunk()), [dispatch]
+  )
 
   return (
     <div>
@@ -38,6 +41,7 @@ const SignIn: React.FC = () => {
           onChange={handleSetSignInForm(signinForm)}
         />
         <button onClick={handleSignInThunk}>SignIn</button>
+        <button onClick={handleEST}>EST</button>
       </div>
     </div>
   )

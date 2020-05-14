@@ -1,23 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { CognitoUser, CognitoIdToken, CognitoAccessToken, CognitoRefreshToken } from 'amazon-cognito-identity-js'
 
-import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { signInThunk } from 'state/auth/signInThunk'
+import { establishSessionThunk } from 'state/auth/establishSessionThunk'
 
 
 type Auth = {
-  cognitUser: CognitoUser | null
   isSignIn: boolean
   tokens: {
-    idToken: CognitoIdToken
-    accessToken: CognitoAccessToken
-    refreshToken: CognitoRefreshToken
+    idToken: string
+    accessToken: string
+    refreshToken: string
   } | null
 }
 
 const initialState: Auth = {
-  cognitUser: cognitoUserPool.getCurrentUser(),
-  isSignIn: cognitoUserPool.getCurrentUser() !== null,
+  isSignIn: false,
   tokens: null
 }
 
@@ -25,18 +22,18 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCognitoUser: (state: Auth, action: PayloadAction<Omit<Auth, 'tokens'>>) => {
-      state.cognitUser = action.payload.cognitUser
-      state.isSignIn = action.payload.isSignIn
+    setCognitoUser: (state: Auth, action: PayloadAction<Auth['isSignIn']>) => {
+      state.isSignIn = action.payload
     },
-    setTokens: (state: Auth, action: PayloadAction<Pick<Auth, 'tokens'>>) => {
-      state.tokens = action.payload.tokens
+    setTokens: (state: Auth, action: PayloadAction<Auth['tokens']>) => {
+      state.tokens = action.payload
     }
   }
 })
 
 export const authThunk = {
-  signInThunk
+  signInThunk,
+  establishSessionThunk
 }
 
 export default authSlice
