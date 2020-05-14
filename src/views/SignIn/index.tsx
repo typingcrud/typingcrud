@@ -4,15 +4,15 @@ import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 const SignIn: React.FC = () => {
-  const signinForm = useAppSelector(state => state.form.signinForm)
+  const signInForm = useAppSelector(state => state.form.signInForm)
 
   const dispatch = useAppDispatch()
-  type SignInForm = typeof signinForm
+  type SignInForm = typeof signInForm
   const handleSetSignInForm = useCallback(
-    (signinForm: SignInForm) =>
+    (signInForm: SignInForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(actions.form.setSignInForm({
-        ...signinForm,
+        ...signInForm,
         [e.target.id]: e.target.value
       }))
     }, [dispatch]
@@ -35,15 +35,15 @@ const SignIn: React.FC = () => {
           type='text'
           id='email'
           placeholder='email'
-          value={signinForm.email}
-          onChange={handleSetSignInForm(signinForm)}
+          value={signInForm.email}
+          onChange={handleSetSignInForm(signInForm)}
         />
         <input
           type='text'
           id='password'
           placeholder='password'
-          value={signinForm.password}
-          onChange={handleSetSignInForm(signinForm)}
+          value={signInForm.password}
+          onChange={handleSetSignInForm(signInForm)}
         />
         <button onClick={handleSignInThunk}>SignIn</button>
       </div>
