@@ -1,13 +1,8 @@
-import React, {useCallback} from 'react'
-import { useSelector } from 'react-redux'
-import { State, actions, useAppDispatch } from 'state'
-
-type Types = {
-  example: State['example']['text']
-}
+import React, { useCallback } from 'react'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 const Home: React.FC = () => {
-  const example: Types['example'] = useSelector((state: State) => state.example.text)
+  const example = useAppSelector(state => state.example.text)
 
   const dispatch = useAppDispatch()
   const handleSetExample = useCallback(
@@ -16,12 +11,19 @@ const Home: React.FC = () => {
     }, [dispatch]
   )
 
+  const handleSetExampleThunk = useCallback(
+    () => dispatch(thunkActions.example.setExampleThunk()), [dispatch]
+  )
+
   return (
-    <input
-      type='text'
-      value={example}
-      onChange={handleSetExample}
-    />
+    <>
+      <input
+        type='text'
+        value={example}
+        onChange={handleSetExample}
+      />
+      <button onClick={handleSetExampleThunk}>Thunk</button>
+    </>
   )
 }
 
