@@ -6,11 +6,11 @@ type SignInForm = {
 }
 
 type Form = {
-  signinForm: SignInForm
+  signInForm: SignInForm
 }
 
 const initialState: Form = {
-  signinForm: {
+  signInForm: {
     email: '',
     password: ''
   }
@@ -21,7 +21,7 @@ const formSlice = createSlice({
   initialState,
   reducers: {
     setSignInForm: (state: Form, action: PayloadAction<SignInForm>) => {
-      state.signinForm = action.payload
+      state.signInForm = action.payload
     }
   }
 })
