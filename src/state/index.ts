@@ -1,23 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import exampleSlice, { exampleThunkActions } from 'state/example'
-import authSlice from 'state/auth'
+import formSlice from 'state/form'
+
 
 export const store = configureStore({
   reducer: {
     [exampleSlice.name]: exampleSlice.reducer,
-    [authSlice.name]: authSlice.reducer,
+    [formSlice.name]: formSlice.reducer,
   }
 })
 
 export const actions = {
   [exampleSlice.name]: exampleSlice.actions,
-  [authSlice.name]: authSlice.actions,
+  [formSlice.name]: formSlice.actions,
 }
 
 export const thunkActions = {
   [exampleSlice.name]: exampleThunkActions,
 }
+
 
 export type AppState = ReturnType<typeof store.getState>
 export const useAppSelector: <TSelected>(
