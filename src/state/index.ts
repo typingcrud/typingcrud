@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import exampleSlice, { exampleThunkActions } from 'state/example'
+import exampleSlice, { exampleThunk } from 'state/example'
 import formSlice from 'state/form'
+import authSlice, { authThunk } from 'state/auth'
 
 
 export const store = configureStore({
@@ -17,7 +18,8 @@ export const actions = {
 }
 
 export const thunkActions = {
-  [exampleSlice.name]: exampleThunkActions,
+  [exampleSlice.name]: exampleThunk,
+  [authSlice.name]: authThunk,
 }
 
 
