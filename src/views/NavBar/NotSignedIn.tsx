@@ -1,13 +1,10 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 
-export const NotSignedIn: React.FC = () => {
-  const history = useHistory()
+type Props = {
+  link: (path: string) => () => void
+}
 
-  const link = (path: string) => () => {
-    history.push(path)
-  }
-
+export const NotSignedIn: React.FC<Props> = ({link}) => {
   return (
     <React.Fragment>
       <button onClick={link('/signin')}>SignIn</button>

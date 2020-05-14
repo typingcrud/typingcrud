@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { signInThunk } from 'state/auth/signInThunk'
 import { establishSessionThunk } from 'state/auth/establishSessionThunk'
+import { signInThunk } from 'state/auth/signInThunk'
+import { signOutThunk } from 'state/auth/signOutThunk'
 
 
 type Auth = {
@@ -32,8 +33,9 @@ const authSlice = createSlice({
 })
 
 export const authThunk = {
+  establishSessionThunk,
   signInThunk,
-  establishSessionThunk
+  signOutThunk,
 }
 
 export default authSlice
