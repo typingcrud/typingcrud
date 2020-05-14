@@ -1,16 +1,20 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useAppDispatch, thunkActions } from 'state'
 
-export const SignedIn: React.FC = () => {
-  const history = useHistory()
+type Props = {
+  link: (path: string) => () => void
+}
 
-  const link = (path: string) => () => {
-    history.push(path)
+export const SignedIn: React.FC<Props> = ({link}) => {
+  const dispatch = useAppDispatch()
+  const signOut = () => {
+    dispatch(thunkActions.auth.signOutThunk())
+    link('/')()
   }
 
   return (
     <React.Fragment>
-      <button onClick={link('/')}>SignOut</button>
+      <button onClick={signOut}>SignOut</button>
       <button onClick={link('/setting')}>Setting</button>
     </React.Fragment>
   )
