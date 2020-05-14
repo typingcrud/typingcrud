@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react'
+
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
+
 
 const SignIn: React.FC = () => {
   const signinForm = useAppSelector(state => state.form.signinForm)
@@ -17,9 +19,6 @@ const SignIn: React.FC = () => {
   )
   const handleSignInThunk = useCallback(
     () => dispatch(thunkActions.auth.signInThunk()), [dispatch]
-  )
-  const handleEST = useCallback(
-    () => dispatch(thunkActions.auth.establishSessionThunk()), [dispatch]
   )
 
   return (
@@ -41,7 +40,6 @@ const SignIn: React.FC = () => {
           onChange={handleSetSignInForm(signinForm)}
         />
         <button onClick={handleSignInThunk}>SignIn</button>
-        <button onClick={handleEST}>EST</button>
       </div>
     </div>
   )
