@@ -9,12 +9,14 @@ export const store = configureStore({
   reducer: {
     [exampleSlice.name]: exampleSlice.reducer,
     [formSlice.name]: formSlice.reducer,
+    [authSlice.name]: authSlice.reducer,
   }
 })
 
 export const actions = {
   [exampleSlice.name]: exampleSlice.actions,
   [formSlice.name]: formSlice.actions,
+  [authSlice.name]: authSlice.actions,
 }
 
 export const thunkActions = {
