@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
-import { setExampleThunk } from 'state/example'
 
 const Home: React.FC = () => {
   const example = useAppSelector(state => state.example.text)
@@ -12,12 +11,8 @@ const Home: React.FC = () => {
     }, [dispatch]
   )
 
-  const handleSetExampleAsync = useCallback(
-    () => dispatch(thunkActions.example.setExampleAsync("thunkActions")), [dispatch]
-  )
-
   const handleSetExampleThunk = useCallback(
-    () => dispatch(setExampleThunk()), [dispatch]
+    () => dispatch(thunkActions.example.setExampleThunk()), [dispatch]
   )
 
   return (
@@ -27,7 +22,6 @@ const Home: React.FC = () => {
         value={example}
         onChange={handleSetExample}
       />
-      <button onClick={handleSetExampleAsync}>Async</button>
       <button onClick={handleSetExampleThunk}>Thunk</button>
     </>
   )

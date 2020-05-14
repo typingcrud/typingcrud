@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import exampleSlice, { exampleThunkActions } from 'state/example'
 import authSlice from 'state/auth'
@@ -15,6 +15,10 @@ export const actions = {
   [authSlice.name]: authSlice.actions,
 }
 
+export const thunkActions = {
+  [exampleSlice.name]: exampleThunkActions,
+}
+
 export type AppState = ReturnType<typeof store.getState>
 export const useAppSelector: <TSelected>(
   selector: (state: AppState) => TSelected,
@@ -23,9 +27,3 @@ export const useAppSelector: <TSelected>(
 
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch = () => useDispatch<AppDispatch>()
-
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unknown, Action<string>>
-
-export const thunkActions = {
-  [exampleSlice.name]: exampleThunkActions,
-}

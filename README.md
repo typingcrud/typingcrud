@@ -29,8 +29,12 @@ npx create-react-app typingcrud --template redux-typescript
 
 - state
   - redux のコードを格納するディレクトリです
-  - `index.ts` で `store` を作成し， `State`, `actions`, `useAppSelector`, `useAppDispatch` などを定義しています
-  - その他のファイルでは `slice` を作成します
+  - `index.ts` で `store` を作成し， `AppState`, `actions`, `thunkActions` `useAppSelector`, `useAppDispatch` などを定義しています
+  - `slice` は `action`, `actionCreater`, `reducer` を組み合わせたものです．
+  - `slice` は state 名のディレクトリの `index.ts` ファイルに記述します．
+  - 非同期は `createAsyncThunk` を用いて実装します．
+    - 非同期に関するコードは `index.ts` でなく同一ディレクトリの別ファイルに記述します（要検討）
+    - `createAsyncThunk` を用いたコードのファイル名はそのメソッド名です．
   - `slice` は命名規則を設定しているので記述する際は参照してください
 - utils
   - 共通するメソッドなどを格納するディレクトリです
