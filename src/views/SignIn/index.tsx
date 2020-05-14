@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 const SignIn: React.FC = () => {
   const signinForm = useAppSelector(state => state.form.signinForm)
@@ -14,6 +14,9 @@ const SignIn: React.FC = () => {
         [e.target.id]: e.target.value
       }))
     }, [dispatch]
+  )
+  const handleSignInThunk = useCallback(
+    () => dispatch(thunkActions.auth.signInThunk()), [dispatch]
   )
 
   return (
@@ -34,6 +37,7 @@ const SignIn: React.FC = () => {
           value={signinForm.password}
           onChange={handleSetSignInForm(signinForm)}
         />
+        <button onClick={handleSignInThunk}>SignIn</button>
       </div>
     </div>
   )

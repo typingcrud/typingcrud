@@ -24,7 +24,7 @@ const exampleSlice = createSlice({
   }
 })
 
-export const exampleThunkActions = {
+export const exampleThunk = {
   setExampleThunk
 }
 
