@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
@@ -20,6 +20,12 @@ const SignIn: React.FC = () => {
   const handleSignInThunk = useCallback(
     () => dispatch(thunkActions.auth.signInThunk()), [dispatch]
   )
+
+  useEffect(() => {
+    return () => {
+      dispatch(actions.form.setSignInForm({email: '', password: ''}))
+    }
+  }, [dispatch])
 
   return (
     <div>

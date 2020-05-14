@@ -26,10 +26,6 @@ export const signInThunk = createAsyncThunk<
       })
       cognitUser.authenticateUser(authenticationDetails, {
         onSuccess: (res) => {
-          thunkAPI.dispatch(actions.form.setSignInForm({
-            email: '',
-            password: '',
-          }))
           thunkAPI.dispatch(actions.auth.setCognitoUser(true))
           thunkAPI.dispatch(actions.auth.setTokens({
             idToken: res.getIdToken().getJwtToken(),
