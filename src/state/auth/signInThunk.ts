@@ -30,16 +30,11 @@ export const signInThunk = createAsyncThunk<
             email: '',
             password: '',
           }))
-          thunkAPI.dispatch(actions.auth.setCognitoUser({
-            cognitUser: cognitUser,
-            isSignIn: true
-          }))
+          thunkAPI.dispatch(actions.auth.setCognitoUser(true))
           thunkAPI.dispatch(actions.auth.setTokens({
-            tokens: {
-              idToken: res.getIdToken(),
-              accessToken: res.getAccessToken(),
-              refreshToken: res.getRefreshToken()
-            }
+            idToken: res.getIdToken().getJwtToken(),
+            accessToken: res.getAccessToken().getJwtToken(),
+            refreshToken: res.getRefreshToken().getToken()
           }))
         },
         onFailure: (err) => {
