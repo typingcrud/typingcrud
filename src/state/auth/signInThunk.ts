@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
-import { newUserPool } from 'utils/cognito/cognito-utils'
+
+import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { AppState, AppDispatch, actions } from 'state'
+
 
 export const signInThunk = createAsyncThunk<
   void,
@@ -20,7 +22,7 @@ export const signInThunk = createAsyncThunk<
       })
       const cognitUser = new CognitoUser({
         Username: signinForm.email,
-        Pool: newUserPool()
+        Pool: cognitoUserPool
       })
       cognitUser.authenticateUser(authenticationDetails, {
         onSuccess: (res) => {
@@ -28,10 +30,17 @@ export const signInThunk = createAsyncThunk<
             email: '',
             password: '',
           }))
-          localStorage.setItem('IDToken', res.getIdToken().getJwtToken())
-          localStorage.setItem('AccessToken', res.getAccessToken().getJwtToken())
-          localStorage.setItem('RefreshToken', res.getRefreshToken().getToken())
-          console.log(res)
+          thunkAPI.dispatch(actions.auth.setCognitoUser({
+            cognitUser: cognitUser,
+            isSignIn: true
+          }))
+          thunkAPI.dispatch(actions.auth.setTokens({
+            tokens: {
+              idToken: res.getIdToken(),
+              accessToken: res.getAccessToken(),
+              refreshToken: res.getRefreshToken()
+            }
+          }))
         },
         onFailure: (err) => {
           alert(err.message || JSON.stringify(err))
