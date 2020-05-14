@@ -2,14 +2,14 @@ import React, { useCallback } from 'react'
 import { actions, useAppSelector, useAppDispatch } from 'state'
 
 const SignIn: React.FC = () => {
-  const signinForm = useAppSelector(state => state.auth.signinForm)
+  const signinForm = useAppSelector(state => state.form.signinForm)
 
   const dispatch = useAppDispatch()
   type SignInForm = typeof signinForm
   const handleSetSignInForm = useCallback(
     (signinForm: SignInForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.auth.setSignInForm({
+      dispatch(actions.form.setSignInForm({
         ...signinForm,
         [e.target.id]: e.target.value
       }))

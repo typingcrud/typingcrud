@@ -5,25 +5,25 @@ type SignInForm = {
   password: string
 }
 
-type Auth = {
+type Form = {
   signinForm: SignInForm
 }
 
-const initialState: Auth = {
+const initialState: Form = {
   signinForm: {
     email: '',
     password: ''
   }
 }
 
-const authSlice = createSlice({
-  name: 'auth',
+const formSlice = createSlice({
+  name: 'form',
   initialState,
   reducers: {
-    setSignInForm: (state: Auth, action: PayloadAction<SignInForm>) => {
+    setSignInForm: (state: Form, action: PayloadAction<SignInForm>) => {
       state.signinForm = action.payload
     }
   }
 })
 
-export default authSlice
+export default formSlice
