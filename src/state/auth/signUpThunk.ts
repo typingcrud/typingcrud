@@ -52,7 +52,7 @@ export const signUpVerifyThunk = createAsyncThunk<
           alert(err.message || JSON.stringify(err))
           return
         }
-        axios.post('https://3egxyjlslj.execute-api.ap-northeast-1.amazonaws.com/typing_cognito', {email: signUpForm.email})
+        axios.post('https://6lc7oim9w6.execute-api.ap-northeast-1.amazonaws.com/typing_cognito', {email: signUpForm.email})
           .then(() => {
             alert("Success!")
           })
