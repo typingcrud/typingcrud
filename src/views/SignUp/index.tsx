@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 const SignUp: React.FC = () => {
@@ -18,6 +18,15 @@ const SignUp: React.FC = () => {
         [e.target.id]: e.target.value
       }))
     }, [dispatch, signUpForm]
+  )
+  const handleSignUpThunk = useCallback(
+    () => dispatch(thunkActions.auth.signUpThunk()), [dispatch]
+  )
+  const handleSignUpVerifyThunk = useCallback(
+    () => dispatch(thunkActions.auth.signUpVerifyThunk()), [dispatch]
+  )
+  const handleSignUpResendCodeThunk = useCallback(
+    () => dispatch(thunkActions.auth.signUpResendCodeThunk()), [dispatch]
   )
 
   useEffect(() => {
@@ -46,11 +55,17 @@ const SignUp: React.FC = () => {
           value={ isSignUpForm ? signUpForm.password : signUpForm.verificationCode}
           onChange={handleSetSignUpForm}
         />
+        <button onClick={ isSignUpForm ? handleSignUpThunk : handleSignUpVerifyThunk }>
+          { isSignUpForm ? "signu up" : "verify" }
+        </button>
       </div>
       <div>
         <button onClick={handleSetIsSignUpForm}>
-          { isSignUpForm ?  "go to verify fom" : "go to sign up form" }
+          { isSignUpForm ?  "go to verify form" : "go to sign up form" }
         </button>
+        { !isSignUpForm &&
+          <button onClick={handleSignUpResendCodeThunk}>resend verification code</button>
+        }
       </div>
     </React.Fragment>
   )
