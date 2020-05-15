@@ -20,11 +20,11 @@ export const signInThunk = createAsyncThunk<
         Username: signInForm.email,
         Password: signInForm.password
       })
-      const cognitUser = new CognitoUser({
+      const cognitoUser = new CognitoUser({
         Username: signInForm.email,
         Pool: cognitoUserPool
       })
-      cognitUser.authenticateUser(authenticationDetails, {
+      cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (res) => {
           thunkAPI.dispatch(actions.auth.setCognitoUser(true))
           thunkAPI.dispatch(actions.auth.setTokens({
