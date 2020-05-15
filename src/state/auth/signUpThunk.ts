@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js'
+import axios from 'axios'
 
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { AppState } from 'state'
@@ -51,7 +52,13 @@ export const signUpVerifyThunk = createAsyncThunk<
           alert(err.message || JSON.stringify(err))
           return
         }
-        alert("Success!")
+        axios.post('https://3egxyjlslj.execute-api.ap-northeast-1.amazonaws.com/typing_cognito', {email: signUpForm.email})
+          .then(() => {
+            alert("Success!")
+          })
+          .catch((reason) => {
+            console.error(reason)
+          })
       })
     }
   )
