@@ -12,9 +12,17 @@ type SignUpForm = {
   isSignUpForm: boolean
 }
 
+type ForgotPasswordForm = {
+  email: string
+  newPassword: string
+  verificationCode: string
+  isSendEmailForm: boolean
+}
+
 type AuthForm = {
   signInForm: SignInForm
   signUpForm: SignUpForm
+  forgotPasswordForm: ForgotPasswordForm
 }
 
 const initialState: AuthForm = {
@@ -27,6 +35,12 @@ const initialState: AuthForm = {
     password: '',
     verificationCode: '',
     isSignUpForm: true
+  },
+  forgotPasswordForm: {
+    email: '',
+    newPassword: '',
+    verificationCode: '',
+    isSendEmailForm: true
   }
 }
 
@@ -45,6 +59,15 @@ const authForm = createSlice({
     },
     setIsSignUpForm: (state: AuthForm, action: PayloadAction<SignUpForm['isSignUpForm']>) => {
       state.signUpForm.isSignUpForm = action.payload
+    },
+    setForgotPasswordForm: (state: AuthForm, action: PayloadAction<Omit<ForgotPasswordForm, "isSendEmailForm">>) => {
+      state.forgotPasswordForm = {
+        ...action.payload,
+        isSendEmailForm: state.forgotPasswordForm.isSendEmailForm
+      }
+    },
+    setIsSendEmailForm: (state: AuthForm, action: PayloadAction<ForgotPasswordForm['isSendEmailForm']>) => {
+      state.forgotPasswordForm.isSendEmailForm = action.payload
     }
   }
 })
