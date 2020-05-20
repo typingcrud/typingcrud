@@ -4,16 +4,16 @@ import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 export const VerificationForm: React.FC = () => {
-  const { isSignUpForm, ...signUpForm } = useAppSelector(state => state.form.signUpForm)
+  const { isSignUpForm, ...signUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
   const dispatch = useAppDispatch()
   const handleSetIsSignUpForm = useCallback(
-    () => dispatch(actions.form.setIsSignUpForm(!isSignUpForm)),
+    () => dispatch(actions.authForm.setIsSignUpForm(!isSignUpForm)),
     [dispatch, isSignUpForm]
   )
   const handleSetSignUpForm = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.form.setSignUpForm({
+      dispatch(actions.authForm.setSignUpForm({
         ...signUpForm,
         [e.target.id]: e.target.value
       }))

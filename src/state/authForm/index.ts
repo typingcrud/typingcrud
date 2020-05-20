@@ -12,12 +12,12 @@ type SignUpForm = {
   isSignUpForm: boolean
 }
 
-type Form = {
+type AuthForm = {
   signInForm: SignInForm
   signUpForm: SignUpForm
 }
 
-const initialState: Form = {
+const initialState: AuthForm = {
   signInForm: {
     email: '',
     password: ''
@@ -30,23 +30,23 @@ const initialState: Form = {
   }
 }
 
-const formSlice = createSlice({
-  name: 'form',
+const authForm = createSlice({
+  name: 'authForm',
   initialState,
   reducers: {
-    setSignInForm: (state: Form, action: PayloadAction<SignInForm>) => {
+    setSignInForm: (state: AuthForm, action: PayloadAction<SignInForm>) => {
       state.signInForm = action.payload
     },
-    setSignUpForm: (state: Form, action: PayloadAction<Omit<SignUpForm, "isSignUpForm">>) => {
+    setSignUpForm: (state: AuthForm, action: PayloadAction<Omit<SignUpForm, "isSignUpForm">>) => {
       state.signUpForm = {
         ...action.payload,
         isSignUpForm: state.signUpForm.isSignUpForm
       }
     },
-    setIsSignUpForm: (state: Form, action: PayloadAction<SignUpForm['isSignUpForm']>) => {
+    setIsSignUpForm: (state: AuthForm, action: PayloadAction<SignUpForm['isSignUpForm']>) => {
       state.signUpForm.isSignUpForm = action.payload
     }
   }
 })
 
-export default formSlice
+export default authForm
