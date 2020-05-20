@@ -5,6 +5,7 @@ import { useAppDispatch, thunkActions } from 'state'
 import Home from 'views/Home'
 import NavBar from 'views/NavBar'
 import SignIn from 'views/SignIn'
+import SignUp from 'views/SignUp'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -24,7 +25,8 @@ const App: React.FC = () => {
       <Route exact path='/'>
         <Home/>
       </Route>
-      <Route exact path='/signin'><SignIn/></Route>
+      <Route path='/signin'><SignIn/></Route>
+      <Route path='/signup'><SignUp/></Route>
     </BrowserRouter>
   )
 }

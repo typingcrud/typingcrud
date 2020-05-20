@@ -29,7 +29,7 @@ export type AppState = ReturnType<typeof store.getState>
 export const useAppSelector: <TSelected>(
   selector: (state: AppState) => TSelected,
   equalityFn?: (left: TSelected, right: TSelected) => boolean,
-) => TSelected = useSelector;
+) => TSelected = useSelector
 
 export type AppDispatch = typeof store.dispatch
 export const useAppDispatch = () => useDispatch<AppDispatch>()
