@@ -4,14 +4,14 @@ import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 const SignIn: React.FC = () => {
-  const signInForm = useAppSelector(state => state.form.signInForm)
+  const signInForm = useAppSelector(state => state.authForm.signInForm)
 
   const dispatch = useAppDispatch()
   type SignInForm = typeof signInForm
   const handleSetSignInForm = useCallback(
     (signInForm: SignInForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.form.setSignInForm({
+      dispatch(actions.authForm.setSignInForm({
         ...signInForm,
         [e.target.id]: e.target.value
       }))
@@ -23,7 +23,7 @@ const SignIn: React.FC = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(actions.form.setSignInForm({email: '', password: ''}))
+      dispatch(actions.authForm.setSignInForm({email: '', password: ''}))
     }
   }, [dispatch])
 
