@@ -1,17 +1,21 @@
 import React, { useCallback, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 const SignIn: React.FC = () => {
-  const signInForm = useAppSelector(state => state.form.signInForm)
+  const history = useHistory()
+  const link = (path: string) => () => history.push(path)
+
+  const signInForm = useAppSelector(state => state.authForm.signInForm)
 
   const dispatch = useAppDispatch()
   type SignInForm = typeof signInForm
   const handleSetSignInForm = useCallback(
     (signInForm: SignInForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.form.setSignInForm({
+      dispatch(actions.authForm.setSignInForm({
         ...signInForm,
         [e.target.id]: e.target.value
       }))
@@ -23,7 +27,7 @@ const SignIn: React.FC = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(actions.form.setSignInForm({email: '', password: ''}))
+      dispatch(actions.authForm.setSignInForm({email: '', password: ''}))
     }
   }, [dispatch])
 
@@ -47,6 +51,7 @@ const SignIn: React.FC = () => {
         />
         <button onClick={handleSignInThunk}>SignIn</button>
       </div>
+      <button onClick={link('forgot-password')}>forgot password</button>
     </div>
   )
 }
