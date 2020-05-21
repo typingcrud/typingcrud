@@ -60,13 +60,13 @@ const authForm = createSlice({
     changeViewOfSignUp: (state: AuthForm, action: PayloadAction<SignUpForm['isSignUpForm']>) => {
       state.signUpForm.isSignUpForm = action.payload
     },
-    setForgotPasswordForm: (state: AuthForm, action: PayloadAction<Omit<ForgotPasswordForm, "isSendEmailForm">>) => {
+    changeForgotPasswordForm: (state: AuthForm, action: PayloadAction<Omit<ForgotPasswordForm, "isSendEmailForm">>) => {
       state.forgotPasswordForm = {
         ...action.payload,
         isSendEmailForm: state.forgotPasswordForm.isSendEmailForm
       }
     },
-    setIsSendEmailForm: (state: AuthForm, action: PayloadAction<ForgotPasswordForm['isSendEmailForm']>) => {
+    changeViewOfForgotPassword: (state: AuthForm, action: PayloadAction<ForgotPasswordForm['isSendEmailForm']>) => {
       state.forgotPasswordForm.isSendEmailForm = action.payload
     }
   }
