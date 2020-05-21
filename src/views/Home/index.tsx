@@ -7,14 +7,14 @@ const Home: React.FC = () => {
   const example = useAppSelector(state => state.example.text)
 
   const dispatch = useAppDispatch()
-  const handleSetExample = useCallback(
+  const changeText = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.example.setExample(e.target.value))
+      dispatch(actions.example.changeText(e.target.value))
     }, [dispatch]
   )
 
-  const handleSetExampleThunk = useCallback(
-    () => dispatch(thunkActions.example.setExampleThunk()), [dispatch]
+  const changeTextThunk = useCallback(
+    () => dispatch(thunkActions.example.changeTextThunk()), [dispatch]
   )
 
   return (
@@ -22,9 +22,9 @@ const Home: React.FC = () => {
       <input
         type='text'
         value={example}
-        onChange={handleSetExample}
+        onChange={changeText}
       />
-      <button onClick={handleSetExampleThunk}>Thunk</button>
+      <button onClick={changeTextThunk}>Thunk</button>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { setExampleThunk } from 'state/example/setExampleThunk'
+import { changeTextThunk } from 'state/example/setExampleThunk'
 
 type Example = {
   text: string
@@ -13,19 +13,19 @@ const exampleSlice = createSlice({
   name: 'example',
   initialState,
   reducers: {
-    setExample: (state: Example, action: PayloadAction<Example['text']>) => {
+    changeText: (state: Example, action: PayloadAction<Example['text']>) => {
       state.text = action.payload
     }
   },
   extraReducers: builder => {
-    builder.addCase(setExampleThunk.fulfilled, (state, action) => {
+    builder.addCase(changeTextThunk.fulfilled, (state, action) => {
       state.text = action.payload.text
     })
   }
 })
 
 export const exampleThunk = {
-  setExampleThunk
+  changeTextThunk
 }
 
 export default exampleSlice

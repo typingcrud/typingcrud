@@ -11,16 +11,16 @@ const ForgotPassWord: React.FC = () => {
   const dispatch = useAppDispatch()
 
   type IsSendEmailForm = typeof isSendEmailForm
-  const handleSetIsSendEmailForm = useCallback(
+  const changeView = useCallback(
     (isSendEmailForm: IsSendEmailForm) =>
-    () => dispatch(actions.authForm.setIsSendEmailForm(!isSendEmailForm)),
+    () => dispatch(actions.authForm.changeViewOfForgotPassword(!isSendEmailForm)),
     [dispatch]
   )
 
   useEffect(() => {
     return () => {
-      dispatch(actions.authForm.setForgotPasswordForm({ email: '', newPassword: '', verificationCode: '' }))
-      dispatch(actions.authForm.setIsSendEmailForm(true))
+      dispatch(actions.authForm.changeForgotPasswordForm({ email: '', newPassword: '', verificationCode: '' }))
+      dispatch(actions.authForm.changeViewOfForgotPassword(true))
     }
   }, [dispatch])
 
@@ -31,8 +31,8 @@ const ForgotPassWord: React.FC = () => {
         { isSendEmailForm ? <EmailForm/> : <NewPasswordForm/> }
       </div>
       <div>
-        <button onClick={handleSetIsSendEmailForm(isSendEmailForm)}>
-          { isSendEmailForm ? "Go to new password form" : "Go to email form" }
+        <button onClick={changeView(isSendEmailForm)}>
+          { isSendEmailForm ? "input new password" : "input email" }
         </button>
       </div>
     </React.Fragment>

@@ -7,48 +7,44 @@ export const VerificationForm: React.FC = () => {
   const { isSignUpForm, ...signUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
   const dispatch = useAppDispatch()
-  const handleSetIsSignUpForm = useCallback(
-    () => dispatch(actions.authForm.setIsSignUpForm(!isSignUpForm)),
-    [dispatch, isSignUpForm]
-  )
-  const handleSetSignUpForm = useCallback(
+  type SignUpForm = typeof signUpForm
+  const changeForm = useCallback(
+    (signUpForm: SignUpForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.authForm.setSignUpForm({
+      dispatch(actions.authForm.changeSignUpForm({
         ...signUpForm,
         [e.target.id]: e.target.value
       }))
-    }, [dispatch, signUpForm]
+    }, [dispatch]
   )
-  const handleSignUpVerifyThunk = useCallback(
+  const signUpVerifyThunk = useCallback(
     () => dispatch(thunkActions.auth.signUpVerifyThunk()), [dispatch]
   )
-  const handleSignUpResendCodeThunk = useCallback(
+  const signUpResendCodeThunk = useCallback(
     () => dispatch(thunkActions.auth.signUpResendCodeThunk()), [dispatch]
   )
 
   return (
     <React.Fragment>
       <div>
-        <h1>Verification</h1>
         <input
           type="text"
           id="email"
           placeholder="email"
           value={signUpForm.email}
-          onChange={handleSetSignUpForm}
+          onChange={changeForm(signUpForm)}
         />
         <input
           type="text"
           id="verificationCode"
           placeholder="verification code"
           value={signUpForm.verificationCode}
-          onChange={handleSetSignUpForm}
+          onChange={changeForm(signUpForm)}
         />
-        <button onClick={handleSignUpVerifyThunk}>verify</button>
+        <button onClick={signUpVerifyThunk}>verify</button>
       </div>
       <div>
-        <button onClick={handleSetIsSignUpForm}> go to sign up form</button>
-        <button onClick={handleSignUpResendCodeThunk}>resend verification code</button>
+        <button onClick={signUpResendCodeThunk}>resend verification code</button>
       </div>
     </React.Fragment>
   )

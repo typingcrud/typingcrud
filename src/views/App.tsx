@@ -10,13 +10,14 @@ import ForgotPassWord from 'views/ForgotPassWord'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
-  const handleEstablishSessionThunk = useCallback(
+  const establishSession = useCallback(
     () => dispatch(thunkActions.auth.establishSessionThunk()), [dispatch]
   )
 
   useEffect(() => {
-    handleEstablishSessionThunk()
-  }, [handleEstablishSessionThunk])
+    establishSession()
+    console.log("establish session")
+  }, [establishSession])
 
   return (
     <BrowserRouter>
