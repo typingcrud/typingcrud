@@ -8,7 +8,7 @@ export const VerificationForm: React.FC = () => {
 
   const dispatch = useAppDispatch()
   type SignUpForm = typeof signUpForm
-  const changeSignUpForm = useCallback(
+  const changeForm = useCallback(
     (signUpForm: SignUpForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(actions.authForm.changeSignUpForm({
@@ -32,14 +32,14 @@ export const VerificationForm: React.FC = () => {
           id="email"
           placeholder="email"
           value={signUpForm.email}
-          onChange={changeSignUpForm(signUpForm)}
+          onChange={changeForm(signUpForm)}
         />
         <input
           type="text"
           id="verificationCode"
           placeholder="verification code"
           value={signUpForm.verificationCode}
-          onChange={changeSignUpForm(signUpForm)}
+          onChange={changeForm(signUpForm)}
         />
         <button onClick={signUpVerifyThunk}>verify</button>
       </div>
