@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 const SignIn: React.FC = () => {
+  const history = useHistory()
+  const link = (path: string) => () => history.push(path)
+
   const signInForm = useAppSelector(state => state.authForm.signInForm)
 
   const dispatch = useAppDispatch()
@@ -47,6 +51,7 @@ const SignIn: React.FC = () => {
         />
         <button onClick={handleSignInThunk}>SignIn</button>
       </div>
+      <button onClick={link('forgot-password')}>forgot password</button>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 export const EmailForm: React.FC = () => {
@@ -17,6 +17,9 @@ export const EmailForm: React.FC = () => {
       }))
     }, [dispatch]
   )
+  const handleForgotPasswordThunk = useCallback(
+    () => dispatch(thunkActions.auth.forgotPasswordThunk()), [dispatch]
+  )
 
   return (
     <React.Fragment>
@@ -27,6 +30,7 @@ export const EmailForm: React.FC = () => {
         value={forgotPassWordForm.email}
         onChange={handleSetForgotPasswordFrom(forgotPassWordForm)}
       />
+      <button onClick={handleForgotPasswordThunk}>send verification code to your email</button>
     </React.Fragment>
   )
 }
