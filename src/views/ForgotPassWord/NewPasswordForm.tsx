@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 export const NewPasswordForm: React.FC = () => {
@@ -17,9 +17,19 @@ export const NewPasswordForm: React.FC = () => {
       }))
     }, [dispatch]
   )
+  const handleSubmitNewPasswordThunk = useCallback(
+    () => dispatch(thunkActions.auth.submitNewPasswordThunk()), [dispatch]
+  )
 
   return (
     <React.Fragment>
+      <input
+        type="text"
+        id="email"
+        placeholder="email"
+        value={forgotPassWordForm.email}
+        onChange={handleSetForgotPasswordFrom(forgotPassWordForm)}
+      />
       <input
         type="text"
         id="newPassword"
@@ -34,6 +44,7 @@ export const NewPasswordForm: React.FC = () => {
         value={forgotPassWordForm.verificationCode}
         onChange={handleSetForgotPasswordFrom(forgotPassWordForm)}
       />
+      <button onClick={handleSubmitNewPasswordThunk}>submit new password</button>
     </React.Fragment>
   )
 }
