@@ -21,7 +21,9 @@ export const forgotPasswordThunk = createAsyncThunk<
         Pool: cognitoUserPool
       })
       cognitoUser.forgotPassword({
-        onSuccess: () => {},
+        onSuccess: () => {
+          alert('success')
+        },
         onFailure: (err) => {
           alert(err.message || JSON.stringify(err))
         }
@@ -46,7 +48,9 @@ export const submitNewPasswordThunk = createAsyncThunk<
         Pool: cognitoUserPool
       })
       cognitoUser.confirmPassword(verificationCode, newPassword, {
-        onSuccess: () => {},
+        onSuccess: () => {
+          alert('success')
+        },
         onFailure: (err) => {
           alert(err.message || JSON.stringify(err))
         }
