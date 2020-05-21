@@ -48,7 +48,7 @@ const authForm = createSlice({
   name: 'authForm',
   initialState,
   reducers: {
-    setSignInForm: (state: AuthForm, action: PayloadAction<SignInForm>) => {
+    changeSignInForm: (state: AuthForm, action: PayloadAction<SignInForm>) => {
       state.signInForm = action.payload
     },
     setSignUpForm: (state: AuthForm, action: PayloadAction<Omit<SignUpForm, "isSignUpForm">>) => {
