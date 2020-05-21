@@ -8,16 +8,16 @@ export const EmailForm: React.FC = () => {
 
   const dispatch = useAppDispatch()
   type ForgotPassWordForm = typeof forgotPassWordForm
-  const handleSetForgotPasswordFrom = useCallback(
+  const changeForm = useCallback(
     (forgotPassWordForm: ForgotPassWordForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.authForm.setForgotPasswordForm({
+      dispatch(actions.authForm.changeForgotPasswordForm({
         ...forgotPassWordForm,
         [e.target.id]: e.target.value
       }))
     }, [dispatch]
   )
-  const handleForgotPasswordThunk = useCallback(
+  const forgotPasswordThunk = useCallback(
     () => dispatch(thunkActions.auth.forgotPasswordThunk()), [dispatch]
   )
 
@@ -28,9 +28,9 @@ export const EmailForm: React.FC = () => {
         id="email"
         placeholder="email"
         value={forgotPassWordForm.email}
-        onChange={handleSetForgotPasswordFrom(forgotPassWordForm)}
+        onChange={changeForm(forgotPassWordForm)}
       />
-      <button onClick={handleForgotPasswordThunk}>send verification code to your email</button>
+      <button onClick={forgotPasswordThunk}>send verification code to your email</button>
     </React.Fragment>
   )
 }

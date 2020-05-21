@@ -12,22 +12,22 @@ const SignIn: React.FC = () => {
 
   const dispatch = useAppDispatch()
   type SignInForm = typeof signInForm
-  const handleSetSignInForm = useCallback(
+  const changeForm = useCallback(
     (signInForm: SignInForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.authForm.setSignInForm({
+      dispatch(actions.authForm.changeSignInForm({
         ...signInForm,
         [e.target.id]: e.target.value
       }))
     }, [dispatch]
   )
-  const handleSignInThunk = useCallback(
+  const signIn = useCallback(
     () => dispatch(thunkActions.auth.signInThunk()), [dispatch]
   )
 
   useEffect(() => {
     return () => {
-      dispatch(actions.authForm.setSignInForm({email: '', password: ''}))
+      dispatch(actions.authForm.changeSignInForm({email: '', password: ''}))
     }
   }, [dispatch])
 
@@ -40,16 +40,16 @@ const SignIn: React.FC = () => {
           id='email'
           placeholder='email'
           value={signInForm.email}
-          onChange={handleSetSignInForm(signInForm)}
+          onChange={changeForm(signInForm)}
         />
         <input
           type='text'
           id='password'
           placeholder='password'
           value={signInForm.password}
-          onChange={handleSetSignInForm(signInForm)}
+          onChange={changeForm(signInForm)}
         />
-        <button onClick={handleSignInThunk}>SignIn</button>
+        <button onClick={signIn}>SignIn</button>
       </div>
       <button onClick={link('forgot-password')}>forgot password</button>
     </div>
