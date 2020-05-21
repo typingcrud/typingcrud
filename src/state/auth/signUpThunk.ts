@@ -15,7 +15,7 @@ export const signUpThunk = createAsyncThunk<
   >(
     'auth/signUpThunk',
     async (_, thunkAPI) => {
-      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().form.signUpForm
+      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
       const attributeList = [
         new CognitoUserAttribute({
           Name: 'email',
@@ -42,7 +42,7 @@ export const signUpVerifyThunk = createAsyncThunk<
   >(
     'auth/signUpVerifyThunk',
     async (_, thunkAPI) => {
-      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().form.signUpForm
+      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
       const cognitoUser = new CognitoUser({
         Username: signUpForm.email,
         Pool: cognitoUserPool
@@ -73,7 +73,7 @@ export const signUpResendCodeThunk = createAsyncThunk<
   >(
     'auth/signUpResendCodeThunk',
     async (_, thunkAPI) => {
-      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().form.signUpForm
+      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
       const cognitoUser = new CognitoUser({
         Username: signUpForm.email,
         Pool: cognitoUserPool

@@ -15,7 +15,7 @@ export const signInThunk = createAsyncThunk<
   >(
     'auth/signInThunk',
     async (_, thunkAPI) => {
-      const signInForm = thunkAPI.getState().form.signInForm
+      const signInForm = thunkAPI.getState().authForm.signInForm
       const authenticationDetails = new AuthenticationDetails({
         Username: signInForm.email,
         Password: signInForm.password

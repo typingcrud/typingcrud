@@ -1,21 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import exampleSlice, { exampleThunk } from 'state/example'
-import formSlice from 'state/form'
+import authFormSlice from 'state/authForm'
 import authSlice, { authThunk } from 'state/auth'
 
 
 export const store = configureStore({
   reducer: {
     [exampleSlice.name]: exampleSlice.reducer,
-    [formSlice.name]: formSlice.reducer,
+    [authFormSlice.name]: authFormSlice.reducer,
     [authSlice.name]: authSlice.reducer,
   }
 })
 
 export const actions = {
   [exampleSlice.name]: exampleSlice.actions,
-  [formSlice.name]: formSlice.actions,
+  [authFormSlice.name]: authFormSlice.actions,
   [authSlice.name]: authSlice.actions,
 }
 

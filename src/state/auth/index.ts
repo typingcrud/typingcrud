@@ -4,6 +4,7 @@ import { establishSessionThunk } from 'state/auth/establishSessionThunk'
 import { signInThunk } from 'state/auth/signInThunk'
 import { signOutThunk } from 'state/auth/signOutThunk'
 import { signUpThunk, signUpVerifyThunk, signUpResendCodeThunk } from 'state/auth/signUpThunk'
+import { forgotPasswordThunk, submitNewPasswordThunk } from 'state/auth/forgotPasswordThunk'
 
 
 type Auth = {
@@ -38,6 +39,7 @@ export const authThunk = {
   signInThunk,
   signOutThunk,
   signUpThunk, signUpVerifyThunk, signUpResendCodeThunk,
+  forgotPasswordThunk, submitNewPasswordThunk
 }
 
 export default authSlice

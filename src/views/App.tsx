@@ -6,6 +6,7 @@ import Home from 'views/Home'
 import NavBar from 'views/NavBar'
 import SignIn from 'views/SignIn'
 import SignUp from 'views/SignUp'
+import ForgotPassWord from 'views/ForgotPassWord'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -27,6 +28,7 @@ const App: React.FC = () => {
       </Route>
       <Route path='/signin'><SignIn/></Route>
       <Route path='/signup'><SignUp/></Route>
+      <Route path='/forgot-password'><ForgotPassWord/></Route>
     </BrowserRouter>
   )
 }
