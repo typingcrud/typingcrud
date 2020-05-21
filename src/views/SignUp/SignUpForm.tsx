@@ -7,44 +7,38 @@ export const SignUpForm: React.FC = () => {
   const { isSignUpForm, ...signUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
   const dispatch = useAppDispatch()
-  const handleSetIsSignUpForm = useCallback(
-    () => dispatch(actions.authForm.setIsSignUpForm(!isSignUpForm)),
-    [dispatch, isSignUpForm]
-  )
-  const handleSetSignUpForm = useCallback(
+  type SignUpForm = typeof signUpForm
+  const changeSignUpForm = useCallback(
+    (signUpForm: SignUpForm) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.authForm.setSignUpForm({
+      dispatch(actions.authForm.changeSignUpForm({
         ...signUpForm,
         [e.target.id]: e.target.value
       }))
-    }, [dispatch, signUpForm]
+    }, [dispatch]
   )
-  const handleSignUpThunk = useCallback(
+  const signUpThunk = useCallback(
     () => dispatch(thunkActions.auth.signUpThunk()), [dispatch]
   )
 
   return (
     <React.Fragment>
       <div>
-        <h1>SignUp</h1>
         <input
           type="text"
           id="email"
           placeholder="email"
           value={signUpForm.email}
-          onChange={handleSetSignUpForm}
+          onChange={changeSignUpForm(signUpForm)}
         />
         <input
           type="text"
           id="password"
           placeholder="password"
           value={signUpForm.password}
-          onChange={handleSetSignUpForm}
+          onChange={changeSignUpForm(signUpForm)}
         />
-        <button onClick={handleSignUpThunk}>Sign Up</button>
-      </div>
-      <div>
-        <button onClick={handleSetIsSignUpForm}>go to verify form</button>
+        <button onClick={signUpThunk}>sign up</button>
       </div>
     </React.Fragment>
   )

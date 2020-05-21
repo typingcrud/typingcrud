@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 
 import { actions, useAppSelector, useAppDispatch } from 'state'
 import { SignUpForm } from 'views/SignUp/SignUpForm'
@@ -9,18 +9,32 @@ const SignUp: React.FC = () => {
   const { isSignUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
   const dispatch = useAppDispatch()
+  type IsSignUpForm = typeof isSignUpForm
+  const changeView = useCallback(
+    (isSignUpForm: IsSignUpForm) => () => {
+      dispatch(actions.authForm.changeViewOfSignUp(!isSignUpForm))
+    }, [dispatch]
+  )
 
   useEffect(() => {
     return () => {
-      dispatch(actions.authForm.setSignUpForm({ email: '', password: '', verificationCode: ''}))
-      dispatch(actions.authForm.setIsSignUpForm(true))
+      dispatch(actions.authForm.changeSignUpForm({ email: '', password: '', verificationCode: ''}))
+      dispatch(actions.authForm.changeViewOfSignUp(true))
     }
   }, [dispatch])
 
 
   return (
     <React.Fragment>
-      { isSignUpForm ? <SignUpForm/> : <VerificationForm/> }
+      <h1>sign up</h1>
+      <div>
+        { isSignUpForm ? <SignUpForm/> : <VerificationForm/> }
+      </div>
+      <div>
+        <button onClick={changeView(isSignUpForm)}>
+          { isSignUpForm ? "verify" : "return to sign up" }
+        </button>
+      </div>
     </React.Fragment>
   )
 }
