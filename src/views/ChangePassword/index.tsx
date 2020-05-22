@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 const ChangePassword: React.FC = () => {
@@ -16,6 +16,9 @@ const ChangePassword: React.FC = () => {
         [e.target.id]: e.target.value
       }))
     }, [dispatch]
+  )
+  const changePassword = useCallback(
+    () => dispatch(thunkActions.setting.changePassword()), [dispatch]
   )
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const ChangePassword: React.FC = () => {
           value={changePasswordForm.newPasswordConfirm}
           onChange={changeForm(changePasswordForm)}
         />
-        <button>change password</button>
+        <button onClick={changePassword}>change password</button>
       </div>
     </React.Fragment>
   )
