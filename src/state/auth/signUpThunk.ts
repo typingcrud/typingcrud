@@ -2,88 +2,70 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js'
 import axios from 'axios'
 
+import { ThunkAPI } from 'utils/thunk'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
-import { AppState } from 'state'
 
 
-export const signUpThunk = createAsyncThunk<
-  void,
-  void,
-  {
-    state: AppState,
+export const signUpThunk = createAsyncThunk<void, void, ThunkAPI>(
+  'auth/signUpThunk',
+  async (_, thunkAPI) => {
+    const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
+    const attributeList = [
+      new CognitoUserAttribute({
+        Name: 'email',
+        Value: signUpForm.email
+      })
+    ]
+    cognitoUserPool.signUp(signUpForm.email, signUpForm.password, attributeList, [], (err) => {
+      if (err) {
+        alert(err.message || JSON.stringify(err))
+        return
+      }
+      alert("Success!")
+    })
   }
-  >(
-    'auth/signUpThunk',
-    async (_, thunkAPI) => {
-      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
-      const attributeList = [
-        new CognitoUserAttribute({
-          Name: 'email',
-          Value: signUpForm.email
+)
+
+
+export const signUpVerifyThunk = createAsyncThunk<void, void, ThunkAPI>(
+  'auth/signUpVerifyThunk',
+  async (_, thunkAPI) => {
+    const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
+    const cognitoUser = new CognitoUser({
+      Username: signUpForm.email,
+      Pool: cognitoUserPool
+    })
+    cognitoUser.confirmRegistration(signUpForm.verificationCode, true, (err: Error | undefined) => {
+      if (err) {
+        alert(err.message || JSON.stringify(err))
+        return
+      }
+      axios.post('https://6lc7oim9w6.execute-api.ap-northeast-1.amazonaws.com/typing_cognito', {email: signUpForm.email})
+        .then(() => {
+          alert("Success!")
         })
-      ]
-      cognitoUserPool.signUp(signUpForm.email, signUpForm.password, attributeList, [], (err) => {
-        if (err) {
-          alert(err.message || JSON.stringify(err))
-          return
-        }
-        alert("Success!")
-      })
-    }
-  )
-
-
-export const signUpVerifyThunk = createAsyncThunk<
-  void,
-  void,
-  {
-    state: AppState,
+        .catch((reason) => {
+          console.error(reason)
+        })
+    })
   }
-  >(
-    'auth/signUpVerifyThunk',
-    async (_, thunkAPI) => {
-      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
-      const cognitoUser = new CognitoUser({
-        Username: signUpForm.email,
-        Pool: cognitoUserPool
-      })
-      cognitoUser.confirmRegistration(signUpForm.verificationCode, true, (err: Error | undefined) => {
-        if (err) {
-          alert(err.message || JSON.stringify(err))
-          return
-        }
-        axios.post('https://6lc7oim9w6.execute-api.ap-northeast-1.amazonaws.com/typing_cognito', {email: signUpForm.email})
-          .then(() => {
-            alert("Success!")
-          })
-          .catch((reason) => {
-            console.error(reason)
-          })
-      })
-    }
-  )
+)
 
 
-export const signUpResendCodeThunk = createAsyncThunk<
-  void,
-  void,
-  {
-    state: AppState,
+export const signUpResendCodeThunk = createAsyncThunk<void, void, ThunkAPI>(
+  'auth/signUpResendCodeThunk',
+  async (_, thunkAPI) => {
+    const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
+    const cognitoUser = new CognitoUser({
+      Username: signUpForm.email,
+      Pool: cognitoUserPool
+    })
+    cognitoUser.resendConfirmationCode((err) => {
+      if (err) {
+        alert(err.message || JSON.stringify(err))
+        return
+      }
+      alert("Success!")
+    })
   }
-  >(
-    'auth/signUpResendCodeThunk',
-    async (_, thunkAPI) => {
-      const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
-      const cognitoUser = new CognitoUser({
-        Username: signUpForm.email,
-        Pool: cognitoUserPool
-      })
-      cognitoUser.resendConfirmationCode((err) => {
-        if (err) {
-          alert(err.message || JSON.stringify(err))
-          return
-        }
-        alert("Success!")
-      })
-    }
-  )
+)
