@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {AuthenticationDetails} from 'amazon-cognito-identity-js'
 
-import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { ThunkAPI } from 'utils/thunk'
+import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { thunkActions } from 'state'
 
 export const deleteUserThunk = createAsyncThunk<void, void, ThunkAPI>(
