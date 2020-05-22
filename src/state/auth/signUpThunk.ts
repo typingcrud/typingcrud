@@ -7,7 +7,7 @@ import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 
 
 export const signUp = createAsyncThunk<void, void, ThunkAPI>(
-  'auth/signUpThunk',
+  'auth/signUp',
   async (_, thunkAPI) => {
     const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
     const attributeList = [
@@ -28,7 +28,7 @@ export const signUp = createAsyncThunk<void, void, ThunkAPI>(
 
 
 export const signUpVerify = createAsyncThunk<void, void, ThunkAPI>(
-  'auth/signUpVerifyThunk',
+  'auth/signUpVerify',
   async (_, thunkAPI) => {
     const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
     const cognitoUser = new CognitoUser({
@@ -53,7 +53,7 @@ export const signUpVerify = createAsyncThunk<void, void, ThunkAPI>(
 
 
 export const signUpResendCode = createAsyncThunk<void, void, ThunkAPI>(
-  'auth/signUpResendCodeThunk',
+  'auth/signUpResendCode',
   async (_, thunkAPI) => {
     const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
     const cognitoUser = new CognitoUser({

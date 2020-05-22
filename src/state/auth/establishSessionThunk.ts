@@ -7,7 +7,7 @@ import { actions } from 'state'
 
 
 export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
-  'auth/establishSessionThunk',
+  'auth/establishSession',
   async (_, thunkAPI) => {
     const { isSignIn, tokens } = thunkAPI.getState().auth
     if ( isSignIn && tokens ) {

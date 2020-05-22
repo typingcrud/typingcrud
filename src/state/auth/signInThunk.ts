@@ -7,7 +7,7 @@ import { actions } from 'state'
 
 
 export const signIn = createAsyncThunk<void, void, ThunkAPI>(
-  'auth/signInThunk',
+  'auth/signIn',
   async (_, thunkAPI) => {
     const signInForm = thunkAPI.getState().authForm.signInForm
     const authenticationDetails = new AuthenticationDetails({

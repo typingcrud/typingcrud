@@ -6,7 +6,7 @@ import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 
 
 export const forgotPassword = createAsyncThunk<void, void, ThunkAPI>(
-  'auth/forgotPasswordThunk',
+  'auth/forgotPassword',
   async (_, thunkAPI) => {
     const { email } = thunkAPI.getState().authForm.forgotPasswordForm
     const cognitoUser = new CognitoUser({
@@ -26,7 +26,7 @@ export const forgotPassword = createAsyncThunk<void, void, ThunkAPI>(
 
 
 export const submitNewPassword = createAsyncThunk<void, void, ThunkAPI>(
-  'auth/submitNewPasswordThunk',
+  'auth/submitNewPassword',
   async (_, thunkAPI) => {
     const { email, newPassword, verificationCode } = thunkAPI.getState().authForm.forgotPasswordForm
     const cognitoUser = new CognitoUser({
