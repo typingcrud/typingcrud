@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { deleteUserThunk } from 'state/setting/deleteUserThunk'
+
+
 type DeleteUserForm = {
   confirmPassword: string
   deleteFlag: boolean
@@ -28,5 +31,9 @@ const settingSlice = createSlice({
     },
   }
 })
+
+export const settingThunk = {
+  deleteUserThunk
+}
 
 export default settingSlice

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import exampleSlice, { exampleThunk } from 'state/example'
 import authFormSlice from 'state/authForm'
 import authSlice, { authThunk } from 'state/auth'
-import settingSlice from 'state/setting'
+import settingSlice, { settingThunk } from 'state/setting'
 
 
 export const store = configureStore({
@@ -25,6 +25,7 @@ export const actions = {
 export const thunkActions = {
   [exampleSlice.name]: exampleThunk,
   [authSlice.name]: authThunk,
+  [settingSlice.name]: settingThunk
 }
 
 
