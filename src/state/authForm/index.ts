@@ -48,6 +48,11 @@ const authFormSlice = createSlice({
   name: 'authForm',
   initialState,
   reducers: {
+    reset: (state: AuthForm) => {
+      state.signInForm = initialState.signInForm
+      state.signUpForm = initialState.signUpForm
+      state.forgotPasswordForm = initialState.forgotPasswordForm
+    },
     changeSignInForm: (state: AuthForm, action: PayloadAction<SignInForm>) => {
       state.signInForm = action.payload
     },

@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import { ThunkAPI } from 'utils/thunk'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
+import { actions } from 'state'
 
 
 export const signUp = createAsyncThunk<void, void, ThunkAPI>(
@@ -43,6 +44,7 @@ export const signUpVerify = createAsyncThunk<void, void, ThunkAPI>(
       axios.post('https://6lc7oim9w6.execute-api.ap-northeast-1.amazonaws.com/typing_cognito', {email: signUpForm.email})
         .then(() => {
           alert("Success!")
+          thunkAPI.dispatch(actions.authForm.reset())
         })
         .catch((reason) => {
           console.error(reason)

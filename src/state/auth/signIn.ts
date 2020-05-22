@@ -26,6 +26,7 @@ export const signIn = createAsyncThunk<void, void, ThunkAPI>(
           accessToken: res.getAccessToken().getJwtToken(),
           refreshToken: res.getRefreshToken().getToken()
         }))
+        thunkAPI.dispatch(actions.authForm.reset())
       },
       onFailure: (err) => {
         alert(err.message || JSON.stringify(err))

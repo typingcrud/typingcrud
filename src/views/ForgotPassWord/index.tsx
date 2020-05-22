@@ -18,10 +18,7 @@ const ForgotPassWord: React.FC = () => {
   )
 
   useEffect(() => {
-    return () => {
-      dispatch(actions.authForm.changeForgotPasswordForm({ email: '', newPassword: '', verificationCode: '' }))
-      dispatch(actions.authForm.changeViewOfForgotPassword(true))
-    }
+    return () => { dispatch(actions.authForm.reset()) }
   }, [dispatch])
 
   return (
