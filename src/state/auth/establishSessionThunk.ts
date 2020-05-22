@@ -6,7 +6,7 @@ import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { actions } from 'state'
 
 
-export const establishSessionThunk = createAsyncThunk<void, void, ThunkAPI>(
+export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
   'auth/establishSessionThunk',
   async (_, thunkAPI) => {
     const { isSignIn, tokens } = thunkAPI.getState().auth

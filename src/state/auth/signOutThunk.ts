@@ -5,7 +5,7 @@ import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { actions } from 'state'
 
 
-export const signOutThunk = createAsyncThunk<void, void, ThunkAPI>(
+export const signOut = createAsyncThunk<void, void, ThunkAPI>(
   'auth/signOutThunk',
   async (_, thunkAPI) => {
     const cognitoUser = cognitoUserPool.getCurrentUser()

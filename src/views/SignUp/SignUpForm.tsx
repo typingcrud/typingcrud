@@ -18,7 +18,7 @@ export const SignUpForm: React.FC = () => {
     }, [dispatch]
   )
   const signUpThunk = useCallback(
-    () => dispatch(thunkActions.auth.signUpThunk()), [dispatch]
+    () => dispatch(thunkActions.auth.signUp()), [dispatch]
   )
 
   return (

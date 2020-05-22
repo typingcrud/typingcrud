@@ -24,7 +24,7 @@ export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
           if (err) {
             alert(err.message || JSON.stringify(err))
           }
-          thunkAPI.dispatch(thunkActions.auth.signOutThunk())
+          thunkAPI.dispatch(thunkActions.auth.signOut())
           alert(result + ": User deleted")
         })
       },

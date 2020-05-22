@@ -6,7 +6,7 @@ import { ThunkAPI } from 'utils/thunk'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 
 
-export const signUpThunk = createAsyncThunk<void, void, ThunkAPI>(
+export const signUp = createAsyncThunk<void, void, ThunkAPI>(
   'auth/signUpThunk',
   async (_, thunkAPI) => {
     const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
@@ -27,7 +27,7 @@ export const signUpThunk = createAsyncThunk<void, void, ThunkAPI>(
 )
 
 
-export const signUpVerifyThunk = createAsyncThunk<void, void, ThunkAPI>(
+export const signUpVerify = createAsyncThunk<void, void, ThunkAPI>(
   'auth/signUpVerifyThunk',
   async (_, thunkAPI) => {
     const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
@@ -52,7 +52,7 @@ export const signUpVerifyThunk = createAsyncThunk<void, void, ThunkAPI>(
 )
 
 
-export const signUpResendCodeThunk = createAsyncThunk<void, void, ThunkAPI>(
+export const signUpResendCode = createAsyncThunk<void, void, ThunkAPI>(
   'auth/signUpResendCodeThunk',
   async (_, thunkAPI) => {
     const { isSignUpForm, ...signUpForm } = thunkAPI.getState().authForm.signUpForm
