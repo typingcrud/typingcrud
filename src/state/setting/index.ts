@@ -35,6 +35,10 @@ const settingSlice = createSlice({
   name: 'setting',
   initialState,
   reducers: {
+    reset: (state: SettingForm) => {
+      state.deleteUserForm = initialState.deleteUserForm
+      state.changePasswordForm = initialState.changePasswordForm
+    },
     changeDeleteUserForm: (state: SettingForm, action: PayloadAction<DeleteUserForm['confirmPassword']>) => {
       state.deleteUserForm.confirmPassword = action.payload
     },
