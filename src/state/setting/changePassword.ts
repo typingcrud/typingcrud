@@ -11,7 +11,7 @@ export const changePassword = createAsyncThunk<void, void, ThunkAPI>(
     const { currentPassword, newPassword, newPasswordConfirm } = thunkAPI.getState().setting.changePasswordForm
     const cognitoUser = cognitoUserPool.getCurrentUser()
     if (newPassword !== newPasswordConfirm) {
-      alert('New password and new password for confirmation are different')
+      alert('New password and confirmation are different')
       return
     }
     if (cognitoUser === null) {
