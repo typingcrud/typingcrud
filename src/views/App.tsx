@@ -13,7 +13,7 @@ import UserSetting from './UserSetting'
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
   const establishSession = useCallback(
-    () => dispatch(thunkActions.auth.establishSessionThunk()), [dispatch]
+    () => dispatch(thunkActions.auth.establishSession()), [dispatch]
   )
 
   useEffect(() => {

@@ -18,10 +18,10 @@ export const VerificationForm: React.FC = () => {
     }, [dispatch]
   )
   const signUpVerifyThunk = useCallback(
-    () => dispatch(thunkActions.auth.signUpVerifyThunk()), [dispatch]
+    () => dispatch(thunkActions.auth.signUpVerify()), [dispatch]
   )
   const signUpResendCodeThunk = useCallback(
-    () => dispatch(thunkActions.auth.signUpResendCodeThunk()), [dispatch]
+    () => dispatch(thunkActions.auth.signUpResendCode()), [dispatch]
   )
 
   return (

@@ -11,7 +11,7 @@ export const SignedIn: React.FC<Props> = ({link}) => {
   const dispatch = useAppDispatch()
   const signOut = useCallback(
     () => {
-      dispatch(thunkActions.auth.signOutThunk())
+      dispatch(thunkActions.auth.signOut())
       link('/')()
     }, [dispatch, link]
   )

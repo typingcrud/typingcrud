@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { establishSessionThunk } from 'state/auth/establishSessionThunk'
-import { signInThunk } from 'state/auth/signInThunk'
-import { signOutThunk } from 'state/auth/signOutThunk'
-import { signUpThunk, signUpVerifyThunk, signUpResendCodeThunk } from 'state/auth/signUpThunk'
-import { forgotPasswordThunk, submitNewPasswordThunk } from 'state/auth/forgotPasswordThunk'
+import { establishSession } from 'state/auth/establishSessionThunk'
+import { signIn } from 'state/auth/signInThunk'
+import { signOut } from 'state/auth/signOutThunk'
+import { signUp, signUpVerify, signUpResendCode } from 'state/auth/signUpThunk'
+import { forgotPassword, submitNewPassword } from 'state/auth/forgotPasswordThunk'
 
 
 type Auth = {
@@ -35,11 +35,11 @@ const authSlice = createSlice({
 })
 
 export const authThunk = {
-  establishSessionThunk,
-  signInThunk,
-  signOutThunk,
-  signUpThunk, signUpVerifyThunk, signUpResendCodeThunk,
-  forgotPasswordThunk, submitNewPasswordThunk
+  establishSession,
+  signIn,
+  signOut,
+  signUp, signUpVerify, signUpResendCode,
+  forgotPassword, submitNewPassword,
 }
 
 export default authSlice
