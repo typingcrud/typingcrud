@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 export const DeleteUser: React.FC = () => {
@@ -23,6 +23,9 @@ export const DeleteUser: React.FC = () => {
       }
     }, [dispatch, deleteFlag]
   )
+  const deleteUser = useCallback(
+    () => dispatch(thunkActions.setting.deleteUserThunk()), [dispatch]
+  )
 
   return (
     <React.Fragment>
@@ -36,7 +39,7 @@ export const DeleteUser: React.FC = () => {
           value={confirmPassword}
           onChange={changeForm}
         />
-        <button>delete user</button>
+        <button onClick={deleteUser}>delete user</button>
       </div>
       }
     </React.Fragment>

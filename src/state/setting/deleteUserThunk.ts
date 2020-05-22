@@ -24,8 +24,7 @@ export const deleteUserThunk = createAsyncThunk<void, void, ThunkAPI>(
           if (err) {
             alert(err.message || JSON.stringify(err))
           }
-          console.log(cognitoUserPool.getCurrentUser())
-          thunkAPI.dispatch(thunkActions.auth.signOutThunk)
+          thunkAPI.dispatch(thunkActions.auth.signOutThunk())
           alert(result + ": User deleted")
         })
       },
