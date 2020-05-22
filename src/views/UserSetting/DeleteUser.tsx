@@ -4,22 +4,22 @@ import { actions, useAppSelector, useAppDispatch } from 'state'
 
 
 export const DeleteUser: React.FC = () => {
-  const { deleteFlag, confirmPassword } = useAppSelector(state => state.settingForm.deleteUserForm)
+  const { deleteFlag, confirmPassword } = useAppSelector(state => state.setting.deleteUserForm)
 
   const dispatch = useAppDispatch()
   const changeForm = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.settingForm.changeDeleteUserForm(e.target.value))
+      dispatch(actions.setting.changeDeleteUserForm(e.target.value))
     }, [dispatch]
   )
   const showDeleteForm = useCallback(
     () => {
       if (!deleteFlag) {
         if (window.confirm('Enter password to delete user')) {
-          dispatch(actions.settingForm.showDeleteUserForm(!deleteFlag))
+          dispatch(actions.setting.showDeleteUserForm(!deleteFlag))
         }
       } else {
-        dispatch(actions.settingForm.showDeleteUserForm(!deleteFlag))
+        dispatch(actions.setting.showDeleteUserForm(!deleteFlag))
       }
     }, [dispatch, deleteFlag]
   )
