@@ -22,7 +22,7 @@ const SignIn: React.FC = () => {
     }, [dispatch]
   )
   const signIn = useCallback(
-    () => dispatch(thunkActions.auth.signInThunk()), [dispatch]
+    () => dispatch(thunkActions.auth.signIn()), [dispatch]
   )
 
   useEffect(() => {

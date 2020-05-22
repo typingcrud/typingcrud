@@ -24,7 +24,7 @@ export const DeleteUser: React.FC = () => {
     }, [dispatch, deleteFlag]
   )
   const deleteUser = useCallback(
-    () => dispatch(thunkActions.setting.deleteUserThunk()), [dispatch]
+    () => dispatch(thunkActions.setting.deleteUser()), [dispatch]
   )
 
   return (

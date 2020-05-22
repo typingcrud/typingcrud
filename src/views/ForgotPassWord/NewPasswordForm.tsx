@@ -18,7 +18,7 @@ export const NewPasswordForm: React.FC = () => {
     }, [dispatch]
   )
   const submitNewPasswordThunk = useCallback(
-    () => dispatch(thunkActions.auth.submitNewPasswordThunk()), [dispatch]
+    () => dispatch(thunkActions.auth.submitNewPassword()), [dispatch]
   )
 
   return (

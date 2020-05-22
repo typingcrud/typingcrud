@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {AuthenticationDetails} from 'amazon-cognito-identity-js'
 
-import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { ThunkAPI } from 'utils/thunk'
+import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { thunkActions } from 'state'
 
-export const deleteUserThunk = createAsyncThunk<void, void, ThunkAPI>(
-  'setting/deleteUserThunk',
+export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
+  'setting/deleteUser',
   async (_, thunkAPI) => {
     const { confirmPassword } = thunkAPI.getState().setting.deleteUserForm
     const cognitoUser = cognitoUserPool.getCurrentUser()
@@ -24,7 +24,7 @@ export const deleteUserThunk = createAsyncThunk<void, void, ThunkAPI>(
           if (err) {
             alert(err.message || JSON.stringify(err))
           }
-          thunkAPI.dispatch(thunkActions.auth.signOutThunk())
+          thunkAPI.dispatch(thunkActions.auth.signOut())
           alert(result + ": User deleted")
         })
       },
