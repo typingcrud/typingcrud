@@ -3,7 +3,7 @@ import { AuthenticationDetails } from 'amazon-cognito-identity-js'
 
 import { ThunkAPI } from 'utils/thunk'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
-import { thunkActions } from 'state'
+import { thunkActions, actions } from 'state'
 
 export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
   'setting/deleteUser',
@@ -25,6 +25,7 @@ export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
             alert(err.message || JSON.stringify(err))
           }
           thunkAPI.dispatch(thunkActions.auth.signOut())
+          thunkAPI.dispatch(actions.setting.reset())
           alert(result + ": User deleted")
         })
       },
