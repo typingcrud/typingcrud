@@ -3,7 +3,10 @@ import { DeleteUser } from 'views/UserSetting/DeleteUser'
 
 const UserSetting: React.FC = () => {
   return (
-    <DeleteUser/>
+    <React.Fragment>
+      <h2>User</h2>
+      <DeleteUser/>
+    </React.Fragment>
   )
 }
 
