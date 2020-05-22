@@ -25,6 +25,10 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    reset: (state: Auth) => {
+      state.isSignIn = initialState.isSignIn
+      state.tokens = initialState.tokens
+    },
     setCognitoUser: (state: Auth, action: PayloadAction<Auth['isSignIn']>) => {
       state.isSignIn = action.payload
     },
