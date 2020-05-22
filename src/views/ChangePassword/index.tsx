@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { actions, useAppSelector, useAppDispatch } from 'state'
+
 
 const ChangePassword: React.FC = () => {
   const changePasswordForm = useAppSelector(state => state.setting.changePasswordForm)
@@ -17,14 +18,8 @@ const ChangePassword: React.FC = () => {
     }, [dispatch]
   )
 
-  useCallback(() => {
-    return () => {
-      dispatch(actions.setting.changeChangePasswordForm({
-        currentPassword: '',
-        newPassword: '',
-        newPasswordConfirm: '',
-      }))
-    }
+  useEffect(() => {
+    return () => { dispatch(actions.setting.reset()) }
   }, [dispatch])
 
   return (
