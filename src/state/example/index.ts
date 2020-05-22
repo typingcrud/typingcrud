@@ -13,6 +13,7 @@ const exampleSlice = createSlice({
   name: 'example',
   initialState,
   reducers: {
+    reset: () => { return initialState },
     changeText: (state: Example, action: PayloadAction<Example['text']>) => {
       state.text = action.payload
     }
