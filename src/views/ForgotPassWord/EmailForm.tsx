@@ -18,7 +18,7 @@ export const EmailForm: React.FC = () => {
     }, [dispatch]
   )
   const forgotPasswordThunk = useCallback(
-    () => dispatch(thunkActions.auth.forgotPasswordThunk()), [dispatch]
+    () => dispatch(thunkActions.auth.forgotPassword()), [dispatch]
   )
 
   return (
