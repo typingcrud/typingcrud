@@ -3,33 +3,38 @@ import { AuthenticationDetails } from 'amazon-cognito-identity-js'
 
 import { ThunkAPI } from 'utils/thunk'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
-import { thunkActions } from 'state'
+import { actions } from 'state'
 
-export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
-  'setting/deleteUser',
+export const changePassword = createAsyncThunk<void, void, ThunkAPI>(
+  'setting/changePassword',
   async (_, thunkAPI) => {
-    const { confirmPassword } = thunkAPI.getState().setting.deleteUserForm
+    const { currentPassword, newPassword, newPasswordConfirm } = thunkAPI.getState().setting.changePasswordForm
     const cognitoUser = cognitoUserPool.getCurrentUser()
+    if (newPassword !== newPasswordConfirm) {
+      alert('New password and new password for confirmation are different')
+      return
+    }
     if (cognitoUser === null) {
       alert('require signin')
       return
     }
     const authenticationDetails = new AuthenticationDetails({
       Username: cognitoUser.getUsername(),
-      Password: confirmPassword
+      Password: currentPassword
     })
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: () => {
-        cognitoUser.deleteUser((err, result) => {
+        cognitoUser.changePassword(currentPassword, newPassword, (err, result) => {
           if (err) {
             alert(err.message || JSON.stringify(err))
+            return
           }
-          thunkAPI.dispatch(thunkActions.auth.signOut())
-          alert(result + ": User deleted")
+          alert("Password changed: " + result)
+          thunkAPI.dispatch(actions.setting.reset())
         })
       },
       onFailure: (err: Error) => {
-        alert(err.message || JSON.stringify(err))
+        alert(err.message || JSON.stringify(err)) 
       }
     })
   }
