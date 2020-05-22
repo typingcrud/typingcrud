@@ -8,14 +8,26 @@ type DeleteUserForm = {
   deleteFlag: boolean
 }
 
+type ChangePasswordForm = {
+  currentPassword: string
+  newPassword: string
+  newPasswordConfirm: string
+}
+
 type SettingForm = {
   deleteUserForm: DeleteUserForm
+  changePasswordForm: ChangePasswordForm
 }
 
 const initialState: SettingForm = {
   deleteUserForm: {
     confirmPassword: '',
     deleteFlag: false
+  },
+  changePasswordForm: {
+    currentPassword: '',
+    newPassword: '',
+    newPasswordConfirm: ''
   }
 }
 
@@ -28,6 +40,9 @@ const settingSlice = createSlice({
     },
     showDeleteUserForm: (state: SettingForm, action: PayloadAction<DeleteUserForm['deleteFlag']>) => {
       state.deleteUserForm.deleteFlag = action.payload
+    },
+    changeChangePasswordForm: (state: SettingForm, action: PayloadAction<ChangePasswordForm>) => {
+      state.changePasswordForm = action.payload
     },
   }
 })
