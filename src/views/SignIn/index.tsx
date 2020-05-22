@@ -26,9 +26,7 @@ const SignIn: React.FC = () => {
   )
 
   useEffect(() => {
-    return () => {
-      dispatch(actions.authForm.changeSignInForm({email: '', password: ''}))
-    }
+    return () => { dispatch(actions.authForm.reset()) }
   }, [dispatch])
 
   return (
