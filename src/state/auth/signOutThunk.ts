@@ -6,7 +6,7 @@ import { actions } from 'state'
 
 
 export const signOut = createAsyncThunk<void, void, ThunkAPI>(
-  'auth/signOutThunk',
+  'auth/signOut',
   async (_, thunkAPI) => {
     const cognitoUser = cognitoUserPool.getCurrentUser()
     if (cognitoUser) {
