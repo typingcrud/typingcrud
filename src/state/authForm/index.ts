@@ -44,7 +44,7 @@ const initialState: AuthForm = {
   }
 }
 
-const authForm = createSlice({
+const authFormSlice = createSlice({
   name: 'authForm',
   initialState,
   reducers: {
@@ -72,4 +72,4 @@ const authForm = createSlice({
   }
 })
 
-export default authForm
+export default authFormSlice
