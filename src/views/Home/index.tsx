@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
@@ -16,6 +16,10 @@ const Home: React.FC = () => {
   const changeTextThunk = useCallback(
     () => dispatch(thunkActions.example.changeTextThunk()), [dispatch]
   )
+
+  useEffect(() => {
+    return () => { dispatch(actions.example.reset()) }
+  }, [dispatch])
 
   return (
     <>

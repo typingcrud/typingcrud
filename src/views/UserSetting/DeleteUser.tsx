@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
@@ -26,6 +26,10 @@ export const DeleteUser: React.FC = () => {
   const deleteUser = useCallback(
     () => dispatch(thunkActions.setting.deleteUser()), [dispatch]
   )
+
+  useEffect(() => {
+    return () => { dispatch(actions.setting.reset()) }
+  }, [dispatch])
 
   return (
     <React.Fragment>
