@@ -8,7 +8,8 @@ import SignIn from 'views/SignIn'
 import SignUp from 'views/SignUp'
 import ForgotPassWord from 'views/ForgotPassWord'
 import Setting from 'views/Setting'
-import UserSetting from './UserSetting'
+import UserSetting from 'views/UserSetting'
+import ChangePassword from 'views/ChangePassword'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -31,6 +32,7 @@ const App: React.FC = () => {
       <Route path='/forgot-password'><ForgotPassWord/></Route>
       <Route path='/setting'><Setting/></Route>
       <Route path='/setting/user'><UserSetting/></Route>
+      <Route path='/setting/password'><ChangePassword/></Route>
     </BrowserRouter>
   )
 }
