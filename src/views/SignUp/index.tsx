@@ -17,10 +17,7 @@ const SignUp: React.FC = () => {
   )
 
   useEffect(() => {
-    return () => {
-      dispatch(actions.authForm.changeSignUpForm({ email: '', password: '', verificationCode: ''}))
-      dispatch(actions.authForm.changeViewOfSignUp(true))
-    }
+    return () => { dispatch(actions.authForm.reset()) }
   }, [dispatch])
 
 

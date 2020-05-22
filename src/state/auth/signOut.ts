@@ -12,7 +12,6 @@ export const signOut = createAsyncThunk<void, void, ThunkAPI>(
     if (cognitoUser) {
       cognitoUser.signOut()
     }
-    thunkAPI.dispatch(actions.auth.setCognitoUser(false))
-    thunkAPI.dispatch(actions.auth.setTokens(null))
+    thunkAPI.dispatch(actions.auth.reset())
   }
 )
