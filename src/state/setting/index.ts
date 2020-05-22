@@ -16,8 +16,8 @@ const initialState: SettingForm = {
   }
 }
 
-const settingFormSlice = createSlice({
-  name: 'settingForm',
+const settingSlice = createSlice({
+  name: 'setting',
   initialState,
   reducers: {
     changeDeleteUserForm: (state: SettingForm, action: PayloadAction<DeleteUserForm['confirmPassword']>) => {
@@ -29,4 +29,4 @@ const settingFormSlice = createSlice({
   }
 })
 
-export default settingFormSlice
+export default settingSlice
