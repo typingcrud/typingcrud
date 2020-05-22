@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { establishSession } from 'state/auth/establishSessionThunk'
-import { signIn } from 'state/auth/signInThunk'
-import { signOut } from 'state/auth/signOutThunk'
-import { signUp, signUpVerify, signUpResendCode } from 'state/auth/signUpThunk'
-import { forgotPassword, submitNewPassword } from 'state/auth/forgotPasswordThunk'
+import { establishSession } from 'state/auth/establishSession'
+import { signIn } from 'state/auth/signIn'
+import { signOut } from 'state/auth/signOut'
+import { signUp, signUpVerify, signUpResendCode } from 'state/auth/signUp'
+import { forgotPassword, submitNewPassword } from 'state/auth/forgotPassword'
 
 
 type Auth = {
