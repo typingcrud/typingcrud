@@ -14,11 +14,13 @@ type Auth = {
     accessToken: string
     refreshToken: string
   } | null
+  userId: string
 }
 
 const initialState: Auth = {
   isSignIn: false,
-  tokens: null
+  tokens: null,
+  userId: '',
 }
 
 const authSlice = createSlice({
@@ -28,12 +30,16 @@ const authSlice = createSlice({
     reset: (state: Auth) => {
       state.isSignIn = initialState.isSignIn
       state.tokens = initialState.tokens
+      state.userId = initialState.userId
     },
     setCognitoUser: (state: Auth, action: PayloadAction<Auth['isSignIn']>) => {
       state.isSignIn = action.payload
     },
     setTokens: (state: Auth, action: PayloadAction<Auth['tokens']>) => {
       state.tokens = action.payload
+    },
+    setUserId: (state: Auth, action: PayloadAction<Auth['userId']>) => {
+      state.userId = action.payload
     }
   }
 })

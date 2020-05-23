@@ -22,12 +22,15 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
         alert(err.message || JSON.stringify(err))
         return
       }
+      thunkAPI.dispatch(actions.auth.setCognitoUser(true))
       thunkAPI.dispatch(actions.auth.setTokens({
         idToken: session.getIdToken().getJwtToken(),
         accessToken: session.getAccessToken().getJwtToken(),
         refreshToken: session.getRefreshToken().getToken()
       }))
-      thunkAPI.dispatch(actions.auth.setCognitoUser(true))
+      thunkAPI.dispatch(actions.auth.setUserId(
+        session.getIdToken().payload['custom:typing_userID']
+      ))
     })
   }
 )

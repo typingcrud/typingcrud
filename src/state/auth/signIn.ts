@@ -26,6 +26,9 @@ export const signIn = createAsyncThunk<void, void, ThunkAPI>(
           accessToken: res.getAccessToken().getJwtToken(),
           refreshToken: res.getRefreshToken().getToken()
         }))
+        thunkAPI.dispatch(actions.auth.setUserId(
+          res.getIdToken().payload['custom:typing_userID']
+        ))
         thunkAPI.dispatch(actions.authForm.reset())
       },
       onFailure: (err) => {
