@@ -17,6 +17,7 @@ export const forgotPassword = createAsyncThunk<void, void, ThunkAPI>(
     cognitoUser.forgotPassword({
       onSuccess: () => {
         alert('success')
+        thunkAPI.dispatch(actions.authForm.changeViewOfForgotPassword(false))
       },
       onFailure: (err) => {
         alert(err.message || JSON.stringify(err))

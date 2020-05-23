@@ -23,6 +23,7 @@ export const signUp = createAsyncThunk<void, void, ThunkAPI>(
         return
       }
       alert("Success!")
+      thunkAPI.dispatch(actions.authForm.changeViewOfSignUp(false))
     })
   }
 )
