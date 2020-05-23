@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 export const VerificationForm: React.FC = () => {
@@ -17,6 +17,9 @@ export const VerificationForm: React.FC = () => {
       }))
     }, [dispatch]
   )
+  const verifyNewEmail = useCallback(
+    () => dispatch(thunkActions.setting.verifyNewEmail()), [dispatch]
+  )
   
   return (
     <React.Fragment>
@@ -27,7 +30,7 @@ export const VerificationForm: React.FC = () => {
         value={changeEmailForm.verificationCode}
         onChange={changeForm(changeEmailForm)}
       />
-      <button>verify</button>
+      <button onClick={verifyNewEmail}>verify</button>
     </React.Fragment>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { actions, useAppSelector, useAppDispatch } from 'state'
+import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 
 export const ChangeEmailForm: React.FC = () => {
@@ -16,6 +16,9 @@ export const ChangeEmailForm: React.FC = () => {
         [e.target.id]: e.target.value
       }))
     }, [dispatch]
+  )
+  const changeEmail = useCallback(
+    () => dispatch(thunkActions.setting.changeEmail()), [dispatch]
   )
   
   return (
@@ -34,7 +37,7 @@ export const ChangeEmailForm: React.FC = () => {
         value={changeEmailForm.password}
         onChange={changeForm(changeEmailForm)}
       />
-      <button>change email</button>
+      <button onClick={changeEmail}>change email</button>
     </React.Fragment>
   )
 }
