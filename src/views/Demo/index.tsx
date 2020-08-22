@@ -1,8 +1,15 @@
 import React from 'react'
 
+import { useSignIn } from 'utils'
+import { SignedIn } from 'views/Demo/SignedIn'
+
 const Demo: React.FC = () => {
+  const signIn = useSignIn()
+
   return (
-    <div>this is demo</div>
+    <>
+      { signIn? <SignedIn/> : <div>You are not signed in</div> }
+    </>
   )
 }
 
