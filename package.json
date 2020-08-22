@@ -15,6 +15,7 @@
     "@types/react-router-dom": "^5.1.5",
     "amazon-cognito-identity-js": "^4.2.3",
     "axios": "^0.19.2",
+    "dotenv-cli": "^3.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -26,7 +27,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pro_start": "dotenv -e .env.production react-scripts start",
+    "pro_build": "dotenv -e .env.production react-scripts build",
+    "pro_test": "dotenv -e .env.production react-scripts test",
+    "pro_eject": "dotenv -e .env.production react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
