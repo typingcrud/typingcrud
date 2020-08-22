@@ -59,3 +59,7 @@ npx create-react-app typingcrud --template redux-typescript
 - initialState の型の名前は "ファイル名(キャメルケース）" にしてください．
 
 ### views
+
+## Trello
+
+https://trello.com/b/mSug0C2g/typingcrud%E9%80%B2%E6%8D%97%E7%AE%A1%E7%90%86
