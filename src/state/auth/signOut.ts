@@ -11,6 +11,7 @@ export const signOut = createAsyncThunk<void, void, ThunkAPI>(
     const cognitoUser = cognitoUserPool.getCurrentUser()
     if (cognitoUser) {
       cognitoUser.signOut()
+      localStorage.clear()
     }
     thunkAPI.dispatch(actions.auth.reset())
   }
