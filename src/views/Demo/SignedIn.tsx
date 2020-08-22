@@ -14,7 +14,7 @@ export const SignedIn: React.FC = () => {
         Authorization: idToken
       },
       params: params,
-      url: "https://ituex0nibb.execute-api.ap-northeast-1.amazonaws.com/game"
+      url: process.env.REACT_APP_GAME_API
     }
   }
 
