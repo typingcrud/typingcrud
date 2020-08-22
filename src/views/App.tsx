@@ -11,6 +11,7 @@ import Setting from 'views/Setting'
 import UserSetting from 'views/UserSetting'
 import ChangePassword from 'views/ChangePassword'
 import ChangeEmail from 'views/ChangeEmail'
+import Demo from './Demo'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -20,7 +21,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     establishSession()
-    console.log("establish session")
   }, [establishSession])
 
   return (
@@ -35,6 +35,7 @@ const App: React.FC = () => {
       <Route path='/setting/user'><UserSetting/></Route>
       <Route path='/setting/password'><ChangePassword/></Route>
       <Route path='/setting/email'><ChangeEmail/></Route>
+      <Route path='/demo'><Demo/></Route>
     </BrowserRouter>
   )
 }
