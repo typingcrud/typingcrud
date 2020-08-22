@@ -21,7 +21,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     establishSession()
-    console.log("establish session")
   }, [establishSession])
 
   return (
