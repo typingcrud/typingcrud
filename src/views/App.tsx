@@ -12,6 +12,7 @@ import UserSetting from 'views/UserSetting'
 import ChangePassword from 'views/ChangePassword'
 import ChangeEmail from 'views/ChangeEmail'
 import Demo from './Demo'
+import GameForm from './GameForm'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -36,6 +37,7 @@ const App: React.FC = () => {
       <Route path='/setting/password'><ChangePassword/></Route>
       <Route path='/setting/email'><ChangeEmail/></Route>
       <Route path='/demo'><Demo/></Route>
+      <Route path='/game-form'><GameForm/></Route>
     </BrowserRouter>
   )
 }
