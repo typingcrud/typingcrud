@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 
-import { useAppSelector, useAppDispatch, actions } from 'state'
+import { useAppSelector, useAppDispatch, actions, thunkActions } from 'state'
 
 const GameForm: React.FC = () => {
   const gameForm = useAppSelector(state => state.gameForm)
@@ -17,6 +17,24 @@ const GameForm: React.FC = () => {
     }, [dispatch]
   )
 
+  const submit = useCallback(
+    () => dispatch(thunkActions.gameForm.submit()), [dispatch]
+  )
+
+  const Input = (id: string, value: string): JSX.Element => {
+    return (
+      <div>
+        <input
+          type='text'
+          id={id}
+          placeholder={id}
+          value={value}
+          onChange={changeForm(gameForm)}
+        />
+      </div>
+    )
+  }
+
   useEffect(() => {
     return () => { dispatch(actions.gameForm.reset()) }
   }, [dispatch])
@@ -24,44 +42,14 @@ const GameForm: React.FC = () => {
   return (
     <React.Fragment>
       <h1>GameForm</h1>
-      <div>
-        <input
-          type='text'
-          id='title'
-          placeholder='title'
-          value={gameForm.title}
-          onChange={changeForm(gameForm)}
-        />
-      </div>
-      <div>
-        <input
-          type='text'
-          id='description'
-          placeholder='description'
-          value={gameForm.description}
-          onChange={changeForm(gameForm)}
-        />
-      </div>
-      <div>
-        <input
-          type='text'
-          id='code'
-          placeholder='code'
-          value={gameForm.code}
-          onChange={changeForm(gameForm)}
-        />
-      </div>
-      <div>
-        <input
-          type='text'
-          id='codeComment'
-          placeholder='codeComment'
-          value={gameForm.codeComment}
-          onChange={changeForm(gameForm)}
-        />
-      </div>
+      { Input('title', gameForm.title) }
+      { Input('description', gameForm.description) }
+      { Input('code', gameForm.code) }
+      { Input('codeComment', gameForm.codeComment) }
+      <button onClick={submit}>submit</button>
     </React.Fragment>
   )
 }
+
 
 export default GameForm

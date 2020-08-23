@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { submit } from 'state/gameForm/submit'
+
 type GameForm = {
   title: string
   description: string
@@ -22,5 +24,9 @@ const gameFormSlice = createSlice({
     changeForm: (_, action: PayloadAction<GameForm>) => action.payload
   }
 })
+
+export const gameFormThunk = {
+  submit
+}
 
 export default gameFormSlice
