@@ -18,6 +18,7 @@ const NavBar: React.FC = () => {
   return (
     <nav>
       <button onClick={link('/')}>Home</button>
+      <button onClick={link('/demo')}>Demo</button>
       { signIn ? <SignedIn link={link}/> : <NotSignedIn link={link}/>}
     </nav>
   )
