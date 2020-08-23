@@ -4,7 +4,7 @@ import exampleSlice, { exampleThunk } from 'state/example'
 import authFormSlice from 'state/authForm'
 import authSlice, { authThunk } from 'state/auth'
 import settingSlice, { settingThunk } from 'state/setting'
-import gameFormSlice from 'state/gameForm'
+import gameFormSlice, { gameFormThunk } from 'state/gameForm'
 
 
 export const store = configureStore({
@@ -29,6 +29,7 @@ export const thunkActions = {
   [exampleSlice.name]: exampleThunk,
   [authSlice.name]: authThunk,
   [settingSlice.name]: settingThunk,
+  [gameFormSlice.name]: gameFormThunk,
 }
 
 
