@@ -14,7 +14,7 @@ export const SignedIn: React.FC = () => {
         Authorization: idToken
       },
       params: params,
-      url: process.env.REACT_APP_GAME_API
+      url: process.env.REACT_APP_API_BASE + "game",
     }
   }
 
