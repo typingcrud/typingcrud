@@ -6,10 +6,9 @@ type Props = {
 
 export const NotSignedIn: React.FC<Props> = ({link}) => {
   return (
-    <React.Fragment>
+    <div>
       <button onClick={link('/signin')}>SignIn</button>
       <button onClick={link('/signup')}>SignUp</button>
-      <button onClick={link('/demo')}>Demo</button>
-    </React.Fragment>
+    </div>
   )
 }

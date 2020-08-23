@@ -23,7 +23,7 @@ export const signIn = createAsyncThunk<void, void, ThunkAPI>(
         const idToken = res.getIdToken().getJwtToken()
         const accessToken = res.getAccessToken().getJwtToken()
         const refreshToken = res.getRefreshToken().getToken()
-        const userID = res.getIdToken().payload['custom:typing_userID']
+        const userId = res.getIdToken().payload['custom:typing_userID']
 
         thunkAPI.dispatch(actions.auth.setCognitoUser(true))
         thunkAPI.dispatch(actions.auth.setTokens({
@@ -31,12 +31,12 @@ export const signIn = createAsyncThunk<void, void, ThunkAPI>(
           accessToken: accessToken,
           refreshToken: refreshToken,
         }))
-        thunkAPI.dispatch(actions.auth.setUserId(userID))
+        thunkAPI.dispatch(actions.auth.setUserId(userId))
         
         localStorage.setItem('idToken', idToken)
         localStorage.setItem('accessToken', accessToken)
         localStorage.setItem('refreshToken', refreshToken)
-        localStorage.setItem('userID', userID)
+        localStorage.setItem('userId', userId)
       },
       onFailure: (err) => {
         alert(err.message || JSON.stringify(err))

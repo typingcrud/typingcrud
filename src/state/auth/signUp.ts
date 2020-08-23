@@ -42,7 +42,7 @@ export const signUpVerify = createAsyncThunk<void, void, ThunkAPI>(
         alert(err.message || JSON.stringify(err))
         return
       }
-      axios.post('https://6lc7oim9w6.execute-api.ap-northeast-1.amazonaws.com/typing_cognito', {email: signUpForm.email})
+      axios.post(process.env.REACT_APP_API_BASE + "userid", {email: signUpForm.email})
         .then(() => {
           alert("Success!")
           thunkAPI.dispatch(actions.authForm.reset())
