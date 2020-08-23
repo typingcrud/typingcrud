@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { sha256 } from 'js-sha256'
 
 import { ThunkAPI } from 'utils/thunk'
 import axios, { AxiosRequestConfig } from 'axios'
@@ -12,7 +13,7 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
 
     const params = {
       userId: userId,
-      index: "test",
+      index: sha256(userId + (new Date()).getTime().toString()),
       title: gameForm.title,
       description: gameForm.description,
       code: gameForm.code,
