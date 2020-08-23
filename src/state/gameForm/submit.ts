@@ -6,12 +6,12 @@ import axios, { AxiosRequestConfig } from 'axios'
 export const submit = createAsyncThunk<void, void, ThunkAPI>(
   'gameForm/submit',
   async (_, thunkAPI) => {
-    const userID = thunkAPI.getState().auth.userId
+    const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
     const gameForm = thunkAPI.getState().gameForm
 
     const params = {
-      userID: userID,
+      userId: userId,
       index: "test",
       title: gameForm.title,
       description: gameForm.description,

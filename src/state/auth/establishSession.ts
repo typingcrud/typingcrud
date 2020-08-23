@@ -21,13 +21,13 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
       idToken: localStorage.getItem('idToken'),
       accessToken: localStorage.getItem('accessToken'),
       refreshToken: localStorage.getItem('refreshToken'),
-      userID: localStorage.getItem("userID")
+      userId: localStorage.getItem("userId")
     }
     if (
       localStorageDatas.idToken !== null &&
       localStorageDatas.accessToken !== null &&
       localStorageDatas.refreshToken !== null &&
-      localStorageDatas.userID !== null
+      localStorageDatas.userId !== null
     ) {
       thunkAPI.dispatch(actions.auth.setCognitoUser(true))
       thunkAPI.dispatch(actions.auth.setTokens({
@@ -35,7 +35,7 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
         accessToken: localStorageDatas.accessToken,
         refreshToken: localStorageDatas.refreshToken
       }))
-      thunkAPI.dispatch(actions.auth.setUserId(localStorageDatas.userID))
+      thunkAPI.dispatch(actions.auth.setUserId(localStorageDatas.userId))
 
     } else {
       cognitoUser.getSession((err: Error, session: CognitoUserSession) => {
@@ -46,7 +46,7 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
         const idToken = session.getIdToken().getJwtToken()
         const accessToken = session.getAccessToken().getJwtToken()
         const refreshToken = session.getRefreshToken().getToken()
-        const userID = session.getIdToken().payload['custom:typing_userID']
+        const userId = session.getIdToken().payload['custom:typing_userID']
 
         thunkAPI.dispatch(actions.auth.setCognitoUser(true))
         thunkAPI.dispatch(actions.auth.setTokens({
@@ -54,12 +54,12 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
           accessToken: accessToken,
           refreshToken: refreshToken,
         }))
-        thunkAPI.dispatch(actions.auth.setUserId(userID))
+        thunkAPI.dispatch(actions.auth.setUserId(userId))
         
         localStorage.setItem('idToken', idToken)
         localStorage.setItem('accessToken', accessToken)
         localStorage.setItem('refreshToken', refreshToken)
-        localStorage.setItem('userID', userID)
+        localStorage.setItem('userId', userId)
       })
     }
   }
