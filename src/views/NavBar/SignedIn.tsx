@@ -18,9 +18,13 @@ export const SignedIn: React.FC<Props> = ({link}) => {
 
   return (
     <React.Fragment>
-      <button onClick={signOut}>SignOut</button>
-      <button onClick={link('/setting')}>Setting</button>
-      <button onClick={link('/demo')}>Demo</button>
+      <div>
+        <button onClick={signOut}>SignOut</button>
+        <button onClick={link('/setting')}>Setting</button>
+      </div>
+      <div>
+        <button onClick={link('/game-form')}>GameForm</button>
+      </div>
     </React.Fragment>
   )
 }
