@@ -5,7 +5,7 @@ import { useAppSelector } from 'state'
 
 export const SignedIn: React.FC = () => {
   const idToken = useAppSelector(state => state.auth.tokens?.idToken)
-  const userID = useAppSelector(state => state.auth.userId)
+  const userId = useAppSelector(state => state.auth.userId)
 
   const getOptions = (method: "GET" | "POST" | "PATCH" | "DELETE", params: any): AxiosRequestConfig => {
     return {
@@ -18,8 +18,8 @@ export const SignedIn: React.FC = () => {
     }
   }
 
-  const getUserID = () => {
-    console.log(userID)
+  const getUserId = () => {
+    console.log(userId)
   }
 
   const getDynamo = () => {
@@ -106,7 +106,7 @@ export const SignedIn: React.FC = () => {
   return (
     <React.Fragment>
       <div>You are signed in</div>
-      <button onClick={getUserID}>get userID</button>
+      <button onClick={getUserId}>get userId</button>
       <hr></hr>
       <div>トークン周りの挙動が正常ならDBからアイテムが返ってくる</div>
       <button onClick={getDynamo}>get Dynamo</button>
