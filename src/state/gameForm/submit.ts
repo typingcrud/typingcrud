@@ -32,9 +32,11 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
     axios(options)
       .then((results) => {
         console.log(results)
+        alert("Success!!")
       })
       .catch((err) => {
         console.log(err)
+        alert("Failure")
       })
   }
 )
