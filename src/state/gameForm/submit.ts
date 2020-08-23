@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios, { AxiosRequestConfig } from 'axios'
 import { sha256 } from 'js-sha256'
 
 import { ThunkAPI } from 'utils/thunk'
-import axios, { AxiosRequestConfig } from 'axios'
+import { actions } from 'state'
 
 export const submit = createAsyncThunk<void, void, ThunkAPI>(
   'gameForm/submit',
@@ -32,6 +33,7 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
     axios(options)
       .then((results) => {
         console.log(results)
+        thunkAPI.dispatch(actions.gameForm.reset())
         alert("Success!!")
       })
       .catch((err) => {
