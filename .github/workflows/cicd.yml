@@ -33,6 +33,7 @@ jobs:
     # パッケージのインストールとアプリのビルド
     - name: install and build
       run:
+        npm install yarn
         yarn install
         yarn pro_build
       env:
