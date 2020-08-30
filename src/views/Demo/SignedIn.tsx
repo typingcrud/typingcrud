@@ -25,6 +25,7 @@ export const SignedIn: React.FC = () => {
   const getDynamo = () => {
     const params = {
       userId: "demo",
+      index: "",
       scanFlag: "0",
       filterTime: "0"
     }
