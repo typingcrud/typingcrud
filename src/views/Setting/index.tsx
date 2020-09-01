@@ -1,18 +1,15 @@
-import React, { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
+import React from 'react'
+import UserSetting from 'views/UserSetting'
+import ChangePassword from 'views/ChangePassword'
+import ChangeEmail from 'views/ChangeEmail'
 
 const Setting: React.FC = () => {
-  const history = useHistory()
-  const link = useCallback(
-    (path: string) => () => history.push(path), [history]
-  )
-
   return (
     <div>
       <h1>Setting</h1>
-      <button onClick={link('/setting/user')}>user</button>
-      <button onClick={link('/setting/email')}>email</button>
-      <button onClick={link('/setting/password')}>password</button>
+      <UserSetting/>
+      <ChangeEmail/>
+      <ChangePassword/>
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import axios, { AxiosRequestConfig } from 'axios'
-
 import { useAppSelector } from 'state'
 
 export const SignedIn: React.FC = () => {
