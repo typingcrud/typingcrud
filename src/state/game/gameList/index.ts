@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-type GameList = {
+type Game = {
     code: string
     codeComment: string
     createAt: string
@@ -11,23 +11,15 @@ type GameList = {
     userId: string
 }
 
-const initialState: GameList = {
-    code: "aa",
-    codeComment: "",
-    createAt: "",
-    description: "",
-    index: "",
-    title: "",
-    updateAt: "",
-    userId: ""
-}
+type GameList = Game[]
+
+const initialState: GameList = []
 
 const gameListSlice = createSlice({
     name: 'gameList',
     initialState,
     reducers: {
         reset: () => initialState,
-        changeList: (_, action: PayloadAction<GameList>) => action.payload
     }
 })
 

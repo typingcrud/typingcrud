@@ -8,8 +8,6 @@ import Demo from 'views/Demo'
 import Game from 'views/Game'
 import GameForm from 'views/Game/GameForm'
 import GameList from 'views/Game/GameList'
-import GamePlay from 'views/Game/GamePlay'
-import GameSetting from 'views/Game/GameSetting'
 import Terms from 'views/Terms'
 import Inquiry from 'views/Inquiry'
 
@@ -24,8 +22,6 @@ export default {
   Game,
   GameForm,
   GameList,
-  GamePlay,
-  GameSetting,
   Terms,
   Inquiry,
 }

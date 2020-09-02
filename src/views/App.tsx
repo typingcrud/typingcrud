@@ -27,8 +27,6 @@ const App: React.FC = () => {
       <Route path='/game'><Views.Game/></Route>
       <Route path='/game/post'><Views.GameForm/></Route>
       <Route path='/game/list'><Views.GameList/></Route>
-      <Route path='/game/play'><Views.GamePlay/></Route> {/*querystringでgameのindexをつける*/}
-      <Route path='/game/setting'><Views.GameSetting/></Route>
       <Route path='/terms'><Views.Terms/></Route> {/*//規約ページ*/}
       <Route path='/inquiry'><Views.Inquiry/></Route> {/*お問い合わせページ*/}
     </BrowserRouter>
