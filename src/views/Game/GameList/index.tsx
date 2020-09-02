@@ -20,14 +20,19 @@ const GameList: React.FC = () => {
         <th>description</th>
         <th>code</th>
         <th>codeComment</th>
+        <th>options</th>
       </tr>
       { gameList.map((game) => {
         return(
           <tr>
-            <td>{game.title}</td>
+            <td><button>{game.title}</button></td>
             <td>{game.description}</td>
             <td>{game.code}</td>
             <td>{game.codeComment}</td>
+            <td>
+              <button>編集</button>
+              <button>削除</button>
+            </td>
           </tr>
         )
       }) }
