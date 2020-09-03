@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import { getGames } from 'state/game/gameList/getGames'
+import { deleteGame } from 'state/game/gameList/deleteGames'
 
 type Game = {
   code: string
@@ -24,11 +26,15 @@ const gameListSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getGames.fulfilled, (_, action) => action.payload)
+    builder.addCase(deleteGame.fulfilled, (gameList, action) => {
+      gameList.splice(gameList.findIndex(game => game.index === action.payload), 1)
+    })
   }
 })
 
 export const gameListThunk = {
-  getGames
+  getGames,
+  deleteGame,
 }
 
 export default gameListSlice
