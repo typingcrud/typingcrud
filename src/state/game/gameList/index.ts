@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { getGames } from 'state/game/gameList/getGames'
 
 type Game = {
@@ -21,7 +21,9 @@ const gameListSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    setGames: (_, actions: PayloadAction<GameList>) => actions.payload
+  },
+  extraReducers: builder => {
+    builder.addCase(getGames.fulfilled, (_, action) => action.payload)
   }
 })
 

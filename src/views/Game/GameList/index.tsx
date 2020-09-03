@@ -22,9 +22,9 @@ const GameList: React.FC = () => {
         <th>codeComment</th>
         <th>options</th>
       </tr>
-      { gameList.map((game) => {
+      { gameList.map((game, index) => {
         return(
-          <tr>
+          <tr key={index}>
             <td><button>{game.title}</button></td>
             <td>{game.description}</td>
             <td>{game.code}</td>

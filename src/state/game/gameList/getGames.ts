@@ -2,10 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { ThunkAPI } from 'utils/thunk'
-import { actions } from 'state'
-import { GameList } from 'state/game/gameList'
+import { AppState } from 'state'
 
-export const getGames = createAsyncThunk<void, void, ThunkAPI>(
+type GameList = AppState['gameList']
+
+export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
   'gameList/getGames',
   async (_, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
@@ -23,12 +24,14 @@ export const getGames = createAsyncThunk<void, void, ThunkAPI>(
       url: process.env.REACT_APP_API_BASE + "game",
     }
 
-    axios(options)
+    const response = await axios(options)
       .then((res) => {
-        thunkAPI.dispatch(actions.gameList.setGames(res.data.body as GameList))
+        return res.data.body as GameList
       })
       .catch((err) => {
         console.log(err)
       })
+
+    return response
   }
 )
