@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 
 import { useAppDispatch ,thunkActions, useAppSelector } from 'state'
 import './table.css'
@@ -8,6 +8,12 @@ const GameList: React.FC = () => {
   const gameList = useAppSelector(state => state.gameList)
 
   const dispatch = useAppDispatch()
+
+  const deleteGame = useCallback(
+    (index:string) => () => {
+      dispatch(thunkActions.gameList.deleteGame(index))
+    }, [dispatch]
+  )
 
   useEffect(() => {
     dispatch(thunkActions.gameList.getGames())
@@ -34,7 +40,7 @@ const GameList: React.FC = () => {
               <td>{game.codeComment}</td>
               <td>
                 <button>編集</button>
-                <button>削除</button>
+                <button onClick={deleteGame(game.index)}>削除</button>
               </td>
             </tr>
           </tbody>
