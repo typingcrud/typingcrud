@@ -10,7 +10,7 @@ const GameList: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const deleteGame = useCallback(
-    (index:string) => () => {
+    (index: string) => () => {
       dispatch(thunkActions.gameList.deleteGame(index))
     }, [dispatch]
   )
