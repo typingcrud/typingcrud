@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
-
+import { useAppSelector } from 'state'
 import { ThunkAPI } from 'utils/thunk'
 import { AppState } from 'state'
 
@@ -9,18 +9,20 @@ type GameList = AppState['gameList']
 export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
   'gameList/getGames',
   async (_, thunkAPI) => {
+    const idToken = useAppSelector(state => state.auth.tokens?.idToken)
     const userId = thunkAPI.getState().auth.userId
+    console.log(userId)
 
     const params = {
-      userId: userId,
-      index: "",
-      scanFlag: "0",
-      filterTime: "0",
+      userId: userId
     }
 
     const options: AxiosRequestConfig = {
       method: 'GET',
       params: params,
+      headers: {
+        Authorization: idToken
+      },
       url: process.env.REACT_APP_API_BASE + "game",
     }
 
