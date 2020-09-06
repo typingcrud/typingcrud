@@ -6,6 +6,7 @@ import './table.css'
 const GameList: React.FC = () => {
 
   const gameList = useAppSelector(state => state.gameList)
+  const userId = useAppSelector(state => state.auth.userId)
 
   const dispatch = useAppDispatch()
 
@@ -16,8 +17,8 @@ const GameList: React.FC = () => {
   )
 
   useEffect(() => {
-    dispatch(thunkActions.gameList.getGames())
-  }, [dispatch])
+    if (userId !== '') dispatch(thunkActions.gameList.getGames())
+  }, [dispatch, userId])
 
   return (
     <table>

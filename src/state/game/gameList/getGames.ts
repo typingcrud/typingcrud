@@ -9,12 +9,12 @@ type GameList = AppState['gameList']
 export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
   'gameList/getGames',
   async (_, thunkAPI) => {
-    const idToken = useAppSelector(state => state.auth.tokens?.idToken)
+    const idToken = thunkAPI.getState().auth.tokens?.idToken
     const userId = thunkAPI.getState().auth.userId
     console.log(userId)
 
     const params = {
-      userId: userId
+      userId: userId,
     }
 
     const options: AxiosRequestConfig = {
