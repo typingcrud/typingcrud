@@ -16,9 +16,8 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <Route path='/'><Views.NavBar/> </Route>
-      <Route exact path='/'><Views.Home/> </Route>
-
+      <Route path='/'><Views.NavBar/></Route>
+      <Route exact path='/'><Views.Home/></Route>
       <Route path='/user'><Views.Setting/></Route>
       <Route path='/signin'><Views.SignIn/></Route>
       <Route path='/signup'><Views.SignUp/></Route>
@@ -27,6 +26,7 @@ const App: React.FC = () => {
       <Route path='/game'><Views.Game/></Route>
       <Route path='/game/post'><Views.GameForm/></Route>
       <Route path='/game/list'><Views.GameList/></Route>
+      <Route path='/game/play/:id'><Views.GamePlay/></Route>
       <Route path='/terms'><Views.Terms/></Route> {/*//規約ページ*/}
       <Route path='/inquiry'><Views.Inquiry/></Route> {/*お問い合わせページ*/}
     </BrowserRouter>
