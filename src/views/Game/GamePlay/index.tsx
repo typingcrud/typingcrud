@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useAppSelector, useAppDispatch, thunkActions } from 'state'
+import { useAppDispatch, thunkActions } from 'state'
+import { Code } from 'views/Game/GamePlay/Code'
 
 const GamePlay: React.FC = () => {
   const { index } = useParams<{index: string}>()
-
-  const game = useAppSelector(state => state.gamePlay.game)
 
   const dispatch = useAppDispatch()
 
@@ -15,9 +14,9 @@ const GamePlay: React.FC = () => {
   }, [dispatch, index])
 
   return (
-    <>
-      <div>this game id: {index}</div>
-    </>
+    <React.Fragment>
+      <Code/>
+    </React.Fragment>
   )
 }
 

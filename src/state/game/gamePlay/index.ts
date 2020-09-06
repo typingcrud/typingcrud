@@ -4,10 +4,7 @@ import { getGame } from 'state/game/gamePlay/getGame'
 import { Game } from 'state/game/gameList'
 
 type Params = {
-  cursorPos: {
-    row: number
-    col: number
-  }
+  cursorPos: number
   gameOver: boolean
 }
 
@@ -27,10 +24,7 @@ const initialState: GamePlay = {
     updateAt: ''
   },
   params: {
-    cursorPos: {
-      row: 0,
-      col: 0,
-    },
+    cursorPos: 0,
     gameOver: false
   }
 }
