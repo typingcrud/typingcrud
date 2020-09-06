@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { getGames } from 'state/game/gameList/getGames'
 import { deleteGame } from 'state/game/gameList/deleteGames'
 
-type Game = {
+export type Game = {
   code: string
   codeComment: string
   createAt: string
