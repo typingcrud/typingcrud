@@ -23,10 +23,7 @@ export const SignedIn: React.FC = () => {
 
   const getDynamo = () => {
     const params = {
-      userId: "demo",
-      index: "",
-      scanFlag: "0",
-      filterTime: "0"
+      userId: userId
     }
 
     const options = getOptions("GET", params)
@@ -43,7 +40,7 @@ export const SignedIn: React.FC = () => {
 
   const postDynamo = () => {
     const params = {
-      userId: "demo",
+      userId: userId,
       index: "index",
       code: "aaa",
       codeComment: "frgrgt",
@@ -65,7 +62,7 @@ export const SignedIn: React.FC = () => {
 
   const patchDynamo = () => {
     const params = {
-      userId: "demo",
+      userId: userId,
       index: "index",
       code: "aaa222222222",
       codeComment: "frgrgt22222222",
@@ -88,7 +85,7 @@ export const SignedIn: React.FC = () => {
   const deleteDynamo = () => {
     const params = {
       index: "index",
-      userId: "demo"
+      userId: userId
     }
 
     const options = getOptions("DELETE", params)
