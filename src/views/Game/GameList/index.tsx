@@ -1,49 +1,54 @@
-import React, { useEffect } from 'react'
-import axios, { AxiosRequestConfig } from 'axios'
-import { useAppSelector, useAppDispatch, actions, thunkActions } from 'state'
+import React, { useEffect, useCallback } from 'react'
+
+import { useAppDispatch ,thunkActions, useAppSelector } from 'state'
+import './table.css'
 
 const GameList: React.FC = () => {
-    const gameList = useAppSelector(state => state.gameList)
-    const dispatch = useAppDispatch()
 
-    const auth = useAppSelector(state => state.auth)
+  const gameList = useAppSelector(state => state.gameList)
+  const userId = useAppSelector(state => state.auth.userId)
 
-    const getOptions = (method: "GET" | "POST" | "PATCH" | "DELETE", params: any): AxiosRequestConfig => {
-        return {
-            method: method,
-            params: params,
-            url: process.env.REACT_APP_API_BASE + "game",
-        }
-    }
+  const dispatch = useAppDispatch()
 
-    const getDynamo = () => {
-        const params = {
-            userId: auth.userId,
-            index: "",
-            scanFlag: "0",
-            filterTime: "0"
-        }
-        const options = getOptions("GET", params)
-        axios(options)
-            .then((results) => {
-                console.log(results.data)
-                //ここでstateを更新したい
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    }
-    useEffect(() => {
-        console.log(auth)
-        //ここはマウントされてuserIdがstoreに入るのを待ってから実行したい
-        if (auth.userId !== "") {
-            return getDynamo
-        }
-    }, [auth.userId])
+  const deleteGame = useCallback(
+    (index: string) => () => {
+      dispatch(thunkActions.gameList.deleteGame(index))
+    }, [dispatch]
+  )
 
-    return (
-        <div>{gameList.code}</div>
-    )
+  useEffect(() => {
+    if (userId !== '') dispatch(thunkActions.gameList.getGames())
+  }, [dispatch, userId])
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>title</th>
+          <th>description</th>
+          <th>code</th>
+          <th>codeComment</th>
+          <th>options</th>
+        </tr>
+      </thead>
+      { gameList.map((game, index) => {
+        return(
+          <tbody key={index}>
+            <tr>
+              <td><button>{game.title}</button></td>
+              <td>{game.description}</td>
+              <td>{game.code}</td>
+              <td>{game.codeComment}</td>
+              <td>
+                <button>編集</button>
+                <button onClick={deleteGame(game.index)}>削除</button>
+              </td>
+            </tr>
+          </tbody>
+        )
+      }) }
+    </table>
+  )
 }
 
 export default GameList
