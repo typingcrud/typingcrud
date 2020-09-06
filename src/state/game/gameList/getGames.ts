@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ThunkAPI } from 'utils/thunk'
-import { AppState } from 'state'
+import { thunkActions, AppState } from 'state'
 
 type GameList = AppState['gameList']
 
@@ -12,7 +12,7 @@ export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
     const userId = thunkAPI.getState().auth.userId
 
     const params = {
-      userId: userId,
+      userId: userId
     }
 
     const options: AxiosRequestConfig = {
@@ -29,9 +29,17 @@ export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
         return res.data.body as GameList
       })
       .catch((err) => {
-        console.log(err)
+        thunkAPI.dispatch(thunkActions.auth.updateTokens())
+        options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
+        return axios(options)
+          .then((res) => {
+            return res.data.body as GameList
+          })
+          .catch((err) => {
+            console.error(err)
+          })
       })
-
+    
     return response
   }
 )

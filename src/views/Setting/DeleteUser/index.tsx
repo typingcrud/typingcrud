@@ -1,5 +1,5 @@
 import React from 'react'
-import { DeleteUser } from 'views/UserSetting/DeleteUser'
+import { DeleteUser } from 'views/Setting/DeleteUser/DeleteUser'
 
 const UserSetting: React.FC = () => {
   return (
