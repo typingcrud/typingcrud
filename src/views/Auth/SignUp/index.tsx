@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from 'react'
 
 import { actions, useAppSelector, useAppDispatch } from 'state'
-import { SignUpForm } from 'views/SignUp/SignUpForm'
-import { VerificationForm } from 'views/SignUp/VerificationForm'
+import { SignUpForm } from 'views/Auth/SignUp/SignUpForm'
+import { VerificationForm } from 'views/Auth/SignUp/VerificationForm'
 
 
 const SignUp: React.FC = () => {

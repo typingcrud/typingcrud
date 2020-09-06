@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from 'react'
 
 import { actions, useAppSelector, useAppDispatch } from 'state'
-import { EmailForm } from 'views/ForgotPassWord/EmailForm'
-import { NewPasswordForm } from 'views/ForgotPassWord/NewPasswordForm'
+import { EmailForm } from 'views/Setting/ForgotPassWord/EmailForm'
+import { NewPasswordForm } from 'views/Setting/ForgotPassWord/NewPasswordForm'
 
 
 const ForgotPassWord: React.FC = () => {
