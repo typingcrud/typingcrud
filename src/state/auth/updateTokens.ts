@@ -17,7 +17,7 @@ export const updateTokens = createAsyncThunk<void, void, ThunkAPI>(
     if (cognitoUser === null) {
       return
     }
-    const oldToken = new CognitoRefreshToken({ RefreshToken: localStorage.RefreshToken })
+    const oldToken = new CognitoRefreshToken({ RefreshToken: localStorage.refreshToken })
     cognitoUser.refreshSession(oldToken, (err, session) => {
       if (err) {
         console.log("トークンの更新に失敗しました。↓がエラー結果です")
