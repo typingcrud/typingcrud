@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { sha256 } from 'js-sha256'
 
 import { ThunkAPI } from 'utils/thunk'
-import { actions } from 'state'
+import { thunkActions, actions } from 'state'
 
 export const submit = createAsyncThunk<void, void, ThunkAPI>(
   'gameForm/submit',
@@ -36,9 +36,17 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
         thunkAPI.dispatch(actions.gameForm.reset())
         alert("Success!!")
       })
-      .catch((err) => {
-        console.log(err)
-        alert("Failure")
+      .catch(() => {
+        thunkAPI.dispatch(thunkActions.auth.updateTokens())
+        options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
+        return axios(options)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+            alert("Failure")
+          })
       })
   }
 )

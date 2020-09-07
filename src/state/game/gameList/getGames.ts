@@ -28,7 +28,7 @@ export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
       .then((res) => {
         return res.data.body as GameList
       })
-      .catch((err) => {
+      .catch(() => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
         options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
         return axios(options)
