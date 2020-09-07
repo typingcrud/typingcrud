@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { useAppDispatch ,thunkActions, useAppSelector } from 'state'
 import './table.css'
@@ -7,6 +8,12 @@ const GameList: React.FC = () => {
 
   const gameList = useAppSelector(state => state.gameList)
   const userId = useAppSelector(state => state.auth.userId)
+  const history = useHistory()
+  const link = useCallback(
+    (path: string) => () => {
+      history.push(path)
+    }, [history]
+  )
 
   const dispatch = useAppDispatch()
 
@@ -35,7 +42,7 @@ const GameList: React.FC = () => {
         return(
           <tbody key={index}>
             <tr>
-              <td><button>{game.title}</button></td>
+              <td><button onClick={link('/game/play/' + game.index)}>{game.title}</button></td>
               <td>{game.description}</td>
               <td>{game.code}</td>
               <td>{game.codeComment}</td>
