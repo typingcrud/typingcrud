@@ -1,7 +1,7 @@
 import React from 'react'
-import UserSetting from 'views/UserSetting'
-import ChangePassword from 'views/ChangePassword'
-import ChangeEmail from 'views/ChangeEmail'
+import UserSetting from 'views/Setting/DeleteUser'
+import ChangePassword from 'views/Setting/ChangePassword'
+import ChangeEmail from 'views/Setting/ChangeEmail'
 
 const Setting: React.FC = () => {
   return (
