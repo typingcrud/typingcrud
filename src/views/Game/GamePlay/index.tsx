@@ -13,10 +13,19 @@ const GamePlay: React.FC = () => {
     dispatch(thunkActions.gamePlay.getGame({index}))
   }, [dispatch, index])
 
+  const style: React.CSSProperties = {
+    display: 'inline-block',
+    width: '100%',
+    verticalAlign: 'top',
+    backgroundColor: '#455a64',
+    fontSize: 20,
+    padding: 20,
+  }
+
   return (
-    <React.Fragment>
+    <div style={style}>
       <Code/>
-    </React.Fragment>
+    </div>
   )
 }
 
