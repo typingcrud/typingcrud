@@ -5,6 +5,7 @@ import { Game } from 'state/game/gameList'
 
 type Params = {
   cursorPos: number
+  cursorRow: number
   gameOver: boolean
 }
 
@@ -25,6 +26,7 @@ const initialState: GamePlay = {
   },
   params: {
     cursorPos: 0,
+    cursorRow: 0,
     gameOver: false
   }
 }
