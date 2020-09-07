@@ -1,16 +1,24 @@
 import React, { useCallback } from 'react'
 
-import { useAppSelector } from 'state'
+import { useAppSelector, useAppDispatch, actions } from 'state'
 
 export const Code: React.FC = () => {
-  const code = useAppSelector(state => state.gamePlay.game.code)
-  const { cursorPos } = useAppSelector(state => state.gamePlay.params)
+  const { after, current, before } = useAppSelector(state => state.gamePlay.params.code)
+  const { cursorPos, gameOver, cursorRow } = useAppSelector(state => state.gamePlay.params)
   
-  const [after, current, before] = [
-    code.slice(0, cursorPos),
-    code.slice(cursorPos, cursorPos + 1),
-    code.slice(cursorPos + 1)
-  ]
+  const dispatch = useAppDispatch()
+  const typingFunc = (e: React.KeyboardEvent<HTMLPreElement>) => {
+    if (gameOver) return
+    if (e.key === current || (e.key === 'Enter' && current === '\n')) {
+      e.preventDefault()
+      dispatch(actions.gamePlay.setCursorPos(cursorPos + 1))
+      if (e.key === 'Enter') dispatch(actions.gamePlay.setCursorRow(cursorRow + 1))
+      if (before === '') {
+        dispatch(actions.gamePlay.setGameOver(true))
+        alert('finish')
+      }
+    }
+  } 
 
   const codeStyle = useCallback(
     (code: "after" | "current" | "before"): React.CSSProperties => ({
@@ -27,7 +35,7 @@ export const Code: React.FC = () => {
   }
 
   return (
-    <pre style={preStyle}>
+    <pre style={preStyle} tabIndex={0} onKeyDown={typingFunc}>
       <span style={codeStyle("after")}>{after}</span>
       <span style={codeStyle("current")}>{current}</span>
       <span style={codeStyle("before")}>{before}</span>
