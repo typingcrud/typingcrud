@@ -14,27 +14,39 @@ export type Game = {
   userId: string
 }
 
-export type GameList = Game[]
+export type GameList = {
+  gamearray: Game[],
+  count: number
+}
 
-const initialState: GameList = []
+const initialState: GameList = {
+  gamearray: [],
+  count: 0
+}
 
 const gameListSlice = createSlice({
   name: 'gameList',
   initialState,
   reducers: {
     reset: () => initialState,
+    incrementCounter: (state) => ({
+      ...state,
+      count: state.count + 1
+    })
   },
   extraReducers: builder => {
-    builder.addCase(getGames.fulfilled, (_, action) => action.payload)
+    builder.addCase(getGames.fulfilled, (gameList, action) => {
+      gameList['gamearray'] = action.payload
+    })
     builder.addCase(deleteGame.fulfilled, (gameList, action) => {
-      gameList.splice(gameList.findIndex(game => game.index === action.payload), 1)
+      gameList['gamearray'].splice(gameList['gamearray'].findIndex(game => game.index === action.payload), 1)
     })
   }
 })
 
 export const gameListThunk = {
   getGames,
-  deleteGame,
+  deleteGame
 }
 
 export default gameListSlice
