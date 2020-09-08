@@ -24,9 +24,11 @@ const GameList: React.FC = () => {
     }, [dispatch]
   )
   
-  const refreshlist = () => {
-    dispatch(thunkActions.gameList.getGames())
-  }
+  const refreshlist = useCallback(
+    () => {
+      dispatch(thunkActions.gameList.getGames())
+    }, [dispatch]
+  )
 
   useEffect(() => {
     if (userId !== '' && count === 0) {
