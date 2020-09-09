@@ -33,7 +33,9 @@ const GameList: React.FC = () => {
   useEffect(() => {
     if (userId !== '' && count === 0) {
       dispatch(thunkActions.gameList.getGames())
-      dispatch(actions.gameList.incrementCounter())
+        .then(() => {
+          dispatch(actions.gameList.incrementCounter())
+        })
     }
   }, [dispatch, userId, count])
 

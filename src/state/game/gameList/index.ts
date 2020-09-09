@@ -32,6 +32,10 @@ const gameListSlice = createSlice({
     incrementCounter: (state) => ({
       ...state,
       count: state.count + 1
+    }),
+    resetCounter: (state) => ({
+      ...state,
+      count: 0
     })
   },
   extraReducers: builder => {
