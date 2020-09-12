@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { ThunkAPI } from 'utils/thunk'
-import { AppState } from 'state'
+import { thunkActions, AppState } from 'state'
 
-type DeleteIndex = AppState['gameList'][0]['index']
+type DeleteIndex = AppState['gameList']['gamearray'][0]['index']
 
 export const deleteGame = createAsyncThunk<DeleteIndex, DeleteIndex, ThunkAPI>(
   'gameList/deleteGame',
@@ -30,8 +30,16 @@ export const deleteGame = createAsyncThunk<DeleteIndex, DeleteIndex, ThunkAPI>(
       .then((res) => {
         console.log(res)
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
+        thunkAPI.dispatch(thunkActions.auth.updateTokens())
+        options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
+        return axios(options)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.error(err)
+          })
       })
     
     return deleteIndex
