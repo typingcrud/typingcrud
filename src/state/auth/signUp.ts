@@ -47,8 +47,8 @@ export const signUpVerify = createAsyncThunk<void, void, ThunkAPI>(
           alert("Success!")
           thunkAPI.dispatch(actions.authForm.reset())
         })
-        .catch((reason) => {
-          console.error(reason)
+        .catch((err) => {
+          console.error(err)
         })
     })
   }

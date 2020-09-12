@@ -9,6 +9,7 @@ export const NotSignedIn: React.FC<Props> = ({link}) => {
     <div>
       <button onClick={link('/signin')}>SignIn</button>
       <button onClick={link('/signup')}>SignUp</button>
+      <hr></hr>
     </div>
   )
 }
