@@ -2,17 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 import { useAppDispatch, thunkActions } from 'state'
-import Home from 'views/Home'
-import NavBar from 'views/NavBar'
-import SignIn from 'views/SignIn'
-import SignUp from 'views/SignUp'
-import ForgotPassWord from 'views/ForgotPassWord'
-import Setting from 'views/Setting'
-import UserSetting from 'views/UserSetting'
-import ChangePassword from 'views/ChangePassword'
-import ChangeEmail from 'views/ChangeEmail'
-import Demo from './Demo'
-import GameForm from './GameForm'
+import Views from 'views'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -26,18 +16,19 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <Route path='/'><NavBar/> </Route>
-      <Route exact path='/'><Home/> </Route>
-
-      <Route path='/signin'><SignIn/></Route>
-      <Route path='/signup'><SignUp/></Route>
-      <Route path='/forgot-password'><ForgotPassWord/></Route>
-      <Route path='/setting'><Setting/></Route>
-      <Route path='/setting/user'><UserSetting/></Route>
-      <Route path='/setting/password'><ChangePassword/></Route>
-      <Route path='/setting/email'><ChangeEmail/></Route>
-      <Route path='/demo'><Demo/></Route>
-      <Route path='/game-form'><GameForm/></Route>
+      <Route path='/'><Views.NavBar/></Route>
+      <Route exact path='/'><Views.Home/></Route>
+      <Route path='/user'><Views.Setting/></Route>
+      <Route path='/signin'><Views.SignIn/></Route>
+      <Route path='/signup'><Views.SignUp/></Route>
+      <Route path='/forgot-password'><Views.ForgotPassWord/></Route>
+      <Route path='/demo'><Views.Demo /></Route> {/*いずれ削除*/}
+      <Route path='/game'><Views.Game/></Route>
+      <Route path='/game/post'><Views.GameForm/></Route>
+      <Route path='/game/list'><Views.GameList/></Route>
+      <Route path='/game/play/:index'><Views.GamePlay/></Route>
+      <Route path='/terms'><Views.Terms/></Route> {/*//規約ページ*/}
+      <Route path='/inquiry'><Views.Inquiry/></Route> {/*お問い合わせページ*/}
     </BrowserRouter>
   )
 }

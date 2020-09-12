@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { establishSession } from 'state/auth/establishSession'
+import { updateTokens } from 'state/auth/updateTokens'
 import { signIn } from 'state/auth/signIn'
 import { signOut } from 'state/auth/signOut'
 import { signUp, signUpVerify, signUpResendCode } from 'state/auth/signUp'
@@ -46,6 +47,7 @@ const authSlice = createSlice({
 
 export const authThunk = {
   establishSession,
+  updateTokens,
   signIn,
   signOut,
   signUp, signUpVerify, signUpResendCode,
