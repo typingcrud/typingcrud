@@ -17,8 +17,8 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
       index: sha256(userId + (new Date()).getTime().toString()),
       title: gameForm.title,
       description: gameForm.description,
-      code: gameForm.code,
-      codeComment: gameForm.codeComment,
+      code: gameForm.code.replace(/\n|\r/g, '\\n'),
+      codeComment: gameForm.codeComment.replace(/\n|\r/g, '\\n'),
     }
 
     const options: AxiosRequestConfig = {
@@ -36,17 +36,17 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
         thunkAPI.dispatch(actions.gameForm.reset())
         alert("Success!!")
       })
-      .catch(() => {
+      .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
         options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
-        return axios(options)
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
-            alert("Failure")
-          })
+        try {
+          const res = await axios(options)
+          console.log(res)
+        }
+        catch (err) {
+          console.log(err)
+          alert("Failure")
+        }
       })
   }
 )
