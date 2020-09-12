@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { useAppDispatch, thunkActions } from 'state'
 import { Code } from 'views/Game/GamePlay/Code'
+import { Comment } from 'views/Game/GamePlay/Comment'
 
 const GamePlay: React.FC = () => {
   const { index } = useParams<{index: string}>()
@@ -25,6 +26,7 @@ const GamePlay: React.FC = () => {
   return (
     <div style={style}>
       <Code/>
+      <Comment/>
     </div>
   )
 }

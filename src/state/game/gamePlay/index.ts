@@ -12,6 +12,11 @@ type Params = {
     current: string
     before: string
   }
+  codeComment: {
+    after: string
+    current: string
+    before: string
+  }
 }
 
 type GamePlay = {
@@ -37,6 +42,11 @@ const initialState: GamePlay = {
       after: '',
       current: '',
       before: ''
+    },
+    codeComment: {
+      after: '',
+      current: '',
+      before: ''
     }
   }
 }
@@ -56,6 +66,10 @@ const gamePlaySlice = createSlice({
     },
     setCursorRow: (state, action: PayloadAction<GamePlay['params']['cursorRow']>) => {
       state.params.cursorRow = action.payload
+      const commentArr = state.game.codeComment.split(/\n/).map((str, index, {length}) => index!==length-1 ? str+'\n' : str)
+      state.params.codeComment.after = commentArr.slice(0, action.payload).join('')
+      state.params.codeComment.current = commentArr.slice(action.payload, action.payload+1).join('')
+      state.params.codeComment.before = commentArr.slice(action.payload+1).join('')
     },
     setGameOver: (state, action: PayloadAction<GamePlay['params']['gameOver']>) => {
       state.params.gameOver = action.payload
@@ -68,6 +82,12 @@ const gamePlaySlice = createSlice({
         after: state.game.code.slice(0, 0),
         current: state.game.code.slice(0, 1),
         before: state.game.code.slice(1)
+      }
+      const commentArr = state.game.codeComment.split(/\n/).map((str, index, {length}) => index!==length-1 ? str+'\n' : str)
+      state.params.codeComment = {
+        after: '',
+        current: commentArr.slice(0, 1).join(''),
+        before: commentArr.slice(1).join('')
       }
     })
   }
