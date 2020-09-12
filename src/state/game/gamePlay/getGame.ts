@@ -5,7 +5,7 @@ import { AppState } from 'state'
 type Game = AppState['gamePlay']['game']
 
 export const getGame = createAsyncThunk<Game | void, {index: string}, {}>(
-  'gameList/getGame',
+  'gamePlay/getGame',
   async ({index}) => {
 
     const params = {
