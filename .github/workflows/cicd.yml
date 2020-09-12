@@ -1,0 +1,53 @@
+name: Deploy TypingCRUD
+
+on:
+  push:
+    tags:
+      - v1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: ['12.x']
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: install and build
+      run:
+        npm install yarn
+        yarn install
+        yarn pro_build
+      env:
+        API_URL: ${{ secrets.API_URL }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        IDENTITY_POOL_ID: ${{ secrets.IDENTITY_POOL_ID }}
+        USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
+
+    - name: deploy S3
+      uses: pjakejarvis/s3-sync-action@master
+      env:
+        #ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'ap-northeast-1'
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        SOURCE_DIR: 'dist'
+
+    - name: invalidate cloudfront
+      uses: chetan/invalidate-cloudfront-action@master
+      env:
+        #ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'ap-northeast-1'
+        DISTRIBUTION: ${{ secrets.AWS_CF_DISTRIBUTION }}
+        PATHS: '/*'
