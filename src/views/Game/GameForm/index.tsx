@@ -9,7 +9,7 @@ const GameForm: React.FC = () => {
   type GameForm = typeof gameForm
   const changeForm = useCallback(
     (gameForm: GameForm) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
       dispatch(actions.gameForm.changeForm({
         ...gameForm,
         [e.target.id]: e.target.value
@@ -23,15 +23,26 @@ const GameForm: React.FC = () => {
 
   const Input = (id: string, value: string): JSX.Element => {
     return (
-      <div>
-        <input
-          type='text'
-          id={id}
-          placeholder={id}
-          value={value}
-          onChange={changeForm(gameForm)}
-        />
-      </div>
+      <input
+        type='text'
+        id={id}
+        placeholder={id}
+        value={value}
+        onChange={changeForm(gameForm)}
+      />
+    )
+  }
+
+  const Textarea = (id: string, value: string): JSX.Element => {
+    return (
+      <textarea
+        id={id}
+        placeholder={id}
+        value={value}
+        onChange={changeForm(gameForm)}
+        rows={20}
+        cols={80}
+      />
     )
   }
 
@@ -42,10 +53,14 @@ const GameForm: React.FC = () => {
   return (
     <React.Fragment>
       <h1>GameForm</h1>
-      { Input('title', gameForm.title) }
-      { Input('description', gameForm.description) }
-      { Input('code', gameForm.code) }
-      { Input('codeComment', gameForm.codeComment) }
+      <div>
+        { Input('title', gameForm.title) }
+        { Input('description', gameForm.description) }
+      </div>
+      <div>
+        { Textarea('code', gameForm.code) }
+        { Textarea('codeComment', gameForm.codeComment) }
+      </div>
       <button onClick={submit}>submit</button>
     </React.Fragment>
   )
