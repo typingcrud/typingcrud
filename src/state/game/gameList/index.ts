@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { getGames } from 'state/game/gameList/getGames'
 import { deleteGame } from 'state/game/gameList/deleteGames'
 
-type Game = {
+export type Game = {
   code: string
   codeComment: string
   createAt: string
@@ -14,27 +14,43 @@ type Game = {
   userId: string
 }
 
-export type GameList = Game[]
+export type GameList = {
+  gamearray: Game[],
+  count: number
+}
 
-const initialState: GameList = []
+const initialState: GameList = {
+  gamearray: [],
+  count: 0
+}
 
 const gameListSlice = createSlice({
   name: 'gameList',
   initialState,
   reducers: {
     reset: () => initialState,
+    incrementCounter: (state) => ({
+      ...state,
+      count: state.count + 1
+    }),
+    resetCounter: (state) => ({
+      ...state,
+      count: 0
+    })
   },
   extraReducers: builder => {
-    builder.addCase(getGames.fulfilled, (_, action) => action.payload)
+    builder.addCase(getGames.fulfilled, (gameList, action) => {
+      gameList['gamearray'] = action.payload
+    })
     builder.addCase(deleteGame.fulfilled, (gameList, action) => {
-      gameList.splice(gameList.findIndex(game => game.index === action.payload), 1)
+      gameList['gamearray'].splice(gameList['gamearray'].findIndex(game => game.index === action.payload), 1)
     })
   }
 })
 
 export const gameListThunk = {
   getGames,
-  deleteGame,
+  deleteGame
 }
 
 export default gameListSlice
