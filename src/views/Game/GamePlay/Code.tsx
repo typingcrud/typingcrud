@@ -37,7 +37,7 @@ export const Code: React.FC = () => {
   return (
     <pre style={preStyle} tabIndex={0} onKeyDown={typingFunc}>
       <span style={codeStyle("after")}>{after}</span>
-      <span style={codeStyle("current")}>{current}</span>
+      <span style={codeStyle("current")}>{current !== '\n' ? current : '↵\n'}</span>
       <span style={codeStyle("before")}>{before}</span>
     </pre>
   )
