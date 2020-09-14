@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { useAppSelector, useAppDispatch, actions, thunkActions } from 'state'
 
@@ -6,6 +7,12 @@ const GameForm: React.FC = () => {
   const gameForm = useAppSelector(state => state.gameForm)
 
   const dispatch = useAppDispatch()
+  const history = useHistory()
+  const link = useCallback(
+    (path: string) => () => {
+      history.push(path)
+    }, [history]
+  )
   type GameForm = typeof gameForm
   const changeForm = useCallback(
     (gameForm: GameForm) =>
@@ -52,6 +59,10 @@ const GameForm: React.FC = () => {
 
   return (
     <React.Fragment>
+      <div>
+        <button onClick={link('/game/list')}>ゲーム一覧</button>
+        <button onClick={link('/game/post')}>ゲーム作成</button>
+      </div>
       <h1>GameForm</h1>
       <div>
         { Input('title', gameForm.title) }
