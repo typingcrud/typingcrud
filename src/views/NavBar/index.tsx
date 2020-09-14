@@ -175,9 +175,6 @@ const NavBar: React.FC = () => {
                 <AccountCircle />
               </IconButton>
               <Menu
-                style={{
-                  marginTop: 'auto'
-                }}
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{

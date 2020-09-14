@@ -3,6 +3,9 @@ import NavBar from 'views/NavBar'
 import SignIn from 'views/Auth/SignIn'
 import SignUp from 'views/Auth/SignUp'
 import ForgotPassWord from 'views/Setting/ForgotPassWord'
+import UserSetting from 'views/Setting/DeleteUser'
+import ChangePassWord from 'views/Setting/ChangePassword'
+import ChangeEmailForm from 'views/Setting/ChangeEmail'
 import Setting from 'views/Setting'
 import Demo from 'views/Demo'
 import Game from 'views/Game'
@@ -18,6 +21,9 @@ export default {
   SignIn,
   SignUp,
   ForgotPassWord,
+  UserSetting,
+  ChangePassWord,
+  ChangeEmailForm,
   Setting,
   Demo,
   Game,
