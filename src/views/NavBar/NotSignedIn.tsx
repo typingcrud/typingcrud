@@ -4,7 +4,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import LockIcon from '@material-ui/icons/Lock';
-import { PersonAdd } from '@material-ui/icons';
 
 type Props = {
   link: (path: string) => () => void
@@ -29,7 +28,7 @@ export const NotSignedIn: React.FC<Props> = ({link}) => {
           onClick={link('/game')}
           edge="start"
         >
-          <PersonAdd />
+          <PersonAddIcon />
         </IconButton>
         <ListItemText primary="アカウント作成" />
       </ListItem>
