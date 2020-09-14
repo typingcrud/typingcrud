@@ -26,7 +26,7 @@ const App: React.FC = () => {
       <Route path='/user/change-email'><Views.ChangeEmailForm/></Route>
       <Route path='/user/delete'><Views.UserSetting /></Route>
       <Route path='/demo'><Views.Demo /></Route> {/*いずれ削除*/}
-      <Route path='/game'><Views.Game/></Route>
+      <Route exact path='/game'><Views.Game/></Route>
       <Route path='/game/post'><Views.GameForm/></Route>
       <Route path='/game/list'><Views.GameList/></Route>
       <Route path='/game/play/:index'><Views.GamePlay/></Route>

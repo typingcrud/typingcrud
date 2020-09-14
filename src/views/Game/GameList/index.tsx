@@ -41,6 +41,10 @@ const GameList: React.FC = () => {
 
   return (
     <div>
+      <div>
+        <button onClick={link('/game/list')}>ゲーム一覧</button>
+        <button onClick={link('/game/post')}>ゲーム作成</button>
+      </div>
       <button onClick={() => refreshlist()}>更新</button>
       <table>
         <thead>
