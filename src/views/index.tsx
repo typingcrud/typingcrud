@@ -10,7 +10,7 @@ import GameForm from 'views/Game/GameForm'
 import GameList from 'views/Game/GameList'
 import GamePlay from 'views/Game/GamePlay'
 import Terms from 'views/Terms'
-import Inquiry from 'views/Inquiry'
+import Help from 'views/Help'
 
 export default {
   Home,
@@ -25,5 +25,5 @@ export default {
   GameList,
   GamePlay,
   Terms,
-  Inquiry,
+  Help,
 }

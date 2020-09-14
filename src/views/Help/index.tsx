@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Inquiry: React.FC = () => {
+const Help: React.FC = () => {
     return (
         <div></div>
     )
 }
 
-export default Inquiry
+export default Help
