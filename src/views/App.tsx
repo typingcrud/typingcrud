@@ -28,7 +28,7 @@ const App: React.FC = () => {
       <Route path='/game/list'><Views.GameList/></Route>
       <Route path='/game/play/:index'><Views.GamePlay/></Route>
       <Route path='/terms'><Views.Terms/></Route> {/*//規約ページ*/}
-      <Route path='/inquiry'><Views.Inquiry/></Route> {/*お問い合わせページ*/}
+      <Route path='/help'><Views.Help/></Route> {/*お問い合わせページ*/}
     </BrowserRouter>
   )
 }
