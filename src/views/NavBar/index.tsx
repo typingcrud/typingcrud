@@ -163,6 +163,9 @@ const NavBar: React.FC = () => {
           {signIn && (
             <React.Fragment>
               <IconButton
+                style={{
+                  marginLeft: 'auto'
+                }}
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
@@ -172,6 +175,9 @@ const NavBar: React.FC = () => {
                 <AccountCircle />
               </IconButton>
               <Menu
+                style={{
+                  marginTop: 'auto'
+                }}
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -258,6 +264,7 @@ const NavBar: React.FC = () => {
         </List>
       </Drawer>
       <main
+        onClick={handleDrawerClose}
         className={clsx(classes.content, {
           [classes.contentShift]: draweropen,
         })}
