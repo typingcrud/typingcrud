@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import './style.css'
