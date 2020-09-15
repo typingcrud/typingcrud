@@ -20,7 +20,8 @@ const Image: React.FC = () => {
     return {
       method: method,
       headers: {
-        Authorization: idToken
+        Authorization: idToken,
+        "Content-Type": "application/json",
       },
       params: params,
       data: data,
@@ -43,9 +44,6 @@ const Image: React.FC = () => {
     const options = getOptions("POST", params, data)
 
     axios(options)
-      .then((results) => {
-        console.log(results)
-      })
       .catch((error) => {
         console.log("POSTに失敗しました。↓がエラー結果です")
         console.log(error)
@@ -62,10 +60,9 @@ const Image: React.FC = () => {
     }
     r.readAsDataURL(imgf[0])
     r.onload = () => {
-      //console.log(r.result)
       let encodedImg: string | ArrayBuffer | null = r.result
       imgType = imgf[0].type.split('image/')[1]
-      if (typeof(encodedImg) === "string") {
+      if (typeof (encodedImg) === "string") {
         if (imgType === "jpg") {
           base64 = encodedImg.replace('data:image/jpg;base64,', '')
         } else if (imgType === "jpeg") {
