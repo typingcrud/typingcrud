@@ -7,25 +7,24 @@ import LockIcon from '@material-ui/icons/Lock';
 
 type Props = {
   link: (path: string) => () => void
+  linkDrawerClose: (path: string) => void
 }
 
-export const NotSignedIn: React.FC<Props> = ({link}) => {
+export const NotSignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
   return (
     <React.Fragment>
-      <ListItem button onClick={link('/signin')}>
+      <ListItem button onClick={() => linkDrawerClose('user/signin')}>
         <IconButton
           color="inherit"
-          onClick={link('/game')}
           edge="start"
         >
           <LockIcon />
         </IconButton>
         <ListItemText primary="ログイン" />
       </ListItem>
-      <ListItem button onClick={link('/signup')}>
+      <ListItem button onClick={() => linkDrawerClose('user/signup')}>
         <IconButton
           color="inherit"
-          onClick={link('/game')}
           edge="start"
         >
           <PersonAddIcon />

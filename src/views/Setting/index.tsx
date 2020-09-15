@@ -26,9 +26,6 @@ const Setting: React.FC = () => {
         <ListItem button onClick={link('/user/change-password')}>
           <ListItemText primary="パスワードの変更" />
         </ListItem>
-        <ListItem button onClick={link('/user/forgot-password')}>
-          <ListItemText primary="パスワードを忘れた" />
-        </ListItem>
         <Divider />
         <ListItem button onClick={link('/user/delete')}>
           <ListItemText primary="アカウント削除" />

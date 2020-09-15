@@ -49,7 +49,7 @@ const SignIn: React.FC = () => {
         />
         <button onClick={signIn}>SignIn</button>
       </div>
-      <button onClick={link('/forgot-password')}>forgot password</button>
+      <button onClick={link('/user/forgot-password')}>forgot password</button>
     </div>
   )
 }

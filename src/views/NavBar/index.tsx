@@ -130,6 +130,13 @@ const NavBar: React.FC = () => {
     }, [setAnchorEl, link]
   )
 
+  const linkDrawerClose = useCallback(
+    (path: string) => {
+      link(`/${path}`)()
+      setOpen(false);
+    }, [setOpen, link]
+  )
+
   const logoutClose = useCallback(
     () => {
         setAnchorEl(null)
@@ -228,30 +235,28 @@ const NavBar: React.FC = () => {
         </div>
         <Divider />
         <List>
-          <ListItem button onClick={link('/')}>
+          <ListItem button onClick={() => linkDrawerClose('')}>
             <IconButton
               color="inherit"
-              onClick={link('/')}
               edge="start"
             >
               <HomeIcon />
             </IconButton>
             <ListItemText primary="ホーム" />
           </ListItem>
-          <ListItem button onClick={link('/demo')}>
+          <ListItem button onClick={() => linkDrawerClose('Demo')}>
             <ListItemText primary="Demo" />
           </ListItem>
-          {signIn ? <SignedIn link={link} /> : <NotSignedIn link={link} />}
+          {signIn ? <SignedIn link={link} linkDrawerClose={linkDrawerClose} /> : <NotSignedIn link={link} linkDrawerClose={linkDrawerClose} />}
         </List>
         <Divider />
         <List>
-          <ListItem button onClick={link('/terms')}>
+          <ListItem button onClick={() => linkDrawerClose('terms')}>
             <ListItemText primary="規約" />
           </ListItem>
-          <ListItem button onClick={link('/help')}>
+          <ListItem button onClick={() => linkDrawerClose('help')}>
             <IconButton
               color="inherit"
-              onClick={link('/game')}
               edge="start"
             >
               <HelpIcon />
