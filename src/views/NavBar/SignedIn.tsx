@@ -11,9 +11,10 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 type Props = {
   link: (path: string) => () => void
+  linkDrawerClose: (path: string) => void
 }
 
-export const SignedIn: React.FC<Props> = ({link}) => {
+export const SignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
   const dispatch = useAppDispatch()
   const signOut = useCallback(
     () => {
@@ -24,20 +25,18 @@ export const SignedIn: React.FC<Props> = ({link}) => {
 
   return (
     <React.Fragment>
-      <ListItem button onClick={link('/game')}>
+      <ListItem button onClick={() => linkDrawerClose('game')}>
         <IconButton
           color="inherit"
-          onClick={link('/game')}
           edge="start"
         >
           <CodeIcon />
         </IconButton>
         <ListItemText primary="ゲーム" />
       </ListItem>
-      <ListItem button onClick={link('/user')}>
+      <ListItem button onClick={() => linkDrawerClose('user')}>
         <IconButton
           color="inherit"
-          onClick={link('/user')}
           edge="start"
         >
           <AccountCircle />
@@ -48,7 +47,6 @@ export const SignedIn: React.FC<Props> = ({link}) => {
       <ListItem button onClick={signOut}>
         <IconButton
           color="inherit"
-          onClick={signOut}
           edge="start"
         >
           <ExitToAppIcon />
