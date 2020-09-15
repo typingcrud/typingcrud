@@ -4,13 +4,9 @@ import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,10 +41,6 @@ interface State {
 
 export const VerificationForm: React.FC = () => {
   const classes = useStyles();
-  const [values, setValues] = React.useState<State>({
-    email: '',
-    verify: ''
-  });
 
   const { isSignUpForm, ...signUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
