@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
-import clsx from 'clsx';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
