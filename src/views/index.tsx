@@ -6,6 +6,7 @@ import ForgotPassWord from 'views/Setting/ForgotPassWord'
 import UserSetting from 'views/Setting/DeleteUser'
 import ChangePassWord from 'views/Setting/ChangePassword'
 import ChangeEmailForm from 'views/Setting/ChangeEmail'
+import Image from 'views/Setting/Image'
 import Setting from 'views/Setting'
 import Demo from 'views/Demo'
 import Game from 'views/Game'
@@ -24,6 +25,7 @@ export default {
   UserSetting,
   ChangePassWord,
   ChangeEmailForm,
+  Image,
   Setting,
   Demo,
   Game,

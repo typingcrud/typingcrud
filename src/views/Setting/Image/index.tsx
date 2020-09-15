@@ -1,37 +1,89 @@
 import React, { useCallback, useEffect } from 'react'
-
-import { actions, useAppSelector, useAppDispatch } from 'state'
-import { EmailForm } from 'views/Setting/ForgotPassWord/EmailForm'
-import { NewPasswordForm } from 'views/Setting/ForgotPassWord/NewPasswordForm'
+import axios, { AxiosRequestConfig } from 'axios'
+import { useAppSelector, useAppDispatch } from 'state'
+import Dropzone from 'react-dropzone';
+import moment from 'moment';
+import 'moment/locale/ja'
+moment.locale('ja')
 
 
 const Image: React.FC = () => {
-  const { isSendEmailForm } = useAppSelector(state => state.authForm.forgotPasswordForm)
-
   const dispatch = useAppDispatch()
 
-  type IsSendEmailForm = typeof isSendEmailForm
-  const changeView = useCallback(
-    (isSendEmailForm: IsSendEmailForm) =>
-      () => dispatch(actions.authForm.changeViewOfForgotPassword(!isSendEmailForm)),
-    [dispatch]
-  )
+  const idToken = useAppSelector(state => state.auth.tokens?.idToken)
+  const userId = useAppSelector(state => state.auth.userId)
 
-  useEffect(() => {
-    return () => { dispatch(actions.authForm.reset()) }
-  }, [dispatch])
+  let base64: string = ""
+  let imgType: string = ""
 
-  return (
+  const getOptions = (method: "GET" | "POST" | "PATCH" | "DELETE", params: any, data: any): AxiosRequestConfig => {
+    return {
+      method: method,
+      headers: {
+        Authorization: idToken
+      },
+      params: params,
+      data: data,
+      url: process.env.REACT_APP_API_BASE + "user",
+    }
+  }
+
+  const postImage = () => {
+    const params = {
+      userId: userId,
+      userName: "Karasawa",
+      imgType: imgType
+    }
+
+    const data = JSON.stringify({
+      createdAt: moment().format("YYYYMM/DD hh:mm:ss").toString(),
+      img64: base64
+    })
+
+    const options = getOptions("POST", params, data)
+
+    axios(options)
+      .then((results) => {
+        console.log(results)
+      })
+      .catch((error) => {
+        console.log("POSTに失敗しました。↓がエラー結果です")
+        console.log(error)
+      })
+  }
+
+  
+  
+  const handleImage = (f: FileList | null) => {
+    const r = new FileReader()
+    let imgf: any = ""
+    if (f !== null) {
+      imgf = f
+    }
+    r.readAsDataURL(imgf[0])
+    r.onload = () => {
+      //console.log(r.result)
+      let encodedImg: string | ArrayBuffer | null = r.result
+      imgType = imgf[0].type.split('image/')[1]
+      if (typeof(encodedImg) === "string") {
+        if (imgType === "jpg") {
+          base64 = encodedImg.replace('data:image/jpg;base64,', '')
+        } else if (imgType === "jpeg") {
+          base64 = encodedImg.replace('data:image/jpeg;base64,', '')
+        } else if (imgType === "png") {
+          base64 = encodedImg.replace('data:image/png;base64,', '')
+        } else {
+          base64 = ""
+        }
+      }
+    }
+  }
+
+    return (
     <React.Fragment>
-      <h1>Forgot Password</h1>
-      <div>
-        {isSendEmailForm ? <EmailForm /> : <NewPasswordForm />}
-      </div>
-      <div>
-        <button onClick={changeView(isSendEmailForm)}>
-          {isSendEmailForm ? "input new password" : "input email"}
-        </button>
-      </div>
+      <h1>アイコン画像設定</h1>
+      <input type="file" accept="img/*" onChange={e => handleImage(e.target.files)} />
+      <button onClick={postImage}>Upload</button>
     </React.Fragment>
   )
 }
