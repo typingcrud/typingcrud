@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { deleteUser } from 'state/setting/deleteUser'
 import { changeEmail, verifyNewEmail } from 'state/setting/changeEmail'
 import { changePassword } from 'state/setting/changePassword'
+import { image } from 'state/setting/image'
 
 
 type DeleteUserForm = {
@@ -80,7 +81,8 @@ const settingSlice = createSlice({
 export const settingThunk = {
   deleteUser,
   changeEmail, verifyNewEmail,
-  changePassword
+  changePassword,
+  image
 }
 
 export default settingSlice
