@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { useAppDispatch ,thunkActions, useAppSelector, actions } from 'state'
+import { useAppDispatch , thunkActions, useAppSelector, actions } from 'state'
 import './table.css'
 
 const GameList: React.FC = () => {
