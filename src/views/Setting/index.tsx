@@ -18,7 +18,7 @@ const Setting: React.FC = () => {
       <h1>ユーザー設定</h1>
       <List component="nav" aria-label="secondary mailbox folders">
         <ListItem button onClick={link('/user/image')}>
-          <ListItemText primary="アイコン画像の設定" />
+          <ListItemText primary="ユーザー情報の変更" />
         </ListItem>
         <ListItem button onClick={link('/user/change-email')}>
           <ListItemText primary="メールアドレスの変更" />

@@ -3,7 +3,7 @@ import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
 import { ThunkAPI } from 'utils/thunk'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
-import { actions } from 'state'
+import { actions, thunkActions } from 'state'
 
 
 export const signIn = createAsyncThunk<void, void, ThunkAPI>(
@@ -32,6 +32,7 @@ export const signIn = createAsyncThunk<void, void, ThunkAPI>(
           refreshToken: refreshToken,
         }))
         thunkAPI.dispatch(actions.auth.setUserId(userId))
+        //thunkAPI.dispatch(thunkActions.auth.getUserInfo())
         
         localStorage.setItem('idToken', idToken)
         localStorage.setItem('accessToken', accessToken)
