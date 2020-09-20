@@ -8,8 +8,7 @@ moment.locale('ja')
 
 export type Imgdata = {
   userName: string,
-  imgType: string,
-  imgOwn: string,
+  imgType: string
   img64: string
 }
 
@@ -22,8 +21,7 @@ export const image = createAsyncThunk<void, { imgdata: Imgdata }, ThunkAPI>(
     const params = {
       userId: userId,
       userName: imgdata.userName,
-      imgType: imgdata.imgType,
-      imgOwn: imgdata.imgOwn
+      imgType: imgdata.imgType
     }
 
     const data: string = JSON.stringify({
@@ -35,7 +33,7 @@ export const image = createAsyncThunk<void, { imgdata: Imgdata }, ThunkAPI>(
       method: 'POST',
       headers: {
         Authorization: idToken,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       params: params,
       data: data,
