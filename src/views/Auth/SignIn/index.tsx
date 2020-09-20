@@ -40,8 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface State {
-  email: string;
-  password: string;
   showPassword: boolean;
 }
 
@@ -51,8 +49,6 @@ const SignIn: React.FC = () => {
 
   const classes = useStyles();
   const [values, setValues] = React.useState<State>({
-    email: '',
-    password: '',
     showPassword: false
   });
 
