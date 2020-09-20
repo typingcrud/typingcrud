@@ -21,16 +21,17 @@ export const image = createAsyncThunk<void, { imgdata: Imgdata }, ThunkAPI>(
     const params = {
       userId: userId,
       userName: imgdata.userName,
-      imgType: imgdata.imgType
+      imgType: imgdata.imgType,
+      imgOwn: "1" //stateから持ってくる
     }
 
     const data: string = JSON.stringify({
-      createdAt: moment().format("YYYYMM/DD hh:mm:ss").toString(),
+      updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
       img64: imgdata.img64
     })
 
     const options: AxiosRequestConfig = {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         Authorization: idToken,
         "Content-Type": "application/json"
