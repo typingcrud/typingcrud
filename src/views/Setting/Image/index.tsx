@@ -11,17 +11,13 @@ const Image: React.FC = () => {
   const dispatch = useAppDispatch()
 
   let imgdata: Imgdata = {
-    img64: "",
+    img64: "0",
     userName: "Karasawa",
-    imgType: "",
-    imgOwn: "0"
+    imgType: ""
   }
 
   const postImage = useCallback(
     () => {
-      if (imgdata.img64 !== "") {
-        imgdata.imgOwn = "1"
-      }
       dispatch(thunkActions.setting.image({ imgdata }))
     },[dispatch, imgdata]
   )
@@ -38,11 +34,11 @@ const Image: React.FC = () => {
       imgdata.imgType = imgf[0].type.split('image/')[1]
       if (typeof (encodedImg) === "string") {
         if (imgdata.imgType === "jpg") {
-          imgdata.img64 = encodedImg.replace('data:image/jpg;imgdata.img64,', '')
+          imgdata.img64 = encodedImg.replace('data:image/jpg;base64,', '')
         } else if (imgdata.imgType === "jpeg") {
-          imgdata.img64 = encodedImg.replace('data:image/jpeg;imgdata.img64,', '')
+          imgdata.img64 = encodedImg.replace('data:image/jpeg;base64,', '')
         } else if (imgdata.imgType === "png") {
-          imgdata.img64 = encodedImg.replace('data:image/png;imgdata.img64,', '')
+          imgdata.img64 = encodedImg.replace('data:image/png;base64,', '')
         } else {
           imgdata.img64 = ""
         }
