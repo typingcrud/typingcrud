@@ -25,7 +25,7 @@ export const getUserInfo = createAsyncThunk<void, void, ThunkAPI>(
     axios(options)
       .then((results) => {
         console.log(results.data)
-        thunkAPI.dispatch(actions.auth.setUserInfo(results.data))
+        thunkAPI.dispatch(actions.auth.setUserInfo(results.data.body))
       })
       .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())

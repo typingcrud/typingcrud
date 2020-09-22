@@ -3,12 +3,9 @@ import React, { useCallback } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import { useAppDispatch, thunkActions, actions } from 'state'
+import { useAppSelector, useAppDispatch, thunkActions, actions } from 'state'
 import { useDropzone } from 'react-dropzone';
 import './dropzone.css'
-import moment from 'moment';
-import 'moment/locale/ja'
-moment.locale('ja')
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const Image: React.FC = () => {
   const dispatch = useAppDispatch()
   const classes = useStyles();
-  
+  const username = useAppSelector(state => state.auth.userInfo.userName)
+
   type ChangeUserInfo = {
     userName: string
     imgType: string
@@ -31,8 +29,8 @@ const Image: React.FC = () => {
   }
 
   let imgdata: ChangeUserInfo = {
-    userName: "Karasawa",
-    imgType: "",
+    userName: username,
+    imgType: "0",
     img64: "0"
   }
 
