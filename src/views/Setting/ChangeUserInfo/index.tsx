@@ -37,7 +37,7 @@ const Image: React.FC = () => {
   }
 
   const postImage = useCallback(
-    () => dispatch(thunkActions.setting.changeUserInfo()),[dispatch, imgdata]
+    () => dispatch(thunkActions.setting.changeUserInfo()),[dispatch]
   )
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -61,7 +61,7 @@ const Image: React.FC = () => {
       }
       dispatch(actions.setting.changeUserInfo(imgdata))
     }
-  }, [dispatch])
+  }, [dispatch, imgdata])
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (

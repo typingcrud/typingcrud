@@ -1,5 +1,5 @@
 import { ThunkAPI } from 'utils/thunk'
-import { thunkActions, useAppSelector } from 'state'
+import { thunkActions } from 'state'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import moment from 'moment';
@@ -11,7 +11,7 @@ export const changeUserInfo = createAsyncThunk<void, void, ThunkAPI>(
   async (_, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
-    const chageUserInfo = useAppSelector(state => state.setting.changeUserInfo)
+    const chageUserInfo = thunkAPI.getState().setting.changeUserInfo
     console.log(changeUserInfo)
     
     const params = {

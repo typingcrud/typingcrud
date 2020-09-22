@@ -32,7 +32,7 @@ export const signIn = createAsyncThunk<void, void, ThunkAPI>(
           refreshToken: refreshToken,
         }))
         thunkAPI.dispatch(actions.auth.setUserId(userId))
-        //thunkAPI.dispatch(thunkActions.auth.getUserInfo())
+        thunkAPI.dispatch(thunkActions.auth.getUserInfo())
         
         localStorage.setItem('idToken', idToken)
         localStorage.setItem('accessToken', accessToken)
