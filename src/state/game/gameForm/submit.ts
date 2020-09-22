@@ -51,14 +51,14 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
       .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
         options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
-        try {
-          const res = await axios(options)
-          console.log(res)
-        }
-        catch (err) {
-          console.log(err)
-          alert("Failure")
-        }
+        await axios(options)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+            alert("Failure")
+          })
       })
   }
 )
