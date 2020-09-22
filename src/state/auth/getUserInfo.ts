@@ -1,5 +1,5 @@
 import { ThunkAPI } from 'utils/thunk'
-import { actions, thunkActions, useAppDispatch } from 'state'
+import { actions, thunkActions } from 'state'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 
@@ -8,7 +8,6 @@ export const getUserInfo = createAsyncThunk<void, void, ThunkAPI>(
   async (_, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
-    const dispatch = useAppDispatch()
 
     const params = {
       userId: userId
@@ -26,7 +25,7 @@ export const getUserInfo = createAsyncThunk<void, void, ThunkAPI>(
     axios(options)
       .then((results) => {
         console.log(results.data)
-        //dispatch(actions.auth.setUserInfo(results.data))
+        thunkAPI.dispatch(actions.auth.setUserInfo(results.data))
       })
       .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
