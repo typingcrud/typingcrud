@@ -1,33 +1,29 @@
 import { ThunkAPI } from 'utils/thunk'
-import { thunkActions } from 'state'
+import { thunkActions, useAppSelector } from 'state'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import moment from 'moment';
 import 'moment/locale/ja'
 moment.locale('ja')
 
-export type Imgdata = {
-  userName: string,
-  imgType: string
-  img64: string
-}
-
-export const image = createAsyncThunk<void, { imgdata: Imgdata }, ThunkAPI>(
-  'setting/image',
-  async ({ imgdata } , thunkAPI) => {
+export const changeUserInfo = createAsyncThunk<void, void, ThunkAPI>(
+  'setting/changeUserInfo',
+  async (_, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
-
+    const chageUserInfo = useAppSelector(state => state.setting.changeUserInfo)
+    console.log(changeUserInfo)
+    
     const params = {
       userId: userId,
-      userName: imgdata.userName,
-      imgType: imgdata.imgType,
+      userName: chageUserInfo.userName,
+      imgType: chageUserInfo.imgType,
       imgOwn: "1" //stateから持ってくる
     }
 
     const data: string = JSON.stringify({
       updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
-      img64: imgdata.img64
+      img64: chageUserInfo.img64
     })
 
     const options: AxiosRequestConfig = {
@@ -48,14 +44,14 @@ export const image = createAsyncThunk<void, { imgdata: Imgdata }, ThunkAPI>(
       .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
         options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
-        try {
-          const res = await axios(options)
-          console.log(res)
-        }
-        catch (err) {
-          console.log(err)
-          alert("Failure")
-        }
+        await axios(options)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+            alert("Failure")
+          })
       })
   }
 )
