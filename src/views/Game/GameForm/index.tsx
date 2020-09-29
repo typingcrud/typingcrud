@@ -25,7 +25,11 @@ const GameForm: React.FC = () => {
   )
 
   const submit = useCallback(
-    () => dispatch(thunkActions.gameForm.submit()), [dispatch]
+    () => {
+      dispatch(thunkActions.gameForm.submit())
+        .then(() => link('/game/list')())
+        .catch((err) => console.log(err))
+    }, [dispatch, link]
   )
 
   const Input = (id: string, value: string): JSX.Element => {

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { GameForm } from 'state/game/gameForm'
 import { getGame } from 'state/game/gameEdit/getGame'
+import { submit } from 'state/game/gameEdit/submit'
 
 type GameEdit = GameForm
 
@@ -31,7 +32,7 @@ const gameEditSlice = createSlice({
 })
 
 export const gameEditThunk = {
-  getGame,
+  getGame, submit
 }
 
 export default gameEditSlice
