@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { GameForm } from 'state/game/gameForm'
+import { getGame } from 'state/game/gameEdit/getGame'
 
 type GameEdit = GameForm
 
@@ -18,8 +19,19 @@ const gameEditSlice = createSlice({
     reset: () => initialState,
     changeForm: (_, action: PayloadAction<GameEdit>) => action.payload
   },
-  extraReducers: _builder => {
+  extraReducers: builder => {
+    builder.addCase(getGame.fulfilled, (state, action) => {
+      const { code, codeComment, description, title } = action.payload ? action.payload : state
+      state.title = title
+      state.description = description
+      state.code = code
+      state.codeComment = codeComment
+    })
   }
 })
+
+export const gameEditThunk = {
+  getGame,
+}
 
 export default gameEditSlice

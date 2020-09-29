@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 
-import { useAppSelector, useAppDispatch, actions } from 'state'
+import { useAppSelector, useAppDispatch, actions, thunkActions } from 'state'
 import { useHistory, useParams } from 'react-router-dom'
 
 const GameEdit: React.FC = () => {
@@ -54,8 +54,9 @@ const GameEdit: React.FC = () => {
   }
 
   useEffect(() => {
+    dispatch(thunkActions.gameEdit.getGame({index}))
     return () => { dispatch(actions.gameEdit.reset()) }
-  }, [dispatch])
+  }, [dispatch, index])
 
   return (
     <React.Fragment>
