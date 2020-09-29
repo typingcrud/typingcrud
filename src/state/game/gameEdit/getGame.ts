@@ -4,9 +4,9 @@ import { AppState } from 'state'
 
 type Game = AppState['gamePlay']['game']
 
-export const getGame = createAsyncThunk<Game | void, {index: string}, {}>(
+export const getGame = createAsyncThunk<Game | void, string, {}>(
   'gameEdit/getGame',
-  async ({index}) => {
+  async (index) => {
     const params = {
       index: index,
       filterTime: "0"

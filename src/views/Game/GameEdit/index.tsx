@@ -27,6 +27,13 @@ const GameEdit: React.FC = () => {
       }, [dispatch]
   )
 
+  const submit = useCallback(
+    () => {
+      dispatch(thunkActions.gameEdit.submit(index))
+        .then(() => link('/game/list')())
+        .catch((err) => console.log(err))
+    }, [dispatch, index, link]
+  )
 
   const Input = (id: string, value: string): JSX.Element => {
     return (
@@ -54,7 +61,7 @@ const GameEdit: React.FC = () => {
   }
 
   useEffect(() => {
-    dispatch(thunkActions.gameEdit.getGame({index}))
+    dispatch(thunkActions.gameEdit.getGame(index))
     return () => { dispatch(actions.gameEdit.reset()) }
   }, [dispatch, index])
 
@@ -73,7 +80,7 @@ const GameEdit: React.FC = () => {
         { Textarea('code', gameEdit.code) }
         { Textarea('codeComment', gameEdit.codeComment) }
       </div>
-      <button>submit</button>
+      <button onClick={submit}>submit</button>
     </React.Fragment>
   )
 }
