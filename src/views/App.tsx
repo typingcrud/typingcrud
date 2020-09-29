@@ -30,6 +30,7 @@ const App: React.FC = () => {
       <Route exact path='/game'><Views.Game/></Route>
       <Route path='/game/post'><Views.GameForm/></Route>
       <Route path='/game/list'><Views.GameList/></Route>
+      <Route path='/game/edit/:index'><Views.GameEdit/></Route>
       <Route path='/game/play/:index'><Views.GamePlay/></Route>
       <Route path='/terms'><Views.Terms/></Route> {/*//規約ページ*/}
       <Route path='/help'><Views.Help/></Route> {/*お問い合わせページ*/}
