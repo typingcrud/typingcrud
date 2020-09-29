@@ -7,7 +7,7 @@ import settingSlice, { settingThunk } from 'state/setting'
 import gameFormSlice, { gameFormThunk } from 'state/game/gameForm'
 import gameListSlice, { gameListThunk } from 'state/game/gameList'
 import gamePlaySlice, { gamePlayThunk } from 'state/game/gamePlay'
-import gameEditSlice from 'state/game/gameEdit'
+import gameEditSlice, { gameEditThunk } from 'state/game/gameEdit'
 
 
 export const store = configureStore({
@@ -41,6 +41,7 @@ export const thunkActions = {
   [gameFormSlice.name]: gameFormThunk,
   [gameListSlice.name]: gameListThunk,
   [gamePlaySlice.name]: gamePlayThunk,
+  [gameEditSlice.name]: gameEditThunk,
 }
 
 
