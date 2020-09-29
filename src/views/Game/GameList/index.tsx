@@ -66,7 +66,7 @@ const GameList: React.FC = () => {
                   <td>{game.code}</td>
                   <td>{game.codeComment}</td>
                   <td>
-                    <button>編集</button>
+                    <button onClick={link('/game/edit/' + game.index)}>編集</button>
                     <button onClick={deleteGame(game.index)}>削除</button>
                   </td>
                 </tr>
