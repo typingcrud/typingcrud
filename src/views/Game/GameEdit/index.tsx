@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 
 import { useAppSelector, useAppDispatch, actions } from 'state'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
 const GameEdit: React.FC = () => {
+  const { index } = useParams<{index: string}>()
+
   const history = useHistory()
   const link = useCallback(
     (path: string) => () => {
