@@ -24,6 +24,21 @@ type Auth = {
     imgOwn: string
     imgType: string
     img64: string
+  } | null
+}
+
+const LStoJson = (item: string | null) => {
+  if (typeof(item) === 'string') {
+    return JSON.parse(item)
+  } else {
+    return {
+      userName: '',
+      createdAt: '',
+      updatedAt: '',
+      imgOwn: '',
+      imgType: '',
+      img64: ''
+    }
   }
 }
 
@@ -31,14 +46,7 @@ const initialState: Auth = {
   isSignIn: false,
   tokens: null,
   userId: '',
-  userInfo: {
-    userName: '',
-    createdAt: '',
-    updatedAt: '',
-    imgOwn: '',
-    imgType: '',
-    img64: ''
-  }
+  userInfo: LStoJson(localStorage.getItem('userInfo'))
 }
 
 const authSlice = createSlice({
@@ -49,12 +57,7 @@ const authSlice = createSlice({
       state.isSignIn = initialState.isSignIn
       state.tokens = initialState.tokens
       state.userId = initialState.userId
-      state.userInfo.userName = initialState.userInfo.userName
-      state.userInfo.createdAt = initialState.userInfo.createdAt
-      state.userInfo.updatedAt = initialState.userInfo.updatedAt
-      state.userInfo.imgOwn = initialState.userInfo.imgOwn
-      state.userInfo.imgType = initialState.userInfo.imgType
-      state.userInfo.img64 = initialState.userInfo.img64
+      state.userInfo = initialState.userInfo
     },
     setCognitoUser: (state: Auth, action: PayloadAction<Auth['isSignIn']>) => {
       state.isSignIn = action.payload
