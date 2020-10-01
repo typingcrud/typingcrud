@@ -1,35 +1,38 @@
 import React, { useCallback, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { useAppSelector, useAppDispatch, actions, thunkActions } from 'state'
+import { useHistory, useParams } from 'react-router-dom'
 
-const GameForm: React.FC = () => {
-  const gameForm = useAppSelector(state => state.gameForm)
+const GameEdit: React.FC = () => {
+  const { index } = useParams<{index: string}>()
 
-  const dispatch = useAppDispatch()
   const history = useHistory()
   const link = useCallback(
     (path: string) => () => {
       history.push(path)
     }, [history]
   )
-  type GameForm = typeof gameForm
+
+  const gameEdit = useAppSelector(state => state.gameEdit)
+
+  const dispatch = useAppDispatch()
+  type GameEdit = typeof gameEdit
   const changeForm = useCallback(
-    (gameForm: GameForm) =>
-    (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-      dispatch(actions.gameForm.changeForm({
-        ...gameForm,
-        [e.target.id]: e.target.value
-      }))
-    }, [dispatch]
+    (gameEdit: GameEdit) =>
+      (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch(actions.gameEdit.changeForm({
+          ...gameEdit,
+          [e.target.id]: e.target.value
+        }))
+      }, [dispatch]
   )
 
   const submit = useCallback(
     () => {
-      dispatch(thunkActions.gameForm.submit())
+      dispatch(thunkActions.gameEdit.submit(index))
         .then(() => link('/game/list')())
         .catch((err) => console.log(err))
-    }, [dispatch, link]
+    }, [dispatch, index, link]
   )
 
   const Input = (id: string, value: string): JSX.Element => {
@@ -39,7 +42,7 @@ const GameForm: React.FC = () => {
         id={id}
         placeholder={id}
         value={value}
-        onChange={changeForm(gameForm)}
+        onChange={changeForm(gameEdit)}
       />
     )
   }
@@ -50,7 +53,7 @@ const GameForm: React.FC = () => {
         id={id}
         placeholder={id}
         value={value}
-        onChange={changeForm(gameForm)}
+        onChange={changeForm(gameEdit)}
         rows={20}
         cols={80}
       />
@@ -58,8 +61,9 @@ const GameForm: React.FC = () => {
   }
 
   useEffect(() => {
-    return () => { dispatch(actions.gameForm.reset()) }
-  }, [dispatch])
+    dispatch(thunkActions.gameEdit.getGame(index))
+    return () => { dispatch(actions.gameEdit.reset()) }
+  }, [dispatch, index])
 
   return (
     <React.Fragment>
@@ -67,19 +71,18 @@ const GameForm: React.FC = () => {
         <button onClick={link('/game/list')}>ゲーム一覧</button>
         <button onClick={link('/game/post')}>ゲーム作成</button>
       </div>
-      <h1>GameForm</h1>
+      <h1>gameEdit</h1>
       <div>
-        { Input('title', gameForm.title) }
-        { Input('description', gameForm.description) }
+        { Input('title', gameEdit.title) }
+        { Input('description', gameEdit.description) }
       </div>
       <div>
-        { Textarea('code', gameForm.code) }
-        { Textarea('codeComment', gameForm.codeComment) }
+        { Textarea('code', gameEdit.code) }
+        { Textarea('codeComment', gameEdit.codeComment) }
       </div>
       <button onClick={submit}>submit</button>
     </React.Fragment>
   )
 }
 
-
-export default GameForm
+export default GameEdit
