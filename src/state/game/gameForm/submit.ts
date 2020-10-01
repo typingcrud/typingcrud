@@ -20,15 +20,12 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
       index: sha256(userId + (new Date()).getTime().toString())
     }
 
-    const code = gameForm.code.replace(/\n|\r/g, '\\n')
-    const codeComment = gameForm.codeComment.replace(/\n|\r/g, '\\n')
-
     const data: string = JSON.stringify({
       createdAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
       title: gameForm.title,
       description: gameForm.description,
-      code: code,
-      codeComment: codeComment 
+      code: gameForm.code,
+      codeComment: gameForm.codeComment,
     })
 
     const options: AxiosRequestConfig = {
