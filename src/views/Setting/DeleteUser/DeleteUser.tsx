@@ -33,7 +33,7 @@ interface State {
 }
 
 export const DeleteUser: React.FC = () => {
-  const { deleteFlag, confirmPassword } = useAppSelector(state => state.setting.deleteUserForm)
+  const { confirmPassword } = useAppSelector(state => state.setting.deleteUserForm)
   const classes = useStyles();
   const [values, setValues] = React.useState<State>({
     showPassword: false

@@ -5,7 +5,6 @@ import { changeEmail, verifyNewEmail } from 'state/setting/changeEmail'
 import { changePassword } from 'state/setting/changePassword'
 import { changeUserInfo } from 'state/setting/changeUserInfo'
 
-
 type DeleteUserForm = {
   confirmPassword: string
   deleteFlag: boolean
@@ -89,6 +88,9 @@ const settingSlice = createSlice({
     },
     changeUserInfo: (state: SettingForm, action: PayloadAction<ChangeUserInfo>) => {
       state.changeUserInfo = action.payload
+    },
+    changeUserName: (state: SettingForm, action: PayloadAction<ChangeUserInfo['userName']>) => {
+      state.changeUserInfo.userName = action.payload
     }
   }
 })
