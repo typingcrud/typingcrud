@@ -6,25 +6,28 @@ import moment from 'moment';
 import 'moment/locale/ja'
 moment.locale('ja')
 
-export const changeUserInfo = createAsyncThunk<void, void, ThunkAPI>(
+export const changeUserInfo = createAsyncThunk<void, string, ThunkAPI>(
   'setting/changeUserInfo',
-  async (_, thunkAPI) => {
+  async (mode, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
-    const chageUserInfo = thunkAPI.getState().setting.changeUserInfo
-    console.log(changeUserInfo)
-    
-    const params = {
+    const changeUserInfo = thunkAPI.getState().setting.changeUserInfo
+
+    let params = {
       userId: userId,
-      userName: chageUserInfo.userName,
-      imgType: chageUserInfo.imgType,
-      imgOwn: "1" //stateから持ってくる
+      userName: changeUserInfo.userName,
+      imgType: changeUserInfo.imgType,
+      imgOwn: thunkAPI.getState().auth.userInfo.imgOwn
     }
 
-    const data: string = JSON.stringify({
+    let data = {
       updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
-      img64: chageUserInfo.img64
-    })
+      img64: changeUserInfo.img64
+    }
+
+    if (mode === 'name') {
+      data.img64 = '0'
+    }
 
     const options: AxiosRequestConfig = {
       method: 'PATCH',
@@ -33,12 +36,13 @@ export const changeUserInfo = createAsyncThunk<void, void, ThunkAPI>(
         "Content-Type": "application/json"
       },
       params: params,
-      data: data,
+      data: JSON.stringify(data),
       url: process.env.REACT_APP_API_BASE + "user",
     }
 
     axios(options)
       .then((results) => {
+        thunkAPI.dispatch(thunkActions.auth.getUserInfo())
         console.log(results)
       })
       .catch(async () => {
@@ -46,6 +50,7 @@ export const changeUserInfo = createAsyncThunk<void, void, ThunkAPI>(
         options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
         await axios(options)
           .then((res) => {
+            thunkAPI.dispatch(thunkActions.auth.getUserInfo())
             console.log(res)
           })
           .catch((err) => {

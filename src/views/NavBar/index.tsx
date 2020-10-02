@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { useAppDispatch, thunkActions } from 'state'
+import { useAppDispatch, useAppSelector, thunkActions } from 'state'
 import { useHistory } from 'react-router-dom'
 import { useSignIn } from 'utils'
 import { SignedIn } from 'views/NavBar/SignedIn'
@@ -26,6 +26,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpIcon from '@material-ui/icons/Help';
+import Avatar from '@material-ui/core/Avatar';
 
 const drawerWidth = 240;
 
@@ -95,6 +96,8 @@ const NavBar: React.FC = () => {
   const signIn = useSignIn()
   const history = useHistory()
   const dispatch = useAppDispatch()
+  const userInfo = useAppSelector(state => state.auth.userInfo)
+  const userImg = `data:image/${userInfo.imgType};base64,${userInfo.img64}`
 
   const link = useCallback(
     (path: string) => () => {
@@ -169,6 +172,9 @@ const NavBar: React.FC = () => {
           </Typography>
           {signIn && (
             <React.Fragment>
+              <Typography variant="h3" noWrap>
+                {userInfo.userName}
+              </Typography>
               <IconButton
                 style={{
                   marginLeft: 'auto'
@@ -179,7 +185,7 @@ const NavBar: React.FC = () => {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+                <Avatar alt='userImage' src={userImg} />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -203,7 +209,7 @@ const NavBar: React.FC = () => {
                   >
                     <AccountCircle />
                   </IconButton>
-                  ユーザー設定
+                  ユーザー設定{userInfo.userName}
                 </MenuItem>
                 <MenuItem onClick={logoutClose}>
                   <IconButton

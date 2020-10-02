@@ -24,7 +24,7 @@ type Auth = {
     imgOwn: string
     imgType: string
     img64: string
-  } | null
+  }
 }
 
 const LStoJson = (item: string | null) => {
