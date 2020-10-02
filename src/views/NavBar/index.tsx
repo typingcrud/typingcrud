@@ -97,7 +97,10 @@ const NavBar: React.FC = () => {
   const history = useHistory()
   const dispatch = useAppDispatch()
   const userInfo = useAppSelector(state => state.auth.userInfo)
-  const userImg = `data:image/${userInfo.imgType};base64,${userInfo.img64}`
+  let userImg = ''
+  if (userInfo.imgOwn === '1') {
+    userImg = `data:image/${userInfo.imgType};base64,${userInfo.img64}`
+  }
 
   const link = useCallback(
     (path: string) => () => {
@@ -172,8 +175,14 @@ const NavBar: React.FC = () => {
           </Typography>
           {signIn && (
             <React.Fragment>
-              <Typography variant="h3" noWrap>
-                {userInfo.userName}
+              <Typography
+                variant="h3"
+                noWrap
+                style={{
+                  marginLeft: 'auto'
+                }}
+              >
+                ようこそ{userInfo.userName}
               </Typography>
               <IconButton
                 style={{
