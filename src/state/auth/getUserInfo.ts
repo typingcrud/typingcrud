@@ -24,7 +24,6 @@ export const getUserInfo = createAsyncThunk<void, void, ThunkAPI>(
 
     axios(options)
       .then((results) => {
-        console.log(results.data)
         localStorage.setItem('userInfo', JSON.stringify(results.data.body))
         thunkAPI.dispatch(actions.auth.setUserInfo(results.data.body))
       })
@@ -33,7 +32,8 @@ export const getUserInfo = createAsyncThunk<void, void, ThunkAPI>(
         options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
         await axios(options)
           .then((res) => {
-            console.log(res.data)
+            localStorage.setItem('userInfo', JSON.stringify(res.data.body))
+            thunkAPI.dispatch(actions.auth.setUserInfo(res.data.body))
           })
           .catch((err) => {
             console.log(err)
