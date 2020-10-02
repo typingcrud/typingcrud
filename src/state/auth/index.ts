@@ -28,7 +28,7 @@ type Auth = {
 }
 
 const LStoJson = (item: string | null) => {
-  if (typeof(item) === 'string') {
+  if (typeof (item) === 'string' && item !== 'undefined') {
     return JSON.parse(item)
   } else {
     return {
@@ -41,6 +41,7 @@ const LStoJson = (item: string | null) => {
     }
   }
 }
+
 
 const initialState: Auth = {
   isSignIn: false,
