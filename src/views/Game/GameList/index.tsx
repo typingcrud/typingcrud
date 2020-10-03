@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { useAppDispatch ,thunkActions, useAppSelector, actions } from 'state'
+import { useAppDispatch , thunkActions, useAppSelector, actions } from 'state'
 import './table.css'
 
 const GameList: React.FC = () => {
@@ -41,6 +41,10 @@ const GameList: React.FC = () => {
 
   return (
     <div>
+      <div>
+        <button onClick={link('/game/list')}>ゲーム一覧</button>
+        <button onClick={link('/game/post')}>ゲーム作成</button>
+      </div>
       <button onClick={() => refreshlist()}>更新</button>
       <table>
         <thead>
@@ -62,7 +66,7 @@ const GameList: React.FC = () => {
                   <td>{game.code}</td>
                   <td>{game.codeComment}</td>
                   <td>
-                    <button>編集</button>
+                    <button onClick={link('/game/edit/' + game.index)}>編集</button>
                     <button onClick={deleteGame(game.index)}>削除</button>
                   </td>
                 </tr>

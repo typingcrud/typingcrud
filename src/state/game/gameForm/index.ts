@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { submit } from 'state/game/gameForm/submit'
 
-type GameForm = {
+export type GameForm = {
     title: string
     description: string
     code: string
