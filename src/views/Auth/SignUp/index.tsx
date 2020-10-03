@@ -4,8 +4,37 @@ import { actions, useAppSelector, useAppDispatch } from 'state'
 import { SignUpForm } from 'views/Auth/SignUp/SignUpForm'
 import { VerificationForm } from 'views/Auth/SignUp/VerificationForm'
 
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    margin: {
+      margin: theme.spacing(1),
+    },
+    textField: {
+      width: '25ch',
+    },
+    form: {
+      marginRight: 10,
+      marginLeft: 10,
+      marginBottom: 20,
+      display: 'inline-block'
+    },
+    button: {
+      marginLeft: 10,
+      marginTop: 10,
+      display: 'inline-block'
+    },
+  }),
+);
 
 const SignUp: React.FC = () => {
+  const classes = useStyles();
   const { isSignUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
   const dispatch = useAppDispatch()
@@ -23,14 +52,14 @@ const SignUp: React.FC = () => {
 
   return (
     <React.Fragment>
-      <h1>sign up</h1>
+      <h1>アカウント作成</h1>
       <div>
         { isSignUpForm ? <SignUpForm/> : <VerificationForm/> }
       </div>
       <div>
-        <button onClick={changeView(isSignUpForm)}>
-          { isSignUpForm ? "verify" : "return to sign up" }
-        </button>
+        <Button className={classes.button} variant="outlined" onClick={changeView(isSignUpForm)}>
+          {isSignUpForm ? "認証コード入力" : "サインアップ画面へ戻る"}
+      </Button>
       </div>
     </React.Fragment>
   )

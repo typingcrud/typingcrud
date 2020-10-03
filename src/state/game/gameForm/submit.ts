@@ -1,9 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import axios, { AxiosRequestConfig } from 'axios'
-import { sha256 } from 'js-sha256'
-
 import { ThunkAPI } from 'utils/thunk'
 import { thunkActions, actions } from 'state'
+
+import axios, { AxiosRequestConfig } from 'axios'
+import { sha256 } from 'js-sha256'
+import moment from 'moment';
+import 'moment/locale/ja'
+moment.locale('ja')
 
 export const submit = createAsyncThunk<void, void, ThunkAPI>(
   'gameForm/submit',
@@ -14,19 +17,25 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
 
     const params = {
       userId: userId,
-      index: sha256(userId + (new Date()).getTime().toString()),
+      index: sha256(userId + (new Date()).getTime().toString())
+    }
+
+    const data: string = JSON.stringify({
+      createdAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
       title: gameForm.title,
       description: gameForm.description,
-      code: gameForm.code.replace(/\n|\r/g, '\\n'),
-      codeComment: gameForm.codeComment.replace(/\n|\r/g, '\\n'),
-    }
+      code: gameForm.code,
+      codeComment: gameForm.codeComment,
+    })
 
     const options: AxiosRequestConfig = {
       method: 'POST',
       headers: {
-        Authorization: idToken
+        Authorization: idToken,
+        "Content-Type": "application/json"
       },
       params: params,
+      data: data,
       url: process.env.REACT_APP_API_BASE + "game",
     }
 
@@ -39,14 +48,14 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
       .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
         options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
-        try {
-          const res = await axios(options)
-          console.log(res)
-        }
-        catch (err) {
-          console.log(err)
-          alert("Failure")
-        }
+        await axios(options)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+            alert("Failure")
+          })
       })
   }
 )

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { deleteUser } from 'state/setting/deleteUser'
 import { changeEmail, verifyNewEmail } from 'state/setting/changeEmail'
 import { changePassword } from 'state/setting/changePassword'
-
+import { changeUserInfo } from 'state/setting/changeUserInfo'
 
 type DeleteUserForm = {
   confirmPassword: string
@@ -23,10 +23,17 @@ type ChangePasswordForm = {
   newPasswordConfirm: string
 }
 
+type ChangeUserInfo = {
+  userName: string
+  imgType: string
+  img64: string
+}
+
 type SettingForm = {
   deleteUserForm: DeleteUserForm
   changeEmailForm: ChangeEmailForm
   changePasswordForm: ChangePasswordForm
+  changeUserInfo: ChangeUserInfo
 }
 
 const initialState: SettingForm = {
@@ -44,6 +51,11 @@ const initialState: SettingForm = {
     currentPassword: '',
     newPassword: '',
     newPasswordConfirm: ''
+  },
+  changeUserInfo: {
+    userName: '',
+    imgType: '',
+    img64: ''
   }
 }
 
@@ -74,13 +86,20 @@ const settingSlice = createSlice({
     changeChangePasswordForm: (state: SettingForm, action: PayloadAction<ChangePasswordForm>) => {
       state.changePasswordForm = action.payload
     },
+    changeUserInfo: (state: SettingForm, action: PayloadAction<ChangeUserInfo>) => {
+      state.changeUserInfo = action.payload
+    },
+    changeUserName: (state: SettingForm, action: PayloadAction<ChangeUserInfo['userName']>) => {
+      state.changeUserInfo.userName = action.payload
+    }
   }
 })
 
 export const settingThunk = {
   deleteUser,
   changeEmail, verifyNewEmail,
-  changePassword
+  changePassword,
+  changeUserInfo
 }
 
 export default settingSlice
