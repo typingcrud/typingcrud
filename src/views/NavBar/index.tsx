@@ -26,6 +26,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpIcon from '@material-ui/icons/Help';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
 
 const drawerWidth = 240;
@@ -149,10 +150,10 @@ const NavBar: React.FC = () => {
 
   const logoutClose = useCallback(
     () => {
-        setAnchorEl(null)
-        dispatch(thunkActions.auth.signOut())
-        link('/')()
-      }, [dispatch, link]
+      setAnchorEl(null)
+      dispatch(thunkActions.auth.signOut())
+      link('/')()
+    }, [dispatch, link]
   )
 
   return (
@@ -183,7 +184,7 @@ const NavBar: React.FC = () => {
               cursor: 'pointer'
             }}
             alt='logo'
-            onClick={link('/')}
+            onClick={() => linkDrawerClose('')}
           />
           {signIn && (
             <React.Fragment>
@@ -289,6 +290,12 @@ const NavBar: React.FC = () => {
         <Divider />
         <List>
           <ListItem button onClick={() => linkDrawerClose('terms')}>
+            <IconButton
+              color="inherit"
+              edge="start"
+            >
+              <AssignmentIcon />
+            </IconButton>
             <ListItemText primary="規約" />
           </ListItem>
           <ListItem button onClick={() => linkDrawerClose('help')}>
@@ -303,7 +310,6 @@ const NavBar: React.FC = () => {
         </List>
       </Drawer>
       <main
-        onClick={handleDrawerClose}
         className={clsx(classes.content, {
           [classes.contentShift]: draweropen,
         })}
