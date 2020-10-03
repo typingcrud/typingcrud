@@ -33,13 +33,14 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     appBar: {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      backgroundColor: '#444'
     },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -61,9 +62,12 @@ const useStyles = makeStyles((theme: Theme) =>
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
+      color: 'white'
     },
     drawerPaper: {
       width: drawerWidth,
+      backgroundColor: '#444',
+      color: 'white'
     },
     drawerHeader: {
       display: 'flex',
@@ -71,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-end'
     },
     content: {
       flexGrow: 1,
@@ -170,23 +174,32 @@ const NavBar: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap onClick={link('/')}>
-            TypingCRUD
-          </Typography>
+          <img
+            src='img/logo_transparent.png'
+            style={{
+              fontSize: 18,
+              width: 160,
+              height: 100,
+              cursor: 'pointer'
+            }}
+            alt='logo'
+            onClick={link('/')}
+          />
           {signIn && (
             <React.Fragment>
               <Typography
-                variant="h3"
+                variant="h6"
                 noWrap
                 style={{
-                  marginLeft: 'auto'
+                  marginLeft: 'auto',
+                  fontSize: 18
                 }}
               >
-                ようこそ{userInfo.userName}
+                ようこそ{userInfo.userName}さん
               </Typography>
               <IconButton
                 style={{
-                  marginLeft: 'auto'
+                  //marginLeft: 'auto'
                 }}
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -194,7 +207,14 @@ const NavBar: React.FC = () => {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <Avatar alt='userImage' src={userImg} />
+                <Avatar
+                  alt='userImage'
+                  src={userImg}
+                  style={{
+                    width: 80,
+                    height: 80
+                  }}
+                />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -218,7 +238,7 @@ const NavBar: React.FC = () => {
                   >
                     <AccountCircle />
                   </IconButton>
-                  ユーザー設定{userInfo.userName}
+                  ユーザー設定
                 </MenuItem>
                 <MenuItem onClick={logoutClose}>
                   <IconButton
@@ -244,7 +264,12 @@ const NavBar: React.FC = () => {
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton
+            onClick={handleDrawerClose}
+            style={{
+              color: 'white'
+            }}
+          >
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
@@ -258,9 +283,6 @@ const NavBar: React.FC = () => {
               <HomeIcon />
             </IconButton>
             <ListItemText primary="ホーム" />
-          </ListItem>
-          <ListItem button onClick={() => linkDrawerClose('Demo')}>
-            <ListItemText primary="Demo" />
           </ListItem>
           {signIn ? <SignedIn link={link} linkDrawerClose={linkDrawerClose} /> : <NotSignedIn link={link} linkDrawerClose={linkDrawerClose} />}
         </List>
