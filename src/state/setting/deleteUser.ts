@@ -59,6 +59,31 @@ export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
                 })
             })
           
+          const params2 = {
+            userId: userId,
+            index: '0'
+          }
+
+          const options2: AxiosRequestConfig = {
+            method: 'DELETE',
+            headers: {
+              Authorization: idToken
+            },
+            params: params2,
+            url: process.env.REACT_APP_API_BASE + "game",
+          }
+
+          axios(options2)
+            .then((results) => {
+              console.log(results)
+            })
+            .catch((err) => {
+              console.log(err)
+              alert("Failure")
+            })
+          
+          localStorage.clear()
+          
           alert(result + ": User deleted")
         })
       },
