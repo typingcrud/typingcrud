@@ -175,7 +175,7 @@ const NavBar: React.FC = () => {
             <MenuIcon />
           </IconButton>
           <img
-            src='img/logo_transparent.png'
+            src={`${process.env.PUBLIC_URL}/img/logo_transparent.png`}
             style={{
               fontSize: 18,
               width: 160,
