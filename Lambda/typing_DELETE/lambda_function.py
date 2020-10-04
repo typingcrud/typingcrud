@@ -8,19 +8,24 @@ logger = logging.getLogger()
 dynamodb = boto3.resource('dynamodb')
 table    = dynamodb.Table(os.environ['TABLE_NAME'])
 
-def put(event):
-    logger.warn(event)
-    response = table.delete_item(
-        Key={
-            "userId": event["userId"],
-            "index": event["index"]
-        }
-    )
+def delete(event):
+    if event["index"] == "0":
+        response = table.delete_item(
+            Key={
+                "userId": event["userId"]
+            }
+        )
+    elif event["userId"] == "0":
+        response = table.delete_item(
+            Key={
+                "index": event["index"]
+            }
+        )
 
     return response
 
 def lambda_handler(event, context):
-    put(event)
+    delete(event)
     return {
         'statusCode': 200,
         'headers': {
