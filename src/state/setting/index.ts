@@ -24,9 +24,9 @@ type ChangePasswordForm = {
 }
 
 type ChangeUserInfo = {
-  userName: string
-  imgType: string
-  img64: string
+  userName: string | undefined
+  imgType: string | undefined
+  img64: string | undefined
 }
 
 type SettingForm = {
