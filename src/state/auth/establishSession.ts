@@ -3,7 +3,7 @@ import { CognitoUserSession } from 'amazon-cognito-identity-js'
 
 import { ThunkAPI } from 'utils/thunk'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
-import { actions } from 'state'
+import { actions, thunkActions } from 'state'
 
 
 export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
@@ -21,13 +21,15 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
       idToken: localStorage.getItem('idToken'),
       accessToken: localStorage.getItem('accessToken'),
       refreshToken: localStorage.getItem('refreshToken'),
-      userId: localStorage.getItem("userId")
+      userId: localStorage.getItem("userId"),
+      userInfo: localStorage.getItem("userInfo")
     }
     if (
       localStorageDatas.idToken !== null &&
       localStorageDatas.accessToken !== null &&
       localStorageDatas.refreshToken !== null &&
-      localStorageDatas.userId !== null
+      localStorageDatas.userId !== null &&
+      localStorageDatas.userInfo !== null
     ) {
       thunkAPI.dispatch(actions.auth.setCognitoUser(true))
       thunkAPI.dispatch(actions.auth.setTokens({
@@ -36,7 +38,7 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
         refreshToken: localStorageDatas.refreshToken
       }))
       thunkAPI.dispatch(actions.auth.setUserId(localStorageDatas.userId))
-
+      thunkAPI.dispatch(actions.auth.setUserInfo(JSON.parse(localStorageDatas.userInfo)))
     } else {
       cognitoUser.getSession((err: Error, session: CognitoUserSession) => {
         if (err) {
@@ -60,6 +62,8 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
         localStorage.setItem('accessToken', accessToken)
         localStorage.setItem('refreshToken', refreshToken)
         localStorage.setItem('userId', userId)
+
+        thunkAPI.dispatch(thunkActions.auth.getUserInfo())
       })
     }
   }
