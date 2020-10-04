@@ -18,36 +18,27 @@ type Auth = {
   } | null
   userId: string
   userInfo: {
-    userName: string
-    createdAt: string
-    updatedAt: string
-    imgOwn: string
-    imgType: string
-    img64: string
+    userName: string | undefined
+    createdAt: string | undefined
+    updatedAt: string | undefined
+    imgOwn: string | undefined
+    imgType: string | undefined
+    img64: string | undefined
   }
 }
-
-const LStoJson = (item: string | null) => {
-  if (typeof (item) === 'string' && item !== 'undefined') {
-    return JSON.parse(item)
-  } else {
-    return {
-      userName: '',
-      createdAt: '',
-      updatedAt: '',
-      imgOwn: '',
-      imgType: '',
-      img64: ''
-    }
-  }
-}
-
 
 const initialState: Auth = {
   isSignIn: false,
   tokens: null,
   userId: '',
-  userInfo: LStoJson(localStorage.getItem('userInfo'))
+  userInfo: {
+    userName: '',
+    createdAt: '',
+    updatedAt: '',
+    imgOwn: '',
+    imgType: '',
+    img64: ''
+  }
 }
 
 const authSlice = createSlice({
