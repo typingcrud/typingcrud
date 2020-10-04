@@ -30,10 +30,12 @@ exports.handler = async (event, context, callback) => {
       }
     });
 
+    const dbUserName = event.email.split('@')[0]
+
     const ddbParams = {
       Item: {
         'userId': { S: userid },
-        'userName': { S: "" },
+        'userName': { S: dbUserName },
         'createdAt': { S: moment().format("YYYY MM/DD HH:mm:ss").toString() },
         'updatedAt': { S: moment().format("YYYY MM/DD HH:mm:ss").toString() },
         'imgOwn': { S: "0" }
