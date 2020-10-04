@@ -36,7 +36,8 @@
     "pro_start": "dotenv -e .env.production react-scripts start",
     "pro_build": "dotenv -e .env.production react-scripts build",
     "pro_test": "dotenv -e .env.production react-scripts test",
-    "pro_eject": "dotenv -e .env.production react-scripts eject"
+    "pro_eject": "dotenv -e .env.production react-scripts eject",
+    "lambda": "./lambda_deploy.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
