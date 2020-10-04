@@ -18,4 +18,10 @@ def put(event):
 
 def lambda_handler(event, context):
     person = put(event)
-    return person
+    return {
+        'statusCode': 200,
+        'headers': {
+            "Access-Control-Allow-Origin": "*"
+        },
+        'body': "Success!"
+    }
