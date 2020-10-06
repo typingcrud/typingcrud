@@ -13,7 +13,7 @@ export const changeUserInfo = createAsyncThunk<void, string, ThunkAPI>(
     const idToken = thunkAPI.getState().auth.tokens?.idToken
     const changeUserInfo = thunkAPI.getState().setting.changeUserInfo
 
-    let params = {
+    const params = {
       userId: userId,
       userName: changeUserInfo.userName,
       imgType: changeUserInfo.imgType,

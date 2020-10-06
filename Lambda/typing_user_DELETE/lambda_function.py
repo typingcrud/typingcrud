@@ -4,18 +4,32 @@ import os
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
+s3 = boto3.resource('s3')
+bucket = s3.Bucket(os.environ['BUCKET_NAME'])
 
-
-def put(event):
-    response = table.delete_item(
+def delete(event):
+    table.delete_item(
         Key={
             'userId': event['userId']
         }
     )
 
-    return response
+    bucket.delete_objects(
+        Delete={
+            "Objects": [
+                {"Key": event['userId']}
+            ]
+        }
+    )
 
+    return
 
 def lambda_handler(event, context):
-    person = put(event)
-    return person
+    delete(event)
+    return {
+        'statusCode': 200,
+        'headers': {
+            "Access-Control-Allow-Origin": "*"
+        },
+        'body': "Success!"
+    }
