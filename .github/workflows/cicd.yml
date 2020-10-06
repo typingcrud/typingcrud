@@ -34,6 +34,7 @@ jobs:
         REACT_APP_COGNITO_USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
         REACT_APP_COGNITO_CLIENT_ID: ${{ secrets.CLIENT_ID }}
         REACT_APP_API_BASE: ${{ secrets.API_BASE }}
+        REACT_APP_TRACKING_ID: ${{ secrets.TRACKING_ID }}
 
     - name: Upload build result
       uses: actions/upload-artifact@v2
