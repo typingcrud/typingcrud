@@ -195,7 +195,7 @@ const NavBar: React.FC = () => {
                   fontSize: 18
                 }}
               >
-                ようこそ{userInfo.userName}さん
+                ユーザー名：{userInfo.userName}
               </Typography>
               <IconButton
                 style={{
