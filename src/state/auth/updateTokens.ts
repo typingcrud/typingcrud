@@ -3,7 +3,7 @@ import { CognitoRefreshToken } from 'amazon-cognito-identity-js'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 
 import { ThunkAPI } from 'utils/thunk'
-import { actions } from 'state'
+import { thunkActions, actions } from 'state'
 
 
 export const updateTokens = createAsyncThunk<void, void, ThunkAPI>(
@@ -22,6 +22,7 @@ export const updateTokens = createAsyncThunk<void, void, ThunkAPI>(
       if (err) {
         console.log("トークンの更新に失敗しました。↓がエラー結果です")
         console.error(err);
+        thunkAPI.dispatch(thunkActions.auth.signOut())
       } else {
         const idToken = session.getIdToken().getJwtToken()
         const accessToken = session.getAccessToken().getJwtToken()
