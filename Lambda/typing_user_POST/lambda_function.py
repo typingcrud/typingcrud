@@ -11,26 +11,11 @@ import logging
 logger = logging.getLogger()
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
-s3 = boto3.resource('s3')
-bucket = s3.Bucket(os.environ['BUCKET_NAME'])
-
 
 def put(event):
     body = ast.literal_eval(event['body'])
     qs = event['queryStringParameters']
     imgown = "0"
-
-    if(body['img64'] != "0"):
-        strg = body['img64']
-        strg += "=" * ((4 - len(strg) % 4) % 4)
-        binary = base64.b64decode(strg.encode("UTF-8"))
-
-        bucket.put_object(
-            Key=qs['userId'],
-            Body=binary,
-            ContentType='image/{0}'.format(qs['imgType'])
-        )
-        imgown = "1"
 
     table.put_item(
         Item={
@@ -42,7 +27,6 @@ def put(event):
         }
     )
     return
-
 
 def lambda_handler(event, context):
     put(event)
