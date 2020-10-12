@@ -6,10 +6,6 @@ import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import axios, { AxiosRequestConfig } from 'axios'
 import { thunkActions, actions } from 'state'
 
-import moment from 'moment';
-import 'moment/locale/ja'
-moment.locale('ja')
-
 export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
   'setting/deleteUser',
   async (_, thunkAPI) => {
@@ -88,7 +84,6 @@ export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
           thunkAPI.dispatch(thunkActions.auth.signOut())
           thunkAPI.dispatch(actions.setting.reset())
           localStorage.clear()
-          localStorage.setItem('deleteTime', moment().toString())
           
           alert(result + ": User deleted")
         })
