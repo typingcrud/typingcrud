@@ -176,7 +176,7 @@ const NavBar: React.FC = () => {
             <MenuIcon />
           </IconButton>
           <img
-            src='img/logo_transparent.png'
+            src={`${process.env.PUBLIC_URL}/img/logo_transparent.png`}
             style={{
               fontSize: 18,
               width: 160,
@@ -196,7 +196,7 @@ const NavBar: React.FC = () => {
                   fontSize: 18
                 }}
               >
-                ようこそ{userInfo.userName}さん
+                ユーザー名：{userInfo.userName}
               </Typography>
               <IconButton
                 style={{

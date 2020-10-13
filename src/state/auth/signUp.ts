@@ -6,7 +6,6 @@ import { ThunkAPI } from 'utils/thunk'
 import { cognitoUserPool } from 'utils/cognito/cognito-utils'
 import { actions } from 'state'
 
-
 export const signUp = createAsyncThunk<void, void, ThunkAPI>(
   'auth/signUp',
   async (_, thunkAPI) => {
@@ -42,7 +41,7 @@ export const signUpVerify = createAsyncThunk<void, void, ThunkAPI>(
         alert(err.message || JSON.stringify(err))
         return
       }
-      axios.post(process.env.REACT_APP_API_BASE + "userid", {email: signUpForm.email})
+      axios.post(process.env.REACT_APP_API_BASE + "userid", { email: signUpForm.email })
         .then(() => {
           alert("Success!")
           thunkAPI.dispatch(actions.authForm.reset())

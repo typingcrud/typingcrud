@@ -14,7 +14,7 @@ exports.handler = async (event, context, callback) => {
   if (event) {
     const str = event.email + (new Date()).getTime().toString();
     const userid = crypto.createHash('sha256').update(str, 'utf8').digest('hex');
-    const cognitoParams = {
+    const updateParams = {
       UserAttributes: [
         {
           Name: 'custom:typing_userID',
@@ -24,27 +24,26 @@ exports.handler = async (event, context, callback) => {
       UserPoolId: userpoolid,
       Username: event.email
     };
-    cognitoidentityserviceprovider.adminUpdateUserAttributes(cognitoParams, function (err, data) {
-      if (err) {
-        console.log(err, err.stack);
-      }
-    });
-
-    const ddbParams = {
-      Item: {
-        'userId': { S: userid },
-        'userName': { S: "" },
-        'createdAt': { S: moment().format("YYYY MM/DD HH:mm:ss").toString() },
-        'updatedAt': { S: moment().format("YYYY MM/DD HH:mm:ss").toString() },
-        'imgOwn': { S: "0" }
-      },
-      TableName: tableName
-    };
-
+    const getParams = {
+      UserPoolId: userpoolid,
+      Username: event.email
+    }
     try {
-      await ddb.putItem(ddbParams).promise();
-    } catch (err) {
-      console.log("Error", err);
+      await cognitoidentityserviceprovider.adminUpdateUserAttributes(updateParams).promise()
+      const user = await cognitoidentityserviceprovider.adminGetUser(getParams).promise()
+      const ddbParams = {
+        Item: {
+          'userId': { S: user.UserAttributes[2]['Value'] },
+          'userName': { S: event.email.split('@')[0] },
+          'createdAt': { S: moment().format("YYYY MM/DD HH:mm:ss").toString() },
+          'updatedAt': { S: moment().format("YYYY MM/DD HH:mm:ss").toString() },
+          'imgOwn': { S: "0" }
+        },
+        TableName: tableName
+      }
+      await ddb.putItem(ddbParams).promise()
+    } catch (e) {
+      console.error(e)
     }
 
     context.done(null, event);
