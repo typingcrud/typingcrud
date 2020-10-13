@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useAppDispatch, useAppSelector, thunkActions } from 'state'
 import { useHistory } from 'react-router-dom'
 import { useSignIn } from 'utils'
@@ -28,6 +28,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpIcon from '@material-ui/icons/Help';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 
 const drawerWidth = 240;
 
@@ -80,7 +82,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
+      //paddingLeft: theme.spacing(32),
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(3),
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -94,6 +98,9 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
       marginLeft: 0,
     },
+    breadcrumb: {
+      marginLeft: '250px'
+    }
   }),
 );
 
@@ -114,8 +121,9 @@ const NavBar: React.FC = () => {
   )
   const classes = useStyles();
   const theme = useTheme();
-  const [draweropen, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [draweropen, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [pathName, setPathName] = useState([''])
   const useropen = Boolean(anchorEl);
 
   const handleDrawerOpen = () => {
@@ -155,6 +163,21 @@ const NavBar: React.FC = () => {
       link('/')()
     }, [dispatch, link]
   )
+
+  useEffect(() => {
+    if (history.location.pathname !== '/') {
+      setPathName(history.location.pathname.split('/'))
+    } else {
+      setPathName(['homePath'])
+    }
+    history.listen((location: any) => {
+      if (history.location.pathname !== '/') {
+        setPathName(history.location.pathname.split('/'))
+      } else {
+        setPathName(['homePath'])
+      }
+    })
+  }, [history])
 
   return (
     <div className={classes.root}>
@@ -315,6 +338,79 @@ const NavBar: React.FC = () => {
         })}
       >
         <div className={classes.drawerHeader} />
+        <Breadcrumbs aria-label="breadcrumb" className={clsx(classes.breadcrumb)}>
+          <Link color="inherit" onClick={link('/')}>
+            <Typography color="textPrimary">/ ホーム</Typography>
+          </Link>
+          {/* eslint-disable-next-line */}
+          {pathName.map((path, index) => {
+            if (index !== 0) {
+              let to = ''
+              switch (path) {
+                case 'game':
+                  path = 'ゲーム'
+                  to = '/game'
+                  break
+                case 'play':
+                  path = '一覧'
+                  to = '/game/list'
+                  break
+                case 'edit':
+                  path = '一覧'
+                  to = '/game/list'
+                  break
+                case 'post':
+                  path = '作成'
+                  to = '/game/post'
+                  break
+                case 'list':
+                  path = '一覧'
+                  to = '/game/list'
+                  break
+                case 'user':
+                  path = 'ユーザー設定'
+                  to = '/user'
+                  break
+                case 'change-userinfo':
+                  path = 'ユーザー名、アイコン画像変更'
+                  to = '/user/change-userinfo'
+                  break
+                case 'change-email':
+                  path = 'メールアドレス変更'
+                  to = '/user/change-email'
+                  break
+                case 'change-password':
+                  path = 'パスワード変更'
+                  to = '/user/change-password'
+                  break
+                case 'delete':
+                  path = 'アカウント削除'
+                  to = '/user/delete'
+                  break
+                case 'terms':
+                  path = '規約'
+                  to = '/user/terms'
+                  break
+                case 'help':
+                  path = 'ヘルプ'
+                  to = '/user/help'
+                  break
+                default:
+                  to = history.location.pathname
+                  break
+              }
+              return (
+                <Link onClick={link(`${to}`)} key={index}>
+                  <Typography color="textPrimary">{path}</Typography>
+                </Link>
+              )
+            } else if (index === 0 && path === 'homePath') {
+              //eslint-disable-next-line
+              return
+            }
+          })}
+        </Breadcrumbs>
+        <hr></hr>
       </main>
     </div>
   );
