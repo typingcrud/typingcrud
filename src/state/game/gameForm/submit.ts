@@ -24,6 +24,7 @@ export const submit = createAsyncThunk<void, void, ThunkAPI>(
       createdAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
       title: gameForm.title,
       description: gameForm.description,
+      lang: gameForm.lang,
       code: gameForm.code,
       codeComment: gameForm.codeComment,
     })
