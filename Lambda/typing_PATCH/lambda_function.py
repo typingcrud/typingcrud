@@ -15,13 +15,14 @@ def patch(event):
             'userId': qs['userId'],
             'index': qs['index']
         },
-        UpdateExpression="set code = :c, codeComment=:cc, description = :d, title = :t, updatedAt = :u",
+        UpdateExpression="set code = :c, codeComment=:cc, description = :d, title = :t, updatedAt = :u, lang = :l",
         ExpressionAttributeValues={
             ':c': body['code'],
             ':cc': body['codeComment'],
             ':d': body['description'],
             ':t': body['title'],
-            ':u': body['updatedAt']
+            ':u': body['updatedAt'],
+            ':l': body['lang']
         }
     )
     return response
