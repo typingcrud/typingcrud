@@ -23,10 +23,10 @@ type Props = {
   index: string
 }
 
-export const CardElem: React.FC<Props> = ({index: id, children}) => {
+export const CardElem: React.FC<Props> = ({index, children}) => {
   const history = useHistory()
-  const link = (id: string) => () => {
-    history.push('games/' + id)
+  const link = (index: string) => () => {
+    history.push('games/' + index)
   }
 
   const classes = useStales()
@@ -34,15 +34,15 @@ export const CardElem: React.FC<Props> = ({index: id, children}) => {
 
   const deleteGame = useCallback(
     () => {
-      dispatch(thunkActions.gameList.deleteGame(id))
-    }, [dispatch, id]
+      dispatch(thunkActions.gameList.deleteGame(index))
+    }, [dispatch, index]
   )
 
   return (
     <Grid item xs={2} className={classes.grid}>
       <Card className={classes.card}>
         <CardActions>
-          <IconButton color='primary' onClick={link(id)}>
+          <IconButton color='primary' onClick={link(index)}>
             <PlayCircleFilled/>
           </IconButton>
           <div className={classes.grow}/>

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useAppSelector, useAppDispatch, thunkActions } from 'state'
 import { CardElem } from './CardElem'
 import { Grid, Typography, makeStyles, colors, Paper } from '@material-ui/core'
+import { useSignIn } from 'utils'
 
 const useStyles = makeStyles({
   title: {
@@ -17,13 +18,14 @@ const useStyles = makeStyles({
 
 const GameList: React.FC = () => {
   const gameList = useAppSelector(state => state.gameList)
+  const signIn = useSignIn()
   const classes = useStyles()
 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(thunkActions.gameList.getGames())
-  }, [dispatch])
+    if (signIn) dispatch(thunkActions.gameList.getGames())
+  }, [dispatch, signIn])
 
   return (
     <Paper elevation={10} square>
