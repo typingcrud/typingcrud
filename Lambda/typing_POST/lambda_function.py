@@ -25,7 +25,8 @@ def put(event):
             "description": body['description'],
             "title": body['title'],
             "createdAt": body['createdAt'],
-            "updatedAt": body['createdAt']
+            "updatedAt": body['createdAt'],
+            "lang" :body['lang']
         }
     )
     return response
