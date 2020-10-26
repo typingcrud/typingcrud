@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { makeStyles, Grid, Container, IconButton } from '@material-ui/core'
+import { makeStyles, Grid, Container, IconButton, Paper } from '@material-ui/core'
 import { TextField, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import { Language } from 'prism-react-renderer'
 import { useAppSelector, useAppDispatch, actions, thunkActions } from 'state'
@@ -97,7 +97,7 @@ const GameNew: React.FC = () => {
     () => {
       dispatch(thunkActions.gameForm.submit())
         .then(() => {
-          history.push('/')
+          history.push('/games')
         })
         .catch((reason) => {
           console.error(reason)
@@ -106,48 +106,50 @@ const GameNew: React.FC = () => {
   )
 
   return (
-    <Grid container justify='space-between' alignItems='center'>
-      <Grid item xs={9} sm={5} className={classes.item}>
-        <TextField
-          value={title}
-          onChange={changeTitle}
-          label="Title"
-          variant="outlined"
-          color="secondary"
-        />
-      </Grid>
-      <Grid item xs={3} className={classes.item}>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel>Language</InputLabel>
-          <Select label="Language" value={lang} onChange={changeLang}>
-            <MenuItem value=''>None</MenuItem>
-            {langs.map((lang, i) => (
-              <MenuItem key={i} value={lang}>{lang}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item xs={1} className={classes.icon}>
-        <IconButton size='medium' color='secondary' onClick={deleteForm}>
-          <Delete />
-        </IconButton>
-      </Grid>
-      <Container>
-        <Grid container justify='center' alignItems='flex-start' spacing={0}>
-          <Grid item xs={12} sm={6} className={classes.editor}>
-            <Editor identifier='comment' value={comment} lang={""} onValueChange={changeComment} />
-          </Grid>
-          <Grid item xs={12} sm={6} className={classes.editor}>
-            <Editor identifier='code'value={code} lang={lang} onValueChange={changeCode} />
-          </Grid>
+    <Paper elevation={10} square>
+      <Grid container justify='space-between' alignItems='center'>
+        <Grid item xs={9} sm={5} className={classes.item}>
+          <TextField
+            value={title}
+            onChange={changeTitle}
+            label="Title"
+            variant="outlined"
+            color="secondary"
+          />
         </Grid>
-        <Grid item xs={12} className={classes.icon}>
-          <IconButton size='medium' color='primary' onClick={submit}>
-            <Send />
+        <Grid item xs={3} className={classes.item}>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel>Language</InputLabel>
+            <Select label="Language" value={lang} onChange={changeLang}>
+              <MenuItem value=''>None</MenuItem>
+              {langs.map((lang, i) => (
+                <MenuItem key={i} value={lang}>{lang}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={1} className={classes.icon}>
+          <IconButton size='medium' color='secondary' onClick={deleteForm}>
+            <Delete />
           </IconButton>
         </Grid>
-      </Container>
-    </Grid>
+        <Container>
+          <Grid container justify='center' alignItems='flex-start' spacing={0}>
+            <Grid item xs={12} sm={6} className={classes.editor}>
+              <Editor identifier='comment' value={comment} lang={""} onValueChange={changeComment} />
+            </Grid>
+            <Grid item xs={12} sm={6} className={classes.editor}>
+              <Editor identifier='code' value={code} lang={lang} onValueChange={changeCode} />
+            </Grid>
+          </Grid>
+          <Grid item xs={12} className={classes.icon}>
+            <IconButton size='medium' color='primary' onClick={submit}>
+              <Send />
+            </IconButton>
+          </Grid>
+        </Container>
+      </Grid>
+    </Paper>
   )
 }
 

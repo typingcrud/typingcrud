@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useAppSelector, useAppDispatch, thunkActions } from 'state'
 import { CardElem } from './CardElem'
-import { Grid, Typography, makeStyles, colors } from '@material-ui/core'
+import { Grid, Typography, makeStyles, colors, Paper } from '@material-ui/core'
 
 const useStyles = makeStyles({
   title: {
@@ -26,20 +26,22 @@ const GameList: React.FC = () => {
   }, [dispatch])
 
   return (
-    <Grid container justify='center'>
-      { gameList.map((game, index) => {
-        return (
-          <CardElem key={index} index={game.index}>
-            <Typography className={classes.title} color='textPrimary'>
-              {game.title}
-            </Typography>
-            <Typography className={classes.lang} color='textSecondary'>
-              {game.lang}
-            </Typography>
-          </CardElem>
-        )
-      }) }
-    </Grid>
+    <Paper elevation={10} square>
+      <Grid container justify='center'>
+        {gameList.map((game, index) => {
+          return (
+            <CardElem key={index} index={game.index}>
+              <Typography className={classes.title} color='textPrimary'>
+                {game.title}
+              </Typography>
+              <Typography className={classes.lang} color='textSecondary'>
+                {game.lang}
+              </Typography>
+            </CardElem>
+          )
+        })}
+      </Grid>
+    </Paper>
   )
 }
 
