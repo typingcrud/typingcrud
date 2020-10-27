@@ -21,6 +21,7 @@ export const getGame = createAsyncThunk<Game | void, {index: string}, {}>(
 
     const response = await axios(options)
       .then((res) => {
+        console.log(res)
         return res.data.body as Game
       })
       .catch((err) => {
