@@ -189,7 +189,7 @@ const NavBar: React.FC = () => {
           />
           {signIn && (
             <React.Fragment>
-              <Fab color='secondary' size='small' onClick={link('games/new')}>
+              <Fab color='secondary' size='small' onClick={link('/games/new')}>
                 <Add/>
               </Fab>
               <Typography

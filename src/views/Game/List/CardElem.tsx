@@ -26,7 +26,7 @@ type Props = {
 export const CardElem: React.FC<Props> = ({index, children}) => {
   const history = useHistory()
   const link = (index: string) => () => {
-    history.push('games/' + index)
+    history.push('/games/' + index)
   }
 
   const classes = useStales()
