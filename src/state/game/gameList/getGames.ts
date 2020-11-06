@@ -2,11 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ThunkAPI } from 'utils/thunk'
 import { thunkActions, AppState } from 'state'
-import GameList from 'views/Game/GameList'
 
-type GameList = AppState['gameList']['gamearray']
+type GameList = AppState['gameList']
 
-export const getGames = createAsyncThunk<GameList, void, ThunkAPI>(
+export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
   'gameList/getGames',
   async (_, thunkAPI) => {
     const idToken = thunkAPI.getState().auth.tokens?.idToken
@@ -38,18 +37,6 @@ export const getGames = createAsyncThunk<GameList, void, ThunkAPI>(
           })
           .catch((err) => {
             console.error(err)
-            return [
-              {
-                code: "",
-                codeComment: "",
-                createAt: "",
-                description: "",
-                index: "",
-                title: "",
-                updateAt: "",
-                userId: ""
-              }
-            ] as GameList
           })
       })
     

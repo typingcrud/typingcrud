@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { AppState } from 'state'
 
-type Game = AppState['gamePlay']['game']
+type Game = AppState['gamePlay']
 
 export const getGame = createAsyncThunk<Game | void, {index: string}, {}>(
   'gamePlay/getGame',
