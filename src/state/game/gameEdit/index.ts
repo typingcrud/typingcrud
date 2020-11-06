@@ -9,6 +9,7 @@ type GameEdit = GameForm
 const initialState: GameEdit = {
   title: '',
   description: '',
+  lang: '',
   code: '',
   codeComment: '',
 }

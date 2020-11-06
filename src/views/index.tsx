@@ -9,13 +9,11 @@ import ChangeEmailForm from 'views/Setting/ChangeEmail'
 import ChangeUserInfo from 'views/Setting/ChangeUserInfo'
 import Setting from 'views/Setting'
 import Demo from 'views/Demo'
-import Game from 'views/Game'
-import GameForm from 'views/Game/GameForm'
-import GameList from 'views/Game/GameList'
-import GamePlay from 'views/Game/GamePlay'
-import GameEdit from 'views/Game/GameEdit'
 import Terms from 'views/Terms'
 import Help from 'views/Help'
+import GameList from 'views/game/List'
+import GamePlay from 'views/game/Play'
+import GameNew from 'views/game/New'
 
 export default {
   Home,
@@ -29,11 +27,9 @@ export default {
   ChangeUserInfo,
   Setting,
   Demo,
-  Game,
-  GameForm,
-  GameList,
-  GamePlay,
-  GameEdit,
   Terms,
   Help,
+  GameList,
+  GamePlay,
+  GameNew,
 }
