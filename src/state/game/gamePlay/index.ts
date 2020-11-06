@@ -12,8 +12,8 @@ const initialState: GamePlay = {
   lang: '',
   code: '',
   codeComment: '',
-  createAt: '',
-  updateAt: ''
+  createdAt: '',
+  updatedAt: ''
 }
 
 const gamePlaySlice = createSlice({
@@ -23,9 +23,9 @@ const gamePlaySlice = createSlice({
     reset: () => initialState,
   },
   extraReducers: builder => {
-    builder.addCase(getGame.fulfilled, (state, action) => {
-      state = action.payload ? action.payload : state
-    })
+    builder.addCase(getGame.fulfilled, (state, action) => (
+      action.payload ? action.payload : state
+    ))
   }
 })
 

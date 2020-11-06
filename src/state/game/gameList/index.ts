@@ -6,12 +6,12 @@ import { deleteGame } from 'state/game/gameList/deleteGames'
 export type Game = {
   code: string
   codeComment: string
-  createAt: string
+  createdAt: string
   description: string
   index: string
   title: string
   lang: string
-  updateAt: string
+  updatedAt: string
   userId: string
 }
 

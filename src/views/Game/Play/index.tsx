@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 })
 
 const GamePlay: React.FC = () => {
-  const { index } = useParams<{ index: string }>()
+  const { id: index } = useParams()
   const game = useAppSelector(state => state.gamePlay)
   const classes = useStyles()
 
