@@ -40,7 +40,8 @@ const App: React.FC = () => {
         <Route path='/demo'><Views.Demo /></Route> {/*いずれ削除*/}
         <Switch>
           <Route exact path='/games'><Views.GameList /></Route>
-          <Route path='/games/new'><Views.GameForm /></Route>
+          <Route path='/games/new'><Views.GameNew /></Route>
+          <Route path='/games/edit/:id'><Views.GameEdit /></Route>
           <Route path='/games/:id'><Views.GamePlay /></Route>
         </Switch>
         <Route path='/terms'><Views.Terms /></Route> {/*規約ページ*/}
