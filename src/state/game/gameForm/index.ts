@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { submit } from 'state/game/gameForm/submit'
+import { getGame } from 'state/game/gameForm/getGame'
+import { create } from 'state/game/gameForm/create'
+import { update } from 'state/game/gameForm/update'
 
-export type GameForm = {
+type GameForm = {
   title: string
   description: string
   lang: string
@@ -11,11 +13,11 @@ export type GameForm = {
 }
 
 const initialState: GameForm = {
-  title: "",
-  description: "",
-  lang: "",
-  code: "",
-  codeComment: "",
+  title: '',
+  description: '',
+  lang: '',
+  code: '',
+  codeComment: '',
 }
 
 const gameFormSlice = createSlice({
@@ -38,11 +40,21 @@ const gameFormSlice = createSlice({
     setDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(getGame.fulfilled, (state, action) => {
+      const { code, codeComment, description, title, lang } = action.payload ? action.payload : state
+      state.title = title
+      state.lang = lang
+      state.description = description
+      state.code = code
+      state.codeComment = codeComment
+    })
   }
 })
 
 export const gameFormThunk = {
-  submit
+  getGame, create, update
 }
 
 export default gameFormSlice

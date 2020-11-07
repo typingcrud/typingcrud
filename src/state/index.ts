@@ -7,7 +7,6 @@ import settingSlice, { settingThunk } from 'state/setting'
 import gameFormSlice, { gameFormThunk } from 'state/game/gameForm'
 import gameListSlice, { gameListThunk } from 'state/game/gameList'
 import gamePlaySlice, { gamePlayThunk } from 'state/game/gamePlay'
-import gameEditSlice, { gameEditThunk } from 'state/game/gameEdit'
 import gameParamsSlice  from 'state/game/gameParams'
 
 
@@ -20,7 +19,6 @@ export const store = configureStore({
     [gameFormSlice.name]: gameFormSlice.reducer,
     [gameListSlice.name]: gameListSlice.reducer,
     [gamePlaySlice.name]: gamePlaySlice.reducer,
-    [gameEditSlice.name]: gameEditSlice.reducer,
     [gameParamsSlice.name]: gameParamsSlice.reducer,
   }
 })
@@ -33,7 +31,6 @@ export const actions = {
   [gameFormSlice.name]: gameFormSlice.actions,
   [gameListSlice.name]: gameListSlice.actions,
   [gamePlaySlice.name]: gamePlaySlice.actions,
-  [gameEditSlice.name]: gameEditSlice.actions,
   [gameParamsSlice.name]: gameParamsSlice.actions,
 }
 
@@ -44,7 +41,6 @@ export const thunkActions = {
   [gameFormSlice.name]: gameFormThunk,
   [gameListSlice.name]: gameListThunk,
   [gamePlaySlice.name]: gamePlayThunk,
-  [gameEditSlice.name]: gameEditThunk,
 }
 
 

@@ -41,6 +41,7 @@ const App: React.FC = () => {
         <Switch>
           <Route exact path='/games'><Views.GameList /></Route>
           <Route path='/games/new'><Views.GameNew /></Route>
+          <Route path='/games/edit/:id'><Views.GameEdit /></Route>
           <Route path='/games/:id'><Views.GamePlay /></Route>
         </Switch>
         <Route path='/terms'><Views.Terms /></Route> {/*規約ページ*/}
