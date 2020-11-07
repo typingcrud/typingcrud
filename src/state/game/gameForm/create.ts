@@ -1,35 +1,34 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
-
 import { ThunkAPI } from 'utils/thunk'
-
+import { sha256 } from 'js-sha256'
 import moment from 'moment';
 import 'moment/locale/ja'
 moment.locale('ja')
 
-
-export const submit = createAsyncThunk<void, string, ThunkAPI>(
-  'gameEdit/submit',
-  async (index, thunkAPI) => {
+export const create = createAsyncThunk<void, void, ThunkAPI>(
+  'gameForm/create',
+  async (_, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
-    const gameEdit = thunkAPI.getState().gameEdit
+    const gameForm = thunkAPI.getState().gameForm
 
     const params = {
       userId: userId,
-      index: index,
+      index: sha256(userId + (new Date()).getTime().toString())
     }
 
     const data: string = JSON.stringify({
-      updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
-      title: gameEdit.title,
-      description: gameEdit.description,
-      code: gameEdit.code,
-      codeComment: gameEdit.codeComment,
+      createdAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
+      title: gameForm.title,
+      description: gameForm.description,
+      lang: gameForm.lang,
+      code: gameForm.code,
+      codeComment: gameForm.codeComment,
     })
 
     const options: AxiosRequestConfig = {
-      method: 'PATCH',
+      method: 'POST',
       headers: {
         Authorization: idToken,
         "Content-Type": "application/json"
