@@ -66,7 +66,7 @@ type Props = {
 const GameForm: React.FC<Props> = ({ submit }) => {
   const classes = useStyles()
 
-  const { title, lang, code, codeComment: comment } = useAppSelector(state => state.gameForm)
+  const { title, lang, code, codeComment } = useAppSelector(state => state.gameForm)
 
   const dispatch = useAppDispatch()
   const changeCode = useCallback(
@@ -75,8 +75,8 @@ const GameForm: React.FC<Props> = ({ submit }) => {
     }, [dispatch]
   )
   const changeComment = useCallback(
-    (comment: string) => {
-      dispatch(actions.gameForm.setComment(comment))
+    (codeComment: string) => {
+      dispatch(actions.gameForm.setComment(codeComment))
     }, [dispatch]
   )
   const changeTitle = useCallback(
@@ -127,7 +127,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
         <Container>
           <Grid container justify='center' alignItems='flex-start' spacing={0}>
             <Grid item xs={12} sm={6} className={classes.editor}>
-              <Editor identifier='comment' value={comment} lang={""} onValueChange={changeComment} />
+              <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
             </Grid>
             <Grid item xs={12} sm={6} className={classes.editor}>
               <Editor identifier='code' value={code} lang={lang} onValueChange={changeCode} />

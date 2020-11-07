@@ -43,8 +43,9 @@ const gameFormSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getGame.fulfilled, (state, action) => {
-      const { code, codeComment, description, title } = action.payload ? action.payload : state
+      const { code, codeComment, description, title, lang } = action.payload ? action.payload : state
       state.title = title
+      state.lang = lang
       state.description = description
       state.code = code
       state.codeComment = codeComment
