@@ -2,10 +2,9 @@ import React, { useCallback } from 'react'
 import { makeStyles, Grid, Container, IconButton, Paper } from '@material-ui/core'
 import { TextField, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import { Language } from 'prism-react-renderer'
-import { useAppSelector, useAppDispatch, actions, thunkActions } from 'state'
+import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
 import { Send, Delete } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
   item: {
@@ -60,9 +59,12 @@ const langs: Language[] = [
   "yaml",
 ]
 
-const GameNew: React.FC = () => {
+type Props = {
+  submit: () => void
+}
+
+const GameForm: React.FC<Props> = ({ submit }) => {
   const classes = useStyles()
-  const history = useHistory()
 
   const { title, lang, code, codeComment: comment } = useAppSelector(state => state.gameForm)
 
@@ -92,17 +94,6 @@ const GameNew: React.FC = () => {
     () => {
       dispatch(actions.gameForm.reset())
     }, [dispatch]
-  )
-  const submit = useCallback(
-    () => {
-      dispatch(thunkActions.gameForm.submit())
-        .then(() => {
-          history.push('/games')
-        })
-        .catch((reason) => {
-          console.error(reason)
-        })
-    }, [dispatch, history]
   )
 
   return (
@@ -153,4 +144,4 @@ const GameNew: React.FC = () => {
   )
 }
 
-export default GameNew
+export default GameForm

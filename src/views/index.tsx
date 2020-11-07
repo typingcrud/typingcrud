@@ -13,7 +13,8 @@ import Terms from 'views/Terms'
 import Help from 'views/Help'
 import GameList from 'views/game/List'
 import GamePlay from 'views/game/Play'
-import GameForm from 'views/game/Form'
+import GameNew from 'views/game/New'
+import GameEdit from 'views/game/Edit'
 
 export default {
   Home,
@@ -31,5 +32,6 @@ export default {
   Help,
   GameList,
   GamePlay,
-  GameForm,
+  GameNew,
+  GameEdit,
 }
