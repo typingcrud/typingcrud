@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { AppState } from 'state'
 
-type Game = AppState['gamePlay']['game']
+type Game = AppState['gamePlay']
 
 export const getGame = createAsyncThunk<Game | void, string, {}>(
-  'gameEdit/getGame',
+  'gameForm/getGame',
   async (index) => {
     const params = {
       index: index,

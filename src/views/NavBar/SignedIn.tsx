@@ -25,7 +25,7 @@ export const SignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
 
   return (
     <React.Fragment>
-      <ListItem button onClick={() => linkDrawerClose('game')}>
+      <ListItem button onClick={() => linkDrawerClose('games')}>
         <IconButton
           color="inherit"
           edge="start"
