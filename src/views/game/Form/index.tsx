@@ -149,10 +149,10 @@ const GameForm: React.FC<Props> = ({ submit }) => {
         <Container>
           <Grid container justify='center' alignItems='flex-start' spacing={0}>
             <Grid item xs={12} sm={6} className={classes.editor}>
-              <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
+              <Editor identifier='code' value={code} lang={lang} onValueChange={changeCode} />
             </Grid>
             <Grid item xs={12} sm={6} className={classes.editor}>
-              <Editor identifier='code' value={code} lang={lang} onValueChange={changeCode} />
+              <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
             </Grid>
           </Grid>
           <Grid item xs={12} className={classes.icon}>

@@ -38,10 +38,10 @@ const GamePlay: React.FC = () => {
         <Container>
           <Grid container justify='center' alignItems='flex-start' spacing={0}>
             <Grid item xs={12} sm={6}>
-              <Comment />
+              <Code />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Code />
+              <Comment />
             </Grid>
           </Grid>
         </Container>
