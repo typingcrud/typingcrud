@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { makeStyles, Grid, Container, IconButton, Paper } from '@material-ui/core'
 import { TextField, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
-import { Language } from 'prism-react-renderer'
+import { langs } from 'utils/languages'
 import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
 import { Send, Delete } from '@material-ui/icons'
@@ -32,41 +32,6 @@ const useStyles = makeStyles({
     marginBottom: '1%',
   },
 })
-
-const langs: Language[] = [
-  "markup",
-  "bash",
-  "clike",
-  "c",
-  "cpp",
-  "css",
-  "javascript",
-  "jsx",
-  "coffeescript",
-  "actionscript",
-  "css-extr",
-  "diff",
-  "git",
-  "go",
-  "graphql",
-  "handlebars",
-  "json",
-  "less",
-  "makefile",
-  "markdown",
-  "objectivec",
-  "ocaml",
-  "python",
-  "reason",
-  "sass",
-  "scss",
-  "sql",
-  "stylus",
-  "tsx",
-  "typescript",
-  "wasm",
-  "yaml",
-]
 
 type Props = {
   submit: () => void
