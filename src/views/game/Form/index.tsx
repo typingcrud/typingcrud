@@ -5,6 +5,7 @@ import { Language } from 'prism-react-renderer'
 import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
 import { Send, Delete } from '@material-ui/icons'
+import { FormValidation } from './FormValidation'
 
 const useStyles = makeStyles({
   item: {
@@ -105,7 +106,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
 
   const deleteForm = useCallback(
     () => {
-      dispatch(actions.gameForm.reset())
+      if (window.confirm('入力内容を削除しますか?')) dispatch(actions.gameForm.reset())
     }, [dispatch]
   )
 
@@ -154,6 +155,9 @@ const GameForm: React.FC<Props> = ({ submit }) => {
             <Grid item xs={12} sm={6} className={classes.editor}>
               <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <FormValidation/>
           </Grid>
           <Grid item xs={12} className={classes.icon}>
             <IconButton size='medium' color='primary' onClick={submit}>
