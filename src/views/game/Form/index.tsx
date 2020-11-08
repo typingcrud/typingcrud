@@ -6,6 +6,7 @@ import { langs } from 'utils/languages'
 import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
 import { Send, Delete } from '@material-ui/icons'
+import { NotSend } from 'views/game/Form/NotSend'
 
 const useStyles = makeStyles({
   item: {
@@ -121,7 +122,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
               <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
             </Grid>
           </Grid>
-          { !valid.isAscii &&
+          {!valid.isAscii &&
             <Grid item xs={12}>
               <Alert severity="warning">
                 <AlertTitle>注意</AlertTitle>
@@ -130,9 +131,11 @@ const GameForm: React.FC<Props> = ({ submit }) => {
             </Grid>
           }
           <Grid item xs={12} className={classes.icon}>
-            <IconButton size='medium' color='primary' onClick={submit}>
-              <Send />
-            </IconButton>
+            {valid.isFilled && valid.isAscii ?
+              <IconButton size='medium' color='primary' onClick={submit}><Send /></IconButton>
+              :
+              <NotSend />
+            }
           </Grid>
         </Container>
       </Grid>
