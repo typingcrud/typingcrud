@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useAppSelector } from 'state'
+import { Alert, AlertTitle } from '@material-ui/lab'
 
 export const FormValidation: React.FC = () => {
   const { code } = useAppSelector(state => state.gameForm)
@@ -18,6 +19,9 @@ export const FormValidation: React.FC = () => {
   }, [check, code])
 
   return valid ? <React.Fragment/> : (
-    <div>ダメだよ</div>
+    <Alert severity="warning">
+      <AlertTitle>注意</AlertTitle>
+      タイピング対象のソースコードとして投稿できるのは半角英数字及びキーボードに刻印されている特殊文字のみです
+    </Alert>
   )
 }
