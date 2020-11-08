@@ -11,7 +11,12 @@ export const create = createAsyncThunk<void, void, ThunkAPI>(
   async (_, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
-    const { title, description, lang, code, codeComment } = thunkAPI.getState().gameForm
+    const { title, description, lang, code, codeComment, valid } = thunkAPI.getState().gameForm
+
+    if (!valid.isAscii || !valid.isFilled) {
+      console.error('Validation has been submitted despite the fact that it has failed')
+      return
+    }
 
     const params = {
       userId: userId,
