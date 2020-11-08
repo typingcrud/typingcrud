@@ -21,7 +21,7 @@ export const FormValidation: React.FC = () => {
   return valid ? <React.Fragment/> : (
     <Alert severity="warning">
       <AlertTitle>注意</AlertTitle>
-      タイピング対象のソースコードとして投稿できるのは半角英数字及びキーボードに刻印されている特殊文字のみです
+      タイピング対象のソースコードとして投稿できるのは半角英数字及びキーボードに刻印されている特殊記号のみです
     </Alert>
   )
 }
