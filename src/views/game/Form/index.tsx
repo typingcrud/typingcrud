@@ -9,6 +9,14 @@ import { Send, Delete } from '@material-ui/icons'
 const useStyles = makeStyles({
   item: {
     margin: '4%',
+    marginTop: '2%',
+    marginBottom: '1%',
+    textAlign: 'center'
+  },
+  description: {
+    margin: '10%',
+    marginTop: '1%',
+    marginBottom: '2%',
     textAlign: 'center'
   },
   icon: {
@@ -66,7 +74,7 @@ type Props = {
 const GameForm: React.FC<Props> = ({ submit }) => {
   const classes = useStyles()
 
-  const { title, lang, code, codeComment } = useAppSelector(state => state.gameForm)
+  const { title, lang, code, codeComment, description } = useAppSelector(state => state.gameForm)
 
   const dispatch = useAppDispatch()
   const changeCode = useCallback(
@@ -82,6 +90,11 @@ const GameForm: React.FC<Props> = ({ submit }) => {
   const changeTitle = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(actions.gameForm.setTitle(e.target.value))
+    }, [dispatch]
+  )
+  const changeDescription = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(actions.gameForm.setDescription(e.target.value))
     }, [dispatch]
   )
   const changeLang = useCallback(
@@ -104,12 +117,11 @@ const GameForm: React.FC<Props> = ({ submit }) => {
             value={title}
             onChange={changeTitle}
             label="Title"
-            variant="outlined"
             color="secondary"
           />
         </Grid>
         <Grid item xs={3} className={classes.item}>
-          <FormControl variant="outlined" className={classes.formControl}>
+          <FormControl className={classes.formControl}>
             <InputLabel>Language</InputLabel>
             <Select label="Language" value={lang} onChange={changeLang}>
               <MenuItem value=''>None</MenuItem>
@@ -124,13 +136,23 @@ const GameForm: React.FC<Props> = ({ submit }) => {
             <Delete />
           </IconButton>
         </Grid>
+        <Grid item xs={12} className={classes.description}>
+          <TextField
+            value={description}
+            onChange={changeDescription}
+            label="Description"
+            color="primary"
+            fullWidth
+            multiline
+          />
+        </Grid>
         <Container>
           <Grid container justify='center' alignItems='flex-start' spacing={0}>
             <Grid item xs={12} sm={6} className={classes.editor}>
-              <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
+              <Editor identifier='code' value={code} lang={lang} onValueChange={changeCode} />
             </Grid>
             <Grid item xs={12} sm={6} className={classes.editor}>
-              <Editor identifier='code' value={code} lang={lang} onValueChange={changeCode} />
+              <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
             </Grid>
           </Grid>
           <Grid item xs={12} className={classes.icon}>
