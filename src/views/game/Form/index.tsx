@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 import { makeStyles, Grid, Container, IconButton, Paper } from '@material-ui/core'
 import { TextField, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { Alert, AlertTitle } from '@material-ui/lab'
 import { langs } from 'utils/languages'
 import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
 import { Send, Delete } from '@material-ui/icons'
-import { FormValidation } from './FormValidation'
 
 const useStyles = makeStyles({
   item: {
@@ -40,7 +40,7 @@ type Props = {
 const GameForm: React.FC<Props> = ({ submit }) => {
   const classes = useStyles()
 
-  const { title, lang, code, codeComment, description } = useAppSelector(state => state.gameForm)
+  const { title, lang, code, codeComment, description, valid } = useAppSelector(state => state.gameForm)
 
   const dispatch = useAppDispatch()
   const changeCode = useCallback(
@@ -121,9 +121,14 @@ const GameForm: React.FC<Props> = ({ submit }) => {
               <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <FormValidation/>
-          </Grid>
+          { !valid.isAscii &&
+            <Grid item xs={12}>
+              <Alert severity="warning">
+                <AlertTitle>注意</AlertTitle>
+                タイピング対象のソースコードとして投稿できるのは半角英数字及びキーボードに刻印されている特殊記号のみです
+              </Alert>
+            </Grid>
+          }
           <Grid item xs={12} className={classes.icon}>
             <IconButton size='medium' color='primary' onClick={submit}>
               <Send />
