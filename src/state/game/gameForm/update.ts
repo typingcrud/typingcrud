@@ -11,7 +11,12 @@ export const update = createAsyncThunk<void, string, ThunkAPI>(
   async (index, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
-    const gameForm = thunkAPI.getState().gameForm
+    const { title, description, lang, code, codeComment, valid } = thunkAPI.getState().gameForm
+
+    if (!valid.isAscii || !valid.isFilled) {
+      console.error('Validation has been submitted despite the fact that it has failed')
+      return
+    }
 
     const params = {
       userId: userId,
@@ -20,11 +25,11 @@ export const update = createAsyncThunk<void, string, ThunkAPI>(
 
     const data: string = JSON.stringify({
       updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
-      title: gameForm.title,
-      description: gameForm.description,
-      lang: gameForm.lang,
-      code: gameForm.code,
-      codeComment: gameForm.codeComment,
+      title: title,
+      description: description,
+      lang: lang,
+      code: code,
+      codeComment: codeComment,
     })
 
     const options: AxiosRequestConfig = {
