@@ -10,6 +10,12 @@ type GameForm = {
   lang: string
   code: string
   codeComment: string
+  valid: Valid
+}
+
+type Valid = {
+  isFilled: boolean
+  isAscii: boolean
 }
 
 const initialState: GameForm = {
@@ -18,6 +24,10 @@ const initialState: GameForm = {
   lang: '',
   code: '',
   codeComment: '',
+  valid: {
+    isFilled: false,
+    isAscii: true,
+  }
 }
 
 const gameFormSlice = createSlice({
@@ -27,9 +37,12 @@ const gameFormSlice = createSlice({
     reset: () => initialState,
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload
+      state.valid.isFilled = state.title !== "" && state.code !== ""
     },
     setCode: (state, action: PayloadAction<string>) => {
       state.code = action.payload
+      state.valid.isFilled = state.title !== "" && state.code !== ""
+      state.valid.isAscii = state.code.match(/[^\n\x20-\x7e]/) === null
     },
     setComment: (state, action: PayloadAction<string>) => {
       state.codeComment = action.payload
@@ -49,6 +62,8 @@ const gameFormSlice = createSlice({
       state.description = description
       state.code = code
       state.codeComment = codeComment
+      state.valid.isFilled = state.title !== "" && state.code !== ""
+      state.valid.isAscii = state.code.match(/[^\n\x20-\x7e]/) === null
     })
   }
 })

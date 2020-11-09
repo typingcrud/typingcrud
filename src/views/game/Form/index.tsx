@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react'
 import { makeStyles, Grid, Container, IconButton, Paper } from '@material-ui/core'
 import { TextField, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
-import { Language } from 'prism-react-renderer'
+import { Alert, AlertTitle } from '@material-ui/lab'
+import { langs } from 'utils/languages'
 import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
 import { Send, Delete } from '@material-ui/icons'
+import { NotSend } from 'views/game/Form/NotSend'
 
 const useStyles = makeStyles({
   item: {
@@ -32,41 +34,6 @@ const useStyles = makeStyles({
   },
 })
 
-const langs: Language[] = [
-  "markup",
-  "bash",
-  "clike",
-  "c",
-  "cpp",
-  "css",
-  "javascript",
-  "jsx",
-  "coffeescript",
-  "actionscript",
-  "css-extr",
-  "diff",
-  "git",
-  "go",
-  "graphql",
-  "handlebars",
-  "json",
-  "less",
-  "makefile",
-  "markdown",
-  "objectivec",
-  "ocaml",
-  "python",
-  "reason",
-  "sass",
-  "scss",
-  "sql",
-  "stylus",
-  "tsx",
-  "typescript",
-  "wasm",
-  "yaml",
-]
-
 type Props = {
   submit: () => void
 }
@@ -74,7 +41,7 @@ type Props = {
 const GameForm: React.FC<Props> = ({ submit }) => {
   const classes = useStyles()
 
-  const { title, lang, code, codeComment, description } = useAppSelector(state => state.gameForm)
+  const { title, lang, code, codeComment, description, valid } = useAppSelector(state => state.gameForm)
 
   const dispatch = useAppDispatch()
   const changeCode = useCallback(
@@ -105,7 +72,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
 
   const deleteForm = useCallback(
     () => {
-      dispatch(actions.gameForm.reset())
+      if (window.confirm('入力内容を削除しますか?')) dispatch(actions.gameForm.reset())
     }, [dispatch]
   )
 
@@ -155,10 +122,20 @@ const GameForm: React.FC<Props> = ({ submit }) => {
               <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
             </Grid>
           </Grid>
+          {!valid.isAscii &&
+            <Grid item xs={12}>
+              <Alert severity="warning">
+                <AlertTitle>注意</AlertTitle>
+                タイピング対象のソースコードとして投稿できるのは半角英数字及びキーボードに刻印されている特殊記号のみです
+              </Alert>
+            </Grid>
+          }
           <Grid item xs={12} className={classes.icon}>
-            <IconButton size='medium' color='primary' onClick={submit}>
-              <Send />
-            </IconButton>
+            {valid.isFilled && valid.isAscii ?
+              <IconButton size='medium' color='primary' onClick={submit}><Send /></IconButton>
+              :
+              <NotSend />
+            }
           </Grid>
         </Container>
       </Grid>
