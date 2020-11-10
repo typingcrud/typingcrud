@@ -1,6 +1,7 @@
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import os
+import json
 import logging
 
 logger = logging.getLogger()
@@ -31,6 +32,12 @@ def delete(event):
 
     return
 
+def get(id):
+    response = table.query(
+        KeyConditionExpression=Key('userId').eq(id)
+    )
+    return response['Items']
+
 def lambda_handler(event, context):
     delete(event)
     return {
@@ -38,5 +45,5 @@ def lambda_handler(event, context):
         'headers': {
             "Access-Control-Allow-Origin": "*"
         },
-        'body': "Success!"
+        'body': json.dumps(get(event['queryStringParameters']['userId']))
     }
