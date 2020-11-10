@@ -2,10 +2,13 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import os
 import ast
+import json
+import logging
+
+logger = logging.getLogger()
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
-
 
 def patch(event):
     body = ast.literal_eval(event['body'])
@@ -27,6 +30,11 @@ def patch(event):
     )
     return response
 
+def get(id):
+    response = table.query(
+        KeyConditionExpression=Key('userId').eq(id)
+    )
+    return response['Items']
 
 def lambda_handler(event, context):
     patch(event)
@@ -36,5 +44,5 @@ def lambda_handler(event, context):
         'headers': {
             "Access-Control-Allow-Origin": "*"
         },
-        'body': "Success!"
+        'body': json.dumps(get(event['queryStringParameters']['userId']))
     }
