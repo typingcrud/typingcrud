@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
             marginTop: '10%'
         },
         heading: {
-            fontSize: theme.typography.pxToRem(15),
+            fontSize: theme.typography.pxToRem(20),
             fontWeight: theme.typography.fontWeightRegular,
         },
     }),
@@ -35,7 +35,6 @@ const Terms: React.FC = () => {
                     <AccordionDetails>
                         <Typography>
                             <div id="term">
-                                <h1>利用規約</h1>
                                 <p>この利用規約（以下，「本規約」といいます。）は，このウェブサイト(TypingCRUD)上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，同意した上で本規約に従って，本サービスをご利用いただきます。</p>
 
                                 <h2>第1条（適用）</h2>
@@ -148,7 +147,6 @@ const Terms: React.FC = () => {
                     <AccordionDetails>
                         <Typography>
                             <div id="privacy">
-                                <h1>プライバシーポリシー</h1>
                                 <p>本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における，ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。</p>
 
                                 <h2>第1条（個人情報）</h2>
