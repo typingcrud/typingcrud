@@ -294,7 +294,7 @@ const NavBar: React.FC = () => {
         <Divider />
         <List>
           <ListItem button onClick={() => linkDrawerClose('terms')}>
-            <ListItemText primary="規約" />
+            <ListItemText primary="規約・ポリシー" />
           </ListItem>
           <ListItem button onClick={() => linkDrawerClose('help')}>
             <IconButton
@@ -303,7 +303,7 @@ const NavBar: React.FC = () => {
             >
               <HelpIcon />
             </IconButton>
-            <ListItemText primary="ヘルプ" />
+            <ListItemText primary="ヘルプ・お問い合わせ" />
           </ListItem>
         </List>
       </Drawer>
