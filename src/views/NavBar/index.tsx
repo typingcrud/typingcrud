@@ -6,32 +6,34 @@ import { SignedIn } from 'views/NavBar/SignedIn'
 import { NotSignedIn } from 'views/NavBar/NotSignedIn'
 
 import clsx from 'clsx';
-import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import HomeIcon from '@material-ui/icons/Home';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import HelpIcon from '@material-ui/icons/Help';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import Avatar from '@material-ui/core/Avatar';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
+import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@material-ui/core/Menu'
+import HomeIcon from '@material-ui/icons/Home'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import HelpIcon from '@material-ui/icons/Help'
+import AssignmentIcon from '@material-ui/icons/Assignment'
+import Avatar from '@material-ui/core/Avatar'
+import Breadcrumbs from '@material-ui/core/Breadcrumbs'
+import Link from '@material-ui/core/Link'
+import Fab from '@material-ui/core/Fab'
+import Add from '@material-ui/icons/Add'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -102,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: '250px'
     }
   }),
-);
+)
 
 const NavBar: React.FC = () => {
   const signIn = useSignIn()
@@ -111,7 +113,7 @@ const NavBar: React.FC = () => {
   const userInfo = useAppSelector(state => state.auth.userInfo)
   let userImg = ''
   if (userInfo.imgOwn === '1') {
-    userImg = `data:image/${userInfo.imgType};base64,${userInfo.img64}`
+    userImg = `data:image/${userInfo.imgType}base64,${userInfo.img64}`
   }
 
   const link = useCallback(
@@ -127,20 +129,20 @@ const NavBar: React.FC = () => {
   const useropen = Boolean(anchorEl);
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const linkClose = useCallback(
     (path: string) => {
@@ -152,7 +154,7 @@ const NavBar: React.FC = () => {
   const linkDrawerClose = useCallback(
     (path: string) => {
       link(`/${path}`)()
-      setOpen(false);
+      setOpen(false)
     }, [setOpen, link]
   )
 
@@ -211,6 +213,9 @@ const NavBar: React.FC = () => {
           />
           {signIn && (
             <React.Fragment>
+              <Fab color='secondary' size='small' onClick={link('/games/new')}>
+                <Add/>
+              </Fab>
               <Typography
                 variant="h6"
                 noWrap
@@ -219,7 +224,7 @@ const NavBar: React.FC = () => {
                   fontSize: 18
                 }}
               >
-                ユーザー名：{userInfo.userName}
+                {userInfo.userName}
               </Typography>
               <IconButton
                 style={{
@@ -413,7 +418,7 @@ const NavBar: React.FC = () => {
         <hr></hr>
       </main>
     </div>
-  );
+  )
 }
 
 export default NavBar

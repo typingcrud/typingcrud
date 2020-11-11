@@ -2,10 +2,13 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import os
 import ast
+import json
+import logging
+
+logger = logging.getLogger()
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
-
 
 def patch(event):
     body = ast.literal_eval(event['body'])
@@ -15,17 +18,23 @@ def patch(event):
             'userId': qs['userId'],
             'index': qs['index']
         },
-        UpdateExpression="set code = :c, codeComment=:cc, description = :d, title = :t, updatedAt = :u",
+        UpdateExpression="set code = :c, codeComment=:cc, description = :d, title = :t, updatedAt = :u, lang = :l",
         ExpressionAttributeValues={
             ':c': body['code'],
             ':cc': body['codeComment'],
             ':d': body['description'],
             ':t': body['title'],
-            ':u': body['updatedAt']
+            ':u': body['updatedAt'],
+            ':l': body['lang']
         }
     )
     return response
 
+def get(id):
+    response = table.query(
+        KeyConditionExpression=Key('userId').eq(id)
+    )
+    return response['Items']
 
 def lambda_handler(event, context):
     patch(event)
@@ -35,5 +44,5 @@ def lambda_handler(event, context):
         'headers': {
             "Access-Control-Allow-Origin": "*"
         },
-        'body': "Success!"
+        'body': json.dumps(get(event['queryStringParameters']['userId']))
     }

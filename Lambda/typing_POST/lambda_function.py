@@ -4,13 +4,13 @@ import os
 import random
 import string
 import ast
+import json
 import logging
 
 logger = logging.getLogger()
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
-
 
 def put(event):
     #logger.warn(event)
@@ -25,11 +25,17 @@ def put(event):
             "description": body['description'],
             "title": body['title'],
             "createdAt": body['createdAt'],
-            "updatedAt": body['createdAt']
+            "updatedAt": body['createdAt'],
+            "lang" :body['lang']
         }
     )
     return response
 
+def get(id):
+    response = table.query(
+        KeyConditionExpression=Key('userId').eq(id)
+    )
+    return response['Items']
 
 def lambda_handler(event, context):
     put(event)
@@ -39,5 +45,5 @@ def lambda_handler(event, context):
         'headers': {
             "Access-Control-Allow-Origin": "*"
         },
-        'body': "Success!"
+        'body': json.dumps(get(event['queryStringParameters']['userId']))
     }
