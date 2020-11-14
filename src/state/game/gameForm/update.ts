@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'moment/locale/ja'
 moment.locale('ja')
 
-export const update = createAsyncThunk<void, string, ThunkAPI>(
+export const update = createAsyncThunk<(App.Game[] | void), string, ThunkAPI>(
   'gameForm/update',
   async (index, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
@@ -43,8 +43,8 @@ export const update = createAsyncThunk<void, string, ThunkAPI>(
       url: process.env.REACT_APP_API_BASE + "game",
     }
 
-    axios(options)
-      .then((value) => console.log(value))
-      .catch((err) => console.log(err))
+    return await axios(options)
+      .then((value) => (value.data as App.Game[]))
+      .catch((err) => {console.error(err)})
   }
 )
