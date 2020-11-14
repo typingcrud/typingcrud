@@ -26,7 +26,7 @@ const gameListSlice = createSlice({
       return action.payload ? action.payload : state
     })
     builder.addCase(deleteGame.fulfilled, (state, action) => {
-      state.splice(state.findIndex(game => game.index === action.payload), 1)
+      return action.payload ? action.payload : state
     })
   }
 })
