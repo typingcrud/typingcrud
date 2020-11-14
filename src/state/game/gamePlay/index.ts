@@ -1,9 +1,8 @@
 import { createSlice, } from '@reduxjs/toolkit'
 
 import { getGame } from 'state/game/gamePlay/getGame'
-import { Game } from 'state/game/gameList'
 
-type GamePlay = Omit<Game, "userId">
+type GamePlay = Omit<App.Game, "userId">
 
 const initialState: GamePlay = {
   index: '',
