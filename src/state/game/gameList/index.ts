@@ -3,19 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { getGames } from 'state/game/gameList/getGames'
 import { deleteGame } from 'state/game/gameList/deleteGames'
 
-export type Game = {
-  code: string
-  codeComment: string
-  createdAt: string
-  description: string
-  index: string
-  title: string
-  lang: string
-  updatedAt: string
-  userId: string
-}
-
-export type GameList = Game[]
+export type GameList = App.Game[]
 
 const initialState: GameList = []
 
