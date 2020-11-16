@@ -6,11 +6,10 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import LockIcon from '@material-ui/icons/Lock';
 
 type Props = {
-  link: (path: string) => () => void
   linkDrawerClose: (path: string) => void
 }
 
-export const NotSignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
+export const NotSignedIn: React.FC<Props> = ({ linkDrawerClose }) => {
   return (
     <React.Fragment>
       <ListItem button onClick={() => linkDrawerClose('user/signin')}>
