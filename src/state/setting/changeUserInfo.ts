@@ -6,7 +6,7 @@ import moment from 'moment';
 import 'moment/locale/ja'
 moment.locale('ja')
 
-export const changeUserInfo = createAsyncThunk<void, string, ThunkAPI>(
+export const changeUserInfo = createAsyncThunk<void, ('name' | 'img'), ThunkAPI>(
   'setting/changeUserInfo',
   async (mode, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
@@ -22,11 +22,7 @@ export const changeUserInfo = createAsyncThunk<void, string, ThunkAPI>(
 
     let data = {
       updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
-      img64: changeUserInfo.img64
-    }
-
-    if (mode === 'name') {
-      data.img64 = '0'
+      img64: (mode === 'name') ? '0' : changeUserInfo.img64
     }
 
     const options: AxiosRequestConfig = {
