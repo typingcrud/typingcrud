@@ -4,8 +4,8 @@ import { actions, useAppSelector, useAppDispatch } from 'state'
 import { SignUpForm } from 'views/Auth/SignUp/SignUpForm'
 import { VerificationForm } from 'views/Auth/SignUp/VerificationForm'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { Button } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block'
     },
   }),
-);
+)
 
 const SignUp: React.FC = () => {
-  const classes = useStyles();
+  const classes = useStyles()
   const { isSignUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
   const dispatch = useAppDispatch()

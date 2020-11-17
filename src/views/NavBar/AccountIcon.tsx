@@ -10,7 +10,7 @@ export const AccountIcon: React.FC = () => {
   const userInfo = useAppSelector(state => state.auth.userInfo)
   let userImg = ''
   if (userInfo.imgOwn === '1') {
-    userImg = `data:image/${userInfo.imgType}base64,${userInfo.img64}`
+    userImg = `data:image/${userInfo.imgType};base64,${userInfo.img64}`
   }
 
   const link = useCallback(
@@ -67,7 +67,6 @@ export const AccountIcon: React.FC = () => {
         color="inherit"
       >
         <Avatar
-          alt='userImage'
           src={userImg}
           style={{
             width: 80,

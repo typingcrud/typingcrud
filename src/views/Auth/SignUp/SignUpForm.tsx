@@ -2,15 +2,9 @@ import React, { useCallback } from 'react'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { Button, IconButton, Input, InputLabel, InputAdornment, FormControl } from '@material-ui/core'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,29 +30,29 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block'
     },
   }),
-);
+)
 
 interface State {
-  email: string;
-  password: string;
-  showPassword: boolean;
+  email: string
+  password: string
+  showPassword: boolean
 }
 
 export const SignUpForm: React.FC = () => {
-  const classes = useStyles();
+  const classes = useStyles()
   const [values, setValues] = React.useState<State>({
     email: '',
     password: '',
     showPassword: false
-  });
+  })
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
+    setValues({ ...values, showPassword: !values.showPassword })
+  }
 
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   const { isSignUpForm, ...signUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
@@ -66,12 +60,12 @@ export const SignUpForm: React.FC = () => {
   type SignUpForm = typeof signUpForm
   const changeForm = useCallback(
     (signUpForm: SignUpForm) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(actions.authForm.changeSignUpForm({
-        ...signUpForm,
-        [e.target.id]: e.target.value
-      }))
-    }, [dispatch]
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(actions.authForm.changeSignUpForm({
+          ...signUpForm,
+          [e.target.id]: e.target.value
+        }))
+      }, [dispatch]
   )
   const signUpThunk = useCallback(
     () => dispatch(thunkActions.auth.signUp()), [dispatch]

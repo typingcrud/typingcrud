@@ -2,11 +2,8 @@ import React, { useCallback } from 'react'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { Button, Input, InputLabel, FormControl } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,15 +29,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block'
     },
   }),
-);
-
-interface State {
-  email: string;
-  verify: string;
-}
+)
 
 export const VerificationForm: React.FC = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const { isSignUpForm, ...signUpForm } = useAppSelector(state => state.authForm.signUpForm)
 
