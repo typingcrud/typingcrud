@@ -10,23 +10,23 @@ dynamodb = boto3.resource('dynamodb')
 table    = dynamodb.Table(os.environ['TABLE_NAME'])
 
 def delete(event):
-    if event["index"] == "0":
+    if event['queryStringParameters']["index"] == "0":
         gameList = table.query(
-            KeyConditionExpression=Key("userId").eq(event["userId"])
+            KeyConditionExpression=Key("userId").eq(event['queryStringParameters']['userId'])
         )['Items']
         with table.batch_writer() as batch:
             for game in gameList:
                 batch.delete_item(
                     Key={
-                        "userId": event["userId"],
+                        "userId": event['queryStringParameters']['userId'],
                         "index": game["index"]
                     }
                 )
     else:
         table.delete_item(
             Key={
-                "userId": event["userId"],
-                "index": event["index"]
+                "userId": event['queryStringParameters']['userId'],
+                "index": event['queryStringParameters']["index"]
             }
         )
 
