@@ -35,9 +35,8 @@ const App: React.FC = () => {
         <Route path='/user/change-password'><Views.ChangePassWord /></Route>
         <Route path='/user/forgot-password'><Views.ForgotPassWord /></Route>
         <Route path='/user/change-email'><Views.ChangeEmailForm /></Route>
-        <Route path='/user/delete'><Views.UserSetting /></Route>
+        <Route path='/user/delete'><Views.DeleteUser /></Route>
         <Route path='/user/change-userinfo'><Views.ChangeUserInfo /></Route>
-        <Route path='/demo'><Views.Demo /></Route> {/*いずれ削除*/}
         <Switch>
           <Route exact path='/games'><Views.GameList /></Route>
           <Route path='/games/new'><Views.GameNew /></Route>

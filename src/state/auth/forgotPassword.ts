@@ -39,9 +39,11 @@ export const submitNewPassword = createAsyncThunk<void, void, ThunkAPI>(
       onSuccess: () => {
         alert('success')
         thunkAPI.dispatch(actions.authForm.reset())
+        thunkAPI.dispatch(actions.cognitoSubmit.setForgotPassword(true))
       },
       onFailure: (err) => {
         alert(err.message || JSON.stringify(err))
+        thunkAPI.dispatch(actions.cognitoSubmit.setForgotPassword(false))
       }
     })
   }

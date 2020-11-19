@@ -38,9 +38,12 @@ export const signIn = createAsyncThunk<void, void, ThunkAPI>(
         localStorage.setItem('accessToken', accessToken)
         localStorage.setItem('refreshToken', refreshToken)
         localStorage.setItem('userId', userId)
+
+        thunkAPI.dispatch(actions.cognitoSubmit.setSignIn(true))
       },
       onFailure: (err) => {
         alert(err.message || JSON.stringify(err))
+        thunkAPI.dispatch(actions.cognitoSubmit.setSignIn(false))
       }
     })
   }

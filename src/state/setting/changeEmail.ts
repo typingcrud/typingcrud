@@ -61,15 +61,18 @@ export const verifyNewEmail = createAsyncThunk<void, void, ThunkAPI>(
         cognitoUser.verifyAttribute('email', verificationCode , {
           onSuccess: (success) => {
             alert(success)
+            thunkAPI.dispatch(actions.cognitoSubmit.setChangeEmail(true))
             thunkAPI.dispatch(actions.setting.reset())
           },
           onFailure: (err) => {
             alert(err.message || JSON.stringify(err))
+            thunkAPI.dispatch(actions.cognitoSubmit.setChangeEmail(false))
           }
         })
       },
       onFailure: (err: Error) => {
         alert(err.message || JSON.stringify(err))
+        thunkAPI.dispatch(actions.cognitoSubmit.setChangeEmail(false))
       }
     })
   }
