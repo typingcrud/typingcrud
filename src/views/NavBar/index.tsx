@@ -7,7 +7,7 @@ import { AccountIcon } from 'views/NavBar/AccountIcon'
 
 import clsx from 'clsx'
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles'
-import { Drawer, CssBaseline, AppBar, Toolbar, List, Divider, IconButton, ListItem, ListItemText, Button } from '@material-ui/core'
+import { Drawer, CssBaseline, AppBar, Toolbar, List, Divider, IconButton, ListItem, ListItemText, Button, Typography } from '@material-ui/core'
 import { Menu, ChevronLeft, ChevronRight, Home, Help } from '@material-ui/icons'
 
 const drawerWidth = 240
@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
       ...theme.mixins.toolbar,
       justifyContent: 'flex-end'
     },
@@ -125,19 +124,27 @@ const NavBar: React.FC = () => {
           >
             <Menu />
           </IconButton>
+          <Button onClick={link('/')} style={{padding: 0}}>
           <img
             src={`${process.env.PUBLIC_URL}/img/logo_transparent.png`}
             style={{
               fontSize: 18,
-              width: 160,
-              height: 100,
+              width: 130,
+              height: 90,
               cursor: 'pointer'
             }}
             alt='logo'
-            onClick={link('/')}
           />
-          {signIn
-            ? <AccountIcon />
+          </Button>
+          {signIn ?
+            <React.Fragment>
+              <div style={{ marginLeft: 'auto' }}>
+                <Button onClick={link('/games')} variant='contained'>
+                  <Typography variant='button' color='inherit'>マイページ</Typography>
+                </Button>
+              </div>
+              <AccountIcon />
+            </React.Fragment>
             :
             <div style={{ marginLeft: 'auto' }}>
               <Button onClick={link('/user/signin')} style={{ margin: 10 }}>ログイン</Button>
