@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type CognitoSubmit = {
-  signIn: boolean | undefined
-  signUp: boolean | undefined
+  signIn?: boolean
+  signUp?: boolean
+  forgotPassword?: boolean
+  changeEmail?: boolean
+  changePassword?: boolean
+  deleteUser?: boolean
 }
 
-const initialState: CognitoSubmit = {
-  signIn: undefined,
-  signUp: undefined,
-}
+const initialState: CognitoSubmit = {}
 
 const cognitoSubmitSlice = createSlice({
   name: 'cognitoSubmit',
@@ -20,6 +21,18 @@ const cognitoSubmitSlice = createSlice({
     },
     setSignUp: (state, action: PayloadAction<boolean>) => {
       state.signUp = action.payload
+    },
+    setForgotPassword: (state, action: PayloadAction<boolean>) => {
+      state.forgotPassword = action.payload
+    },
+    setChangeEmail: (state, action: PayloadAction<boolean>) => {
+      state.changeEmail = action.payload
+    },
+    setChangePassword: (state, action: PayloadAction<boolean>) => {
+      state.changePassword = action.payload
+    },
+    setDeleteUser: (state, action: PayloadAction<boolean>) => {
+      state.deleteUser = action.payload
     },
   }
 })

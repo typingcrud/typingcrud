@@ -3,7 +3,7 @@ import NavBar from 'views/NavBar'
 import SignIn from 'views/Auth/SignIn'
 import SignUp from 'views/Auth/SignUp'
 import ForgotPassWord from 'views/Setting/ForgotPassWord'
-import UserSetting from 'views/Setting/DeleteUser'
+import DeleteUser from 'views/Setting/DeleteUser'
 import ChangePassWord from 'views/Setting/ChangePassword'
 import ChangeEmailForm from 'views/Setting/ChangeEmail'
 import ChangeUserInfo from 'views/Setting/ChangeUserInfo'
@@ -21,7 +21,7 @@ export default {
   SignIn,
   SignUp,
   ForgotPassWord,
-  UserSetting,
+  DeleteUser,
   ChangePassWord,
   ChangeEmailForm,
   ChangeUserInfo,
