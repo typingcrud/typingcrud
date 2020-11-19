@@ -39,15 +39,18 @@ export const signUpVerify = createAsyncThunk<void, void, ThunkAPI>(
     cognitoUser.confirmRegistration(signUpForm.verificationCode, true, (err: Error | undefined) => {
       if (err) {
         alert(err.message || JSON.stringify(err))
+        thunkAPI.dispatch(actions.cognitoSubmit.setSignUp(false))
         return
       }
       axios.post(process.env.REACT_APP_API_BASE + "userid", { email: signUpForm.email })
         .then(() => {
           alert("Success!")
           thunkAPI.dispatch(actions.authForm.reset())
+          thunkAPI.dispatch(actions.cognitoSubmit.setSignUp(true))
         })
         .catch((err) => {
           console.error(err)
+          thunkAPI.dispatch(actions.cognitoSubmit.setSignUp(false))
         })
     })
   }
