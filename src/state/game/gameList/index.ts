@@ -2,20 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { getGames } from 'state/game/gameList/getGames'
 import { deleteGame } from 'state/game/gameList/deleteGames'
+import { create as createGame } from '../gameForm/create'
+import { update as updateGame } from '../gameForm/update'
 
-export type Game = {
-  code: string
-  codeComment: string
-  createdAt: string
-  description: string
-  index: string
-  title: string
-  lang: string
-  updatedAt: string
-  userId: string
-}
-
-export type GameList = Game[]
+export type GameList = App.Game[]
 
 const initialState: GameList = []
 
@@ -29,8 +19,14 @@ const gameListSlice = createSlice({
     builder.addCase(getGames.fulfilled, (state, action) => {
       return action.payload ? action.payload : state
     })
-    builder.addCase(deleteGame.fulfilled, (gameList, action) => {
-      gameList.splice(gameList.findIndex(game => game.index === action.payload), 1)
+    builder.addCase(createGame.fulfilled, (state, action) => {
+      return action.payload ? action.payload : state
+    })
+    builder.addCase(updateGame.fulfilled, (state, action) => {
+      return action.payload ? action.payload : state
+    })
+    builder.addCase(deleteGame.fulfilled, (state, action) => {
+      return action.payload ? action.payload : state
     })
   }
 })
