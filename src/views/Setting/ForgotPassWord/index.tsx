@@ -4,10 +4,11 @@ import { actions, useAppSelector, useAppDispatch } from 'state'
 import { EmailForm } from 'views/Setting/ForgotPassWord/EmailForm'
 import { NewPasswordForm } from 'views/Setting/ForgotPassWord/NewPasswordForm'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { Button } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     button: {
       marginLeft: 10,
@@ -15,13 +16,15 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block'
     },
   }),
-);
+)
 
 const ForgotPassWord: React.FC = () => {
+  const history = useHistory()
   const { isSendEmailForm } = useAppSelector( state => state.authForm.forgotPasswordForm )
+  const { forgotPassword: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
 
   const dispatch = useAppDispatch()
-  const classes = useStyles();
+  const classes = useStyles()
   type IsSendEmailForm = typeof isSendEmailForm
   const changeView = useCallback(
     (isSendEmailForm: IsSendEmailForm) =>
@@ -30,7 +33,14 @@ const ForgotPassWord: React.FC = () => {
   )
 
   useEffect(() => {
-    return () => { dispatch(actions.authForm.reset()) }
+    if (cognitoSubmit) history.push('/user/signin')
+  }, [cognitoSubmit, history])
+
+  useEffect(() => {
+    return () => {
+      dispatch(actions.cognitoSubmit.reset())
+      dispatch(actions.authForm.reset())
+    }
   }, [dispatch])
 
   return (

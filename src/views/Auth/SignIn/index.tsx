@@ -3,15 +3,9 @@ import { useHistory } from 'react-router-dom'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { Button, IconButton, Input, InputLabel, InputAdornment, FormControl } from '@material-ui/core'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,30 +31,19 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block'
     },
   }),
-);
+)
 
 interface State {
-  showPassword: boolean;
+  showPassword: boolean
 }
 
 const SignIn: React.FC = () => {
   const history = useHistory()
   const link = (path: string) => () => history.push(path)
-
-  const classes = useStyles();
-  const [values, setValues] = React.useState<State>({
-    showPassword: false
-  });
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  const classes = useStyles()
 
   const signInForm = useAppSelector(state => state.authForm.signInForm)
+  const { signIn: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
 
   const dispatch = useAppDispatch()
   type SignInForm = typeof signInForm
@@ -77,8 +60,27 @@ const SignIn: React.FC = () => {
     () => dispatch(thunkActions.auth.signIn()), [dispatch]
   )
 
+  const [values, setValues] = React.useState<State>({
+    showPassword: false
+  })
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword })
+  }
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+  }
+
   useEffect(() => {
-    return () => { dispatch(actions.authForm.reset()) }
+    if (cognitoSubmit) history.push('/')
+  }, [cognitoSubmit, history])
+
+  useEffect(() => {
+    return () => {
+      dispatch(actions.authForm.reset())
+      dispatch(actions.cognitoSubmit.reset())
+    }
   }, [dispatch])
 
   return (

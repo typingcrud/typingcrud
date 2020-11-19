@@ -1,9 +1,6 @@
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+import { List, ListItem, ListItemText, Divider } from '@material-ui/core/'
 
 const Setting: React.FC = () => {
   const history = useHistory()
