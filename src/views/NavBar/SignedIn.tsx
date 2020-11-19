@@ -1,13 +1,8 @@
 import React, { useCallback } from 'react'
 
 import { useAppDispatch, thunkActions } from 'state'
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import CodeIcon from '@material-ui/icons/Code';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Divider, ListItem, ListItemText, IconButton } from '@material-ui/core'
+import { Code, AccountCircle, ExitToApp } from '@material-ui/icons'
 
 type Props = {
   link: (path: string) => () => void
@@ -30,7 +25,7 @@ export const SignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
           color="inherit"
           edge="start"
         >
-          <CodeIcon />
+          <Code/>
         </IconButton>
         <ListItemText primary="ゲーム" />
       </ListItem>
@@ -49,7 +44,7 @@ export const SignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
           color="inherit"
           edge="start"
         >
-          <ExitToAppIcon />
+          <ExitToApp/>
         </IconButton>
         <ListItemText primary="ログアウト" />
       </ListItem>

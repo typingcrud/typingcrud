@@ -1,9 +1,6 @@
 import React from 'react'
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import LockIcon from '@material-ui/icons/Lock';
+import { ListItem, ListItemText, IconButton } from '@material-ui/core'
+import { PersonAdd, Lock } from '@material-ui/icons'
 
 type Props = {
   linkDrawerClose: (path: string) => void
@@ -17,7 +14,7 @@ export const NotSignedIn: React.FC<Props> = ({ linkDrawerClose }) => {
           color="inherit"
           edge="start"
         >
-          <LockIcon />
+          <Lock/>
         </IconButton>
         <ListItemText primary="ログイン" />
       </ListItem>
@@ -26,7 +23,7 @@ export const NotSignedIn: React.FC<Props> = ({ linkDrawerClose }) => {
           color="inherit"
           edge="start"
         >
-          <PersonAddIcon />
+          <PersonAdd/>
         </IconButton>
         <ListItemText primary="アカウント作成" />
       </ListItem>

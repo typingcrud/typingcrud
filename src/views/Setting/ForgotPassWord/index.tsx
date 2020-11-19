@@ -5,7 +5,7 @@ import { EmailForm } from 'views/Setting/ForgotPassWord/EmailForm'
 import { NewPasswordForm } from 'views/Setting/ForgotPassWord/NewPasswordForm'
 
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
+import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(() =>
