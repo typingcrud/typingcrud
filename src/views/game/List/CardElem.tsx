@@ -9,7 +9,7 @@ const useStales = makeStyles({
     backgroundColor: colors.grey[200],
   },
   grid: {
-    margin: 10,
+    padding: '1%',
   },
   cardContent: {
     textAlign: 'center'
@@ -61,7 +61,7 @@ export const CardElem: React.FC<Props> = ({ index, children }) => {
   )
 
   return (
-    <Grid item xs={2} className={classes.grid}>
+    <Grid item xs={4} className={classes.grid}>
       <Card className={classes.card}>
         <CardActions>
           <IconButton color='primary' onClick={link(index)}>

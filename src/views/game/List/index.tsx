@@ -7,14 +7,8 @@ import { Add } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
-  title: {
-    fontSize: 18,
-    color: colors.grey[800],
-  },
-  lang: {
-    fontSize: 12,
-    margin: 12,
-    color: colors.grey[600],
+  tiles: {
+    padding: '1%'
   },
   add: {
     margin: '1%'
@@ -38,7 +32,7 @@ const GameList: React.FC = () => {
   }, [dispatch, needToReload, signIn])
 
   useEffect(() => {
-    return () => {dispatch(actions.gameList.reset())}
+    return () => { dispatch(actions.gameList.reset()) }
   }, [dispatch])
 
   return (
@@ -48,16 +42,10 @@ const GameList: React.FC = () => {
           <Add />
         </Fab>
       </Grid>
-      <Grid container justify='center'>
+      <Grid container justify='center' className={classes.tiles}>
         {list.map((game, index) => {
           return (
             <CardElem key={index} index={game.index}>
-              <Typography className={classes.title} color='textPrimary'>
-                {game.title}
-              </Typography>
-              <Typography className={classes.lang} color='textSecondary'>
-                {game.lang}
-              </Typography>
             </CardElem>
           )
         })}
