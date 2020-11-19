@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useAppSelector, useAppDispatch, thunkActions } from 'state'
+import { useAppSelector, useAppDispatch, thunkActions, actions } from 'state'
 import { CardElem } from './CardElem'
 import { Grid, Typography, makeStyles, colors, Paper, Fab } from '@material-ui/core'
 import { useSignIn } from 'utils'
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 
 const GameList: React.FC = () => {
   const history = useHistory()
-  const gameList = useAppSelector(state => state.gameList)
+  const { list, needToReload } = useAppSelector(state => state.gameList)
   const signIn = useSignIn()
   const classes = useStyles()
 
@@ -34,8 +34,12 @@ const GameList: React.FC = () => {
   }
 
   useEffect(() => {
-    if (signIn) dispatch(thunkActions.gameList.getGames())
-  }, [dispatch, signIn])
+    if (signIn && needToReload) dispatch(thunkActions.gameList.getGames())
+  }, [dispatch, needToReload, signIn])
+
+  useEffect(() => {
+    return () => {dispatch(actions.gameList.reset())}
+  }, [dispatch])
 
   return (
     <Paper elevation={10} square>
@@ -45,7 +49,7 @@ const GameList: React.FC = () => {
         </Fab>
       </Grid>
       <Grid container justify='center'>
-        {gameList.map((game, index) => {
+        {list.map((game, index) => {
           return (
             <CardElem key={index} index={game.index}>
               <Typography className={classes.title} color='textPrimary'>
