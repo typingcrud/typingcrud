@@ -4,10 +4,11 @@ import { actions, useAppSelector, useAppDispatch } from 'state'
 import { ChangeEmailForm } from './ChangeEmailForm'
 import { VerificationForm } from './VerificationForm'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { Button } from '@material-ui/core/'
+import { useHistory } from 'react-router-dom'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     button: {
       marginLeft: 10,
@@ -15,11 +16,14 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block'
     },
   }),
-);
+)
 
 const ChangeEmail: React.FC = () => {
+  const history = useHistory()
   const { isNewEmailForm } = useAppSelector(state => state.setting.changeEmailForm)
-  const classes = useStyles();
+  const { changeEmail: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
+
+  const classes = useStyles()
   const dispatch = useAppDispatch()
   type IsNewEmailForm = typeof isNewEmailForm
   const changeView = useCallback(
@@ -29,7 +33,14 @@ const ChangeEmail: React.FC = () => {
   )
 
   useEffect(() => {
-    return () => { dispatch(actions.setting.reset()) }
+    if (cognitoSubmit) history.push('/user')
+  }, [cognitoSubmit, history])
+
+  useEffect(() => {
+    return () => {
+      dispatch(actions.cognitoSubmit.reset())
+      dispatch(actions.setting.reset())
+    }
   }, [dispatch])
 
   return (
