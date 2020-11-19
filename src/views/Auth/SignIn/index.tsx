@@ -40,21 +40,10 @@ interface State {
 const SignIn: React.FC = () => {
   const history = useHistory()
   const link = (path: string) => () => history.push(path)
-
   const classes = useStyles()
-  const [values, setValues] = React.useState<State>({
-    showPassword: false
-  })
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
-  }
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-  }
 
   const signInForm = useAppSelector(state => state.authForm.signInForm)
+  const cognitoSubmit = useAppSelector(state => state.cognitoSubmit.signIn)
 
   const dispatch = useAppDispatch()
   type SignInForm = typeof signInForm
@@ -71,8 +60,27 @@ const SignIn: React.FC = () => {
     () => dispatch(thunkActions.auth.signIn()), [dispatch]
   )
 
+  const [values, setValues] = React.useState<State>({
+    showPassword: false
+  })
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword })
+  }
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+  }
+
   useEffect(() => {
-    return () => { dispatch(actions.authForm.reset()) }
+    if (cognitoSubmit) history.push('/')
+  }, [cognitoSubmit, history])
+
+  useEffect(() => {
+    return () => {
+      dispatch(actions.authForm.reset())
+      dispatch(actions.cognitoSubmit.reset())
+    }
   }, [dispatch])
 
   return (

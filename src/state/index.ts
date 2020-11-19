@@ -7,6 +7,7 @@ import gameFormSlice, { gameFormThunk } from 'state/game/gameForm'
 import gameListSlice, { gameListThunk } from 'state/game/gameList'
 import gamePlaySlice, { gamePlayThunk } from 'state/game/gamePlay'
 import gameParamsSlice  from 'state/game/gameParams'
+import cognitoSubmitSlice from 'state/cognitoSubmit'
 
 
 export const store = configureStore({
@@ -18,6 +19,7 @@ export const store = configureStore({
     [gameListSlice.name]: gameListSlice.reducer,
     [gamePlaySlice.name]: gamePlaySlice.reducer,
     [gameParamsSlice.name]: gameParamsSlice.reducer,
+    [cognitoSubmitSlice.name]: cognitoSubmitSlice.reducer,
   }
 })
 
@@ -29,6 +31,7 @@ export const actions = {
   [gameListSlice.name]: gameListSlice.actions,
   [gamePlaySlice.name]: gamePlaySlice.actions,
   [gameParamsSlice.name]: gameParamsSlice.actions,
+  [cognitoSubmitSlice.name]: cognitoSubmitSlice.actions,
 }
 
 export const thunkActions = {
