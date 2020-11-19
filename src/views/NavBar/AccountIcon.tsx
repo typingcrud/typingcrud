@@ -55,7 +55,7 @@ export const AccountIcon: React.FC = () => {
       >
         <Avatar src={userImg} style={{ width: 60, height: 60 }} />
       </IconButton>
-      <Typography variant="body2" color='textSecondary' style={{ marginBottom: '4%' }}>
+      <Typography variant="body2" color='textSecondary' style={{ marginBottom: '4%' }} noWrap>
         {userInfo.userName}
       </Typography>
       <Menu

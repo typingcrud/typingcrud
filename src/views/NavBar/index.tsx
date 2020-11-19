@@ -124,17 +124,18 @@ const NavBar: React.FC = () => {
           >
             <Menu />
           </IconButton>
+          <Button onClick={link('/')} style={{padding: 0}}>
           <img
             src={`${process.env.PUBLIC_URL}/img/logo_transparent.png`}
             style={{
               fontSize: 18,
-              width: 160,
-              height: 100,
+              width: 130,
+              height: 90,
               cursor: 'pointer'
             }}
             alt='logo'
-            onClick={link('/')}
           />
+          </Button>
           {signIn ?
             <React.Fragment>
               <div style={{ marginLeft: 'auto' }}>
