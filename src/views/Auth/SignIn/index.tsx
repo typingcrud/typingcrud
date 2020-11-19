@@ -43,7 +43,7 @@ const SignIn: React.FC = () => {
   const classes = useStyles()
 
   const signInForm = useAppSelector(state => state.authForm.signInForm)
-  const cognitoSubmit = useAppSelector(state => state.cognitoSubmit.signIn)
+  const { signIn: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
 
   const dispatch = useAppDispatch()
   type SignInForm = typeof signInForm
