@@ -45,69 +45,41 @@ export const AccountIcon: React.FC = () => {
   )
 
   return (
-    <React.Fragment>
-      <Typography
-        variant="h6"
-        noWrap
-        style={{
-          marginLeft: 'auto',
-          fontSize: 18
-        }}
-      >
-        {userInfo.userName}
-      </Typography>
+    <div style={{marginLeft: '2%', marginRight: '2%', textAlign: 'center'}}>
       <IconButton
-        style={{
-          //marginLeft: 'auto'
-        }}
         aria-label="account of current user"
         aria-controls="menu-appbar"
         aria-haspopup="true"
         onClick={handleMenu}
         color="inherit"
       >
-        <Avatar
-          src={userImg}
-          style={{
-            width: 80,
-            height: 80
-          }}
-        />
+        <Avatar src={userImg} style={{ width: 60, height: 60 }} />
       </IconButton>
+      <Typography variant="body2" color='textSecondary' style={{ marginBottom: '4%' }} noWrap>
+        {userInfo.userName}
+      </Typography>
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
         keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right', }}
         open={useropen}
         onClose={handleClose}
       >
         <MenuItem onClick={() => linkClose('user')}>
-          <IconButton
-            onClick={() => linkClose('user')}
-            color="inherit"
-          >
+          <IconButton onClick={() => linkClose('user')}>
             <AccountCircle />
           </IconButton>
           ユーザー設定
         </MenuItem>
         <MenuItem onClick={logoutClose}>
-          <IconButton
-            onClick={() => linkClose('user')}
-            color="inherit"
-          >
+          <IconButton onClick={() => linkClose('user')}>
             <ExitToApp />
           </IconButton>
           ログアウト
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </div>
   )
 }
