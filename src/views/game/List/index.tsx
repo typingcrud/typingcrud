@@ -1,44 +1,83 @@
 import React, { useEffect } from 'react'
-import { useAppSelector, useAppDispatch, thunkActions } from 'state'
+import { useAppSelector, useAppDispatch, thunkActions, actions } from 'state'
 import { CardElem } from './CardElem'
-import { Grid, Typography, makeStyles, colors, Paper } from '@material-ui/core'
+import { Grid, makeStyles, colors, Paper, Fab, Typography } from '@material-ui/core'
 import { useSignIn } from 'utils'
+import { Add } from '@material-ui/icons'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
+  tiles: {
+    padding: '1%'
+  },
   title: {
-    fontSize: 18,
-    color: colors.grey[800],
+    fontSize: 20,
+    color: colors.grey[900]
   },
   lang: {
     fontSize: 12,
-    margin: 12,
-    color: colors.grey[600],
+    color: colors.grey[500]
+  },
+  description: {
+    fontSize: 12,
+    textAlign: 'left',
+    color: colors.grey[700],
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
+  },
+  add: {
+    margin: '1%'
   }
 })
 
 const GameList: React.FC = () => {
-  const gameList = useAppSelector(state => state.gameList)
+  const history = useHistory()
+  const { list, needToReload } = useAppSelector(state => state.gameList)
   const signIn = useSignIn()
   const classes = useStyles()
 
   const dispatch = useAppDispatch()
 
+  const link = (path: string) => () => {
+    history.push(path)
+  }
+
+  const formatDescription = (description: string) => {
+    const resStr = description.split('\n').filter((_, k) => k<2).join('\n')
+    const continueStr = description.split('\n').length > 2 ? '...' : ''
+    return resStr + continueStr
+  }
+
   useEffect(() => {
-    if (signIn) dispatch(thunkActions.gameList.getGames())
-  }, [dispatch, signIn])
+    if (signIn && needToReload) dispatch(thunkActions.gameList.getGames())
+  }, [dispatch, needToReload, signIn])
+
+  useEffect(() => {
+    return () => { dispatch(actions.gameList.reset()) }
+  }, [dispatch])
 
   return (
     <Paper elevation={10} square>
       <Grid container justify='center'>
-        {gameList.map((game, index) => {
+        <Fab className={classes.add} color='secondary' size='small' onClick={link('/games/new')}>
+          <Add />
+        </Fab>
+      </Grid>
+      <Grid container justify='center' className={classes.tiles}>
+        {list.map((game, index) => {
           return (
             <CardElem key={index} index={game.index}>
-              <Typography className={classes.title} color='textPrimary'>
-                {game.title}
-              </Typography>
-              <Typography className={classes.lang} color='textSecondary'>
-                {game.lang}
-              </Typography>
+              <Grid container justify='space-around' alignItems='center' spacing={3}>
+                <Grid item xs={8}>
+                  <Typography className={classes.title}>{game.title}</Typography>
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography className={classes.lang}>{game.lang}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography className={classes.description}>{formatDescription(game.description)}</Typography>,
+                </Grid>
+              </Grid>
             </CardElem>
           )
         })}

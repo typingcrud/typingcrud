@@ -86,10 +86,12 @@ export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
           localStorage.clear()
           
           alert(result + ": User deleted")
+          thunkAPI.dispatch(actions.cognitoSubmit.setDeleteUser(true))
         })
       },
       onFailure: (err: Error) => {
         alert(err.message || JSON.stringify(err))
+        thunkAPI.dispatch(actions.cognitoSubmit.setDeleteUser(false))
       }
     })
   }

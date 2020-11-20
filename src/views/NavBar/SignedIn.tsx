@@ -1,40 +1,36 @@
 import React, { useCallback } from 'react'
 
 import { useAppDispatch, thunkActions } from 'state'
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import CodeIcon from '@material-ui/icons/Code';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Divider, ListItem, ListItemText, IconButton } from '@material-ui/core'
+import { Code, AccountCircle, ExitToApp } from '@material-ui/icons'
+import { useHistory } from 'react-router-dom'
 
 type Props = {
-  link: (path: string) => () => void
   linkDrawerClose: (path: string) => void
 }
 
-export const SignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
+export const SignedIn: React.FC<Props> = ({ linkDrawerClose }) => {
+  const history = useHistory()
   const dispatch = useAppDispatch()
   const signOut = useCallback(
     () => {
       dispatch(thunkActions.auth.signOut())
-      link('/')()
-    }, [dispatch, link]
+      history.push('/')
+    }, [dispatch, history]
   )
 
   return (
     <React.Fragment>
-      <ListItem button onClick={() => linkDrawerClose('games')}>
+      <ListItem button onClick={() => linkDrawerClose('/games')}>
         <IconButton
           color="inherit"
           edge="start"
         >
-          <CodeIcon />
+          <Code/>
         </IconButton>
-        <ListItemText primary="ゲーム" />
+        <ListItemText primary="マイゲーム" />
       </ListItem>
-      <ListItem button onClick={() => linkDrawerClose('user')}>
+      <ListItem button onClick={() => linkDrawerClose('/user')}>
         <IconButton
           color="inherit"
           edge="start"
@@ -49,7 +45,7 @@ export const SignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
           color="inherit"
           edge="start"
         >
-          <ExitToAppIcon />
+          <ExitToApp/>
         </IconButton>
         <ListItemText primary="ログアウト" />
       </ListItem>

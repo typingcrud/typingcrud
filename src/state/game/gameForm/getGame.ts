@@ -7,9 +7,10 @@ type Game = AppState['gamePlay']
 export const getGame = createAsyncThunk<Game | void, string, {}>(
   'gameForm/getGame',
   async (index) => {
+
     const params = {
       index: index,
-      filterTime: "0"
+      page: '0',
     }
 
     const options: AxiosRequestConfig = {
@@ -20,7 +21,7 @@ export const getGame = createAsyncThunk<Game | void, string, {}>(
 
     const response = await axios(options)
       .then((res) => {
-        return res.data.body as Game
+        return res.data as Game
       })
       .catch((err) => {
         console.log(err)
