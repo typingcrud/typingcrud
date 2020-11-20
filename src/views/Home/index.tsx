@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { makeStyles, colors, Grid, Card, CardContent, CardActions, IconButton, Paper, Typography } from '@material-ui/core'
 import { useAppSelector, useAppDispatch, thunkActions, actions } from 'state'
-import { useSignIn } from 'utils'
 import { PlayCircleFilled } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 
@@ -36,8 +35,7 @@ const useStyles = makeStyles({
 })
 
 const Home: React.FC = () => {
-  const { list, needToReload } = useAppSelector(state => state.gameList)
-  const signIn = useSignIn()
+  const { list } = useAppSelector(state => state.homeList)
   const classes = useStyles()
 
   const dispatch = useAppDispatch()
@@ -48,15 +46,15 @@ const Home: React.FC = () => {
   }
 
   useEffect(() => {
-    if (signIn && needToReload) dispatch(thunkActions.gameList.getGames())
-  }, [dispatch, needToReload, signIn])
+    dispatch(thunkActions.homeList.getHomeGames())
+  }, [dispatch])
 
   useEffect(() => {
-    return () => { dispatch(actions.gameList.reset()) }
+    return () => { dispatch(actions.homeList.reset()) }
   }, [dispatch])
 
   const formatDescription = (description: string) => {
-    const resStr = description.split('\n').filter((_, k) => k<2).join('\n')
+    const resStr = description.split('\n').filter((_, k) => k < 2).join('\n')
     const continueStr = description.split('\n').length > 2 ? '...' : ''
     return resStr + continueStr
   }
