@@ -4,7 +4,12 @@ import { ThunkAPI } from 'utils/thunk'
 
 type Game = App.Game
 
-export const getGame = createAsyncThunk<Game | void, string, ThunkAPI>(
+type Response = {
+  game: Game | undefined
+  userId: string
+}
+
+export const getGame = createAsyncThunk<Response | void, string, ThunkAPI>(
   'gameForm/getGame',
   async (index, thunkAPI) => {
     const idToken = thunkAPI.getState().auth.tokens?.idToken
@@ -26,7 +31,9 @@ export const getGame = createAsyncThunk<Game | void, string, ThunkAPI>(
 
     const response = await axios(options)
       .then((res) => {
-        return res.data?.[0] as Game
+        const game = res.data?.[0] as (Game | undefined)
+        const response: Response = { game,  userId }
+        return response
       })
       .catch((err) => {
         console.log(err)
