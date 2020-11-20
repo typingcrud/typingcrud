@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getHomeGames } from 'state/home/homeList/getGames'
+import { getHomeGames } from 'state/home/homeList/getHomeGames'
 
 type homeList = {
   list: App.Game[]

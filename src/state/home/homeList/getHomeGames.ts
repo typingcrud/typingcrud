@@ -11,7 +11,7 @@ export const getHomeGames = createAsyncThunk<HomeList | void, void, ThunkAPI>(
 
     const params = {
       index: '0',
-      p: page,
+      p: '1',
     }
 
     const options: AxiosRequestConfig = {
@@ -21,7 +21,7 @@ export const getHomeGames = createAsyncThunk<HomeList | void, void, ThunkAPI>(
     }
 
     const response = await axios(options)
-      .then((res) => { return res.data as HomeList })
+      .then((res) => { return res.data.Items as HomeList })
       .catch((err) => { console.error(err) })
     
     return response
