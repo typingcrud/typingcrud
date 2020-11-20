@@ -140,7 +140,7 @@ const NavBar: React.FC = () => {
             <React.Fragment>
               <div style={{ marginLeft: 'auto' }}>
                 <Button onClick={link('/games')} variant='contained'>
-                  <Typography variant='button' color='inherit'>マイページ</Typography>
+                  <Typography variant='button' color='inherit'>マイゲーム</Typography>
                 </Button>
               </div>
               <AccountIcon />
