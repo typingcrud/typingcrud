@@ -43,7 +43,8 @@ const GameForm: React.FC<Props> = ({ submit }) => {
   const history = useHistory()
   const classes = useStyles()
 
-  const { title, lang, code, codeComment, description, valid } = useAppSelector(state => state.gameForm)
+  const { title, lang, code, codeComment, description } = useAppSelector(state => state.gameForm.game)
+  const { isAscii, isFilled } = useAppSelector(state => state.gameForm.valid)
 
   const dispatch = useAppDispatch()
   const changeCode = useCallback(
@@ -73,7 +74,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
   )
 
   const back = () => {
-    history.push('/games')
+    history.goBack()
   }
 
   return (
@@ -127,7 +128,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
               <Editor identifier='comment' value={codeComment} lang={""} onValueChange={changeComment} />
             </Grid>
           </Grid>
-          {!valid.isAscii &&
+          {!isAscii &&
             <Grid item xs={12}>
               <Alert severity="warning">
                 <AlertTitle>注意</AlertTitle>
@@ -136,7 +137,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
             </Grid>
           }
           <Grid item xs={12} className={classes.icon}>
-            {valid.isFilled && valid.isAscii ?
+            {isFilled && isAscii ?
               <IconButton size='medium' color='primary' onClick={submit}><Send /></IconButton>
               :
               <NotSend />
