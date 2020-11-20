@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import { Container } from '@material-ui/core'
 
@@ -33,9 +33,15 @@ const App: React.FC = () => {
         <Route path='/'><Views.NavBar /></Route>
         <Switch>
           <Route exact path='/'><Views.Home /></Route>
-          <Route path='/signin'><Views.SignIn /></Route>
-          <Route path='/signup'><Views.SignUp /></Route>
-          <Route path='/forgot-password'><Views.ForgotPassWord /></Route>
+          <Route path='/signin'>
+            {singIn ? <Redirect to='/'/> : <Views.SignIn/>}
+          </Route>
+          <Route path='/signup'>
+            {singIn ? <Redirect to='/'/> : <Views.SignUp/>}
+          </Route>
+          <Route path='/forgot-password'>
+            {singIn ? <Redirect to='/'/> : <Views.ForgotPassWord/>}
+          </Route>
           {singIn && <Route exact path='/user'><Views.Setting /></Route>}
           {singIn && <Route path='/user/change-userinfo'><Views.ChangeUserInfo /></Route>}
           {singIn && <Route path='/user/change-email'><Views.ChangeEmailForm /></Route>}
