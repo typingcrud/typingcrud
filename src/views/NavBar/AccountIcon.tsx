@@ -13,11 +13,6 @@ export const AccountIcon: React.FC = () => {
     userImg = `data:image/${userInfo.imgType};base64,${userInfo.img64}`
   }
 
-  const link = useCallback(
-    (path: string) => () => {
-      history.push(path)
-    }, [history]
-  )
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const useropen = Boolean(anchorEl)
 
@@ -31,17 +26,17 @@ export const AccountIcon: React.FC = () => {
 
   const linkClose = useCallback(
     (path: string) => {
-      link(`/${path}`)()
+      history.push(path)
       setAnchorEl(null)
-    }, [setAnchorEl, link]
+    }, [history]
   )
 
   const logoutClose = useCallback(
     () => {
       setAnchorEl(null)
       dispatch(thunkActions.auth.signOut())
-      link('/')()
-    }, [dispatch, link]
+      history.push('/')
+    }, [dispatch, history]
   )
 
   return (
@@ -67,14 +62,14 @@ export const AccountIcon: React.FC = () => {
         open={useropen}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => linkClose('user')}>
-          <IconButton onClick={() => linkClose('user')}>
+        <MenuItem onClick={() => linkClose('/user')}>
+          <IconButton>
             <AccountCircle />
           </IconButton>
           ユーザー設定
         </MenuItem>
         <MenuItem onClick={logoutClose}>
-          <IconButton onClick={() => linkClose('user')}>
+          <IconButton >
             <ExitToApp />
           </IconButton>
           ログアウト

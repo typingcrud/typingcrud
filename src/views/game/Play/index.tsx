@@ -4,7 +4,6 @@ import { Typography, makeStyles, Grid, Container, Paper, colors } from '@materia
 import { useAppSelector, useAppDispatch, actions, thunkActions } from 'state'
 import { Code } from './Code'
 import { Comment } from './Comment'
-import { useSignIn } from 'utils'
 
 const useStyles = makeStyles({
   typography: {
@@ -26,14 +25,13 @@ const GamePlay: React.FC = () => {
   const { id: index } = useParams()
   const game = useAppSelector(state => state.gamePlay)
   const classes = useStyles()
-  const signIn = useSignIn()
 
   const dispatch = useAppDispatch()
   useEffect(() => {
-    if (signIn) dispatch(thunkActions.gamePlay.getGame({ index }))
+    dispatch(thunkActions.gamePlay.getGame({ index }))
 
     return () => { dispatch(actions.gamePlay.reset()) }
-  }, [dispatch, index, signIn])
+  }, [dispatch, index])
 
   return (
     <Paper elevation={10} square>
