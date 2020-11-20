@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 })
 
 const Home: React.FC = () => {
-  const { list, page } = useAppSelector(state => state.homeList)
+  const { list, page, maxPage } = useAppSelector(state => state.homeList)
   const classes = useStyles()
 
   const dispatch = useAppDispatch()
@@ -100,7 +100,7 @@ const Home: React.FC = () => {
         })}
       </Grid>
       <Grid container justify='center'>
-        <Pagination color='primary' variant='outlined' count={10} page={page} onChange={changePage} className={classes.page}/>
+        <Pagination color='primary' variant='outlined' count={maxPage} page={page} onChange={changePage} className={classes.page}/>
       </Grid>
     </Paper>
   )
