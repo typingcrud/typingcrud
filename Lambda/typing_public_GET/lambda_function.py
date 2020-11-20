@@ -7,16 +7,22 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
 
 def getSingle(ind):
-    response = table.query(
-        KeyConditionExpression=Key('index').eq(ind),
-        ProjectionExpression='index, code, updatedAt, createdAt, codeComment, description, title, lang'
+    response = table.scan(
+        FilterExpression=Attr('index').eq(ind),
+        ProjectionExpression='#i, code, updatedAt, createdAt, codeComment, description, title, lang',
+        ExpressionAttributeNames={
+            "#i": "index"
+        }
     )
     return response['Items'][0]
 
 def getPage(p):
-    response = table.query(
-        KeyConditionExpression=Key('page').eq(p),
-        ProjectionExpression='index, code, updatedAt, createdAt, codeComment, description, title, lang'
+    response = table.scan(
+        FilterExpression=Attr('page').eq(p),
+        ProjectionExpression='#i, code, updatedAt, createdAt, codeComment, description, title, lang',
+        ExpressionAttributeNames={
+            "#i": "index"
+        }
     )
     return response
 
