@@ -24,15 +24,17 @@ const useStales = makeStyles({
 
 type Props = {
   index: string
+  gameUserId: string
 }
 
-export const CardElem: React.FC<Props> = ({ index, children }) => {
+export const CardElem: React.FC<Props> = ({ gameUserId, index, children }) => {
   const history = useHistory()
   const link = (index: string) => () => {
     history.push('/games/' + index)
   }
 
   const { isExist } = useAppSelector(state => state.gameList)
+  const { userId } = useAppSelector(state => state.auth)
 
   const classes = useStales()
   const dispatch = useAppDispatch()
@@ -48,11 +50,15 @@ export const CardElem: React.FC<Props> = ({ index, children }) => {
 
   const deleteGame = useCallback(
     () => {
-      if (window.confirm('削除しますか')) {
-        handleClose()
-        dispatch(thunkActions.gameList.deleteGame(index))
+      if (gameUserId === userId) {
+        if (window.confirm('削除しますか')) {
+          handleClose()
+          dispatch(thunkActions.gameList.deleteGame({index, gameUserId}))
+        }
+      } else {
+        console.error('自分のゲーム以外を削除しようとした')
       }
-    }, [dispatch, index]
+    }, [dispatch, gameUserId, index, userId]
   )
 
   const editGame = useCallback(
