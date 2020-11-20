@@ -9,7 +9,7 @@ table = dynamodb.Table(os.environ['TABLE_NAME'])
 def getSingle(ind):
     response = table.scan(
         FilterExpression=Attr('index').eq(ind),
-        ProjectionExpression='#i, code, updatedAt, createdAt, codeComment, description, title, lang',
+        ProjectionExpression='#i, code, updatedAt, createdAt, codeComment, description, title, lang, maxPage',
         ExpressionAttributeNames={
             "#i": "index"
         }
@@ -19,7 +19,7 @@ def getSingle(ind):
 def getPage(p):
     response = table.scan(
         FilterExpression=Attr('page').eq(p),
-        ProjectionExpression='#i, code, updatedAt, createdAt, codeComment, description, title, lang',
+        ProjectionExpression='#i, code, updatedAt, createdAt, codeComment, description, title, lang, maxPage',
         ExpressionAttributeNames={
             "#i": "index"
         }
