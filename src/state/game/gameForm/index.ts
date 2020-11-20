@@ -7,6 +7,12 @@ import { update } from 'state/game/gameForm/update'
 type GameForm = {
   game: App.Game
   valid: Valid
+  isCorrect: IsCorrect
+}
+
+type IsCorrect = {
+  userId: boolean
+  exist: boolean
 }
 
 type Valid = {
@@ -29,6 +35,10 @@ const initialState: GameForm = {
   valid: {
     isFilled: false,
     isAscii: true,
+  },
+  isCorrect: {
+    userId: true,
+    exist: true,
   }
 }
 
@@ -58,8 +68,11 @@ const gameFormSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getGame.fulfilled, (state, action) => {
-      state.game = action.payload ? action.payload : state.game
-      const { code, title } = action.payload ? action.payload : state.game
+      const res = action.payload
+      const { code, title, userId: gameUserId } = (res && res.game) ? res.game : state.game
+      state.game = (res && res.game) ? res.game : state.game
+      state.isCorrect.exist = (res && res.game) ? true : false
+      state.isCorrect.userId = res ? (res.userId === gameUserId) : false
       state.valid.isFilled = title !== "" && code !== ""
       state.valid.isAscii = code.match(/[^\n\x20-\x7e]/) === null
     })
