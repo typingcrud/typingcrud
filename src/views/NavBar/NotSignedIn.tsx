@@ -9,7 +9,7 @@ type Props = {
 export const NotSignedIn: React.FC<Props> = ({ linkDrawerClose }) => {
   return (
     <React.Fragment>
-      <ListItem button onClick={() => linkDrawerClose('user/signin')}>
+      <ListItem button onClick={() => linkDrawerClose('/signin')}>
         <IconButton
           color="inherit"
           edge="start"
@@ -18,7 +18,7 @@ export const NotSignedIn: React.FC<Props> = ({ linkDrawerClose }) => {
         </IconButton>
         <ListItemText primary="ログイン" />
       </ListItem>
-      <ListItem button onClick={() => linkDrawerClose('user/signup')}>
+      <ListItem button onClick={() => linkDrawerClose('/signup')}>
         <IconButton
           color="inherit"
           edge="start"

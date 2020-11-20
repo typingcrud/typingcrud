@@ -5,32 +5,33 @@ import { Alert, AlertTitle } from '@material-ui/lab'
 import { langs } from 'utils/languages'
 import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
-import { Send, Delete } from '@material-ui/icons'
+import { Send, ArrowBack, HelpOutline } from '@material-ui/icons'
 import { NotSend } from 'views/game/Form/NotSend'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
   item: {
-    margin: '4%',
-    marginTop: '2%',
-    marginBottom: '1%',
+    padding: '4%',
+    paddingTop: '2%',
+    paddingBottom: '1%',
     textAlign: 'center'
   },
   description: {
-    margin: '10%',
-    marginTop: '1%',
-    marginBottom: '2%',
+    padding: '10%',
+    paddingTop: '1%',
+    paddingBottom: '2%',
     textAlign: 'center'
   },
   icon: {
-    margin: '1%',
+    padding: '1%',
     textAlign: 'center'
   },
   formControl: {
-    margin: '4%',
+    padding: '4%',
     minWidth: 120,
   },
   editor: {
-    marginBottom: '1%',
+    paddingBottom: '1%',
   },
 })
 
@@ -39,6 +40,7 @@ type Props = {
 }
 
 const GameForm: React.FC<Props> = ({ submit }) => {
+  const history = useHistory()
   const classes = useStyles()
 
   const { title, lang, code, codeComment, description, valid } = useAppSelector(state => state.gameForm)
@@ -70,16 +72,19 @@ const GameForm: React.FC<Props> = ({ submit }) => {
     }, [dispatch]
   )
 
-  const deleteForm = useCallback(
-    () => {
-      if (window.confirm('入力内容を削除しますか?')) dispatch(actions.gameForm.reset())
-    }, [dispatch]
-  )
+  const back = () => {
+    history.push('/games')
+  }
 
   return (
     <Paper elevation={10} square>
       <Grid container justify='space-between' alignItems='center'>
-        <Grid item xs={9} sm={5} className={classes.item}>
+        <Grid item xs={1} className={classes.icon}>
+          <IconButton size='medium' color='secondary' onClick={back}>
+            <ArrowBack />
+          </IconButton>
+        </Grid>
+        <Grid item xs={5} sm={4} className={classes.item}>
           <TextField
             value={title}
             onChange={changeTitle}
@@ -87,7 +92,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
             color="secondary"
           />
         </Grid>
-        <Grid item xs={3} className={classes.item}>
+        <Grid item xs={5} sm={4} className={classes.item}>
           <FormControl className={classes.formControl}>
             <InputLabel>Language</InputLabel>
             <Select label="Language" value={lang} onChange={changeLang}>
@@ -99,8 +104,8 @@ const GameForm: React.FC<Props> = ({ submit }) => {
           </FormControl>
         </Grid>
         <Grid item xs={1} className={classes.icon}>
-          <IconButton size='medium' color='secondary' onClick={deleteForm}>
-            <Delete />
+          <IconButton size='medium' color='secondary'>
+            <HelpOutline />
           </IconButton>
         </Grid>
         <Grid item xs={12} className={classes.description}>

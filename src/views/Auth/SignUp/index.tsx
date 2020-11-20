@@ -49,7 +49,7 @@ const SignUp: React.FC = () => {
   )
 
   useEffect(() => {
-    if (cognitoSubmit) history.push('/user/signin')
+    if (cognitoSubmit) history.push('/signin')
   }, [cognitoSubmit, history])
 
   useEffect(() => {

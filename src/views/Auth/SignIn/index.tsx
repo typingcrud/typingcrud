@@ -119,7 +119,7 @@ const SignIn: React.FC = () => {
           ログイン
         </Button>
       </div>
-      <Button className={classes.button} variant="outlined" onClick={link('/user/forgot-password')}>
+      <Button className={classes.button} variant="outlined" onClick={link('/forgot-password')}>
         パスワードを忘れた
       </Button>
     </div>
