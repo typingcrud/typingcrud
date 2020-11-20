@@ -28,7 +28,7 @@ export const SignedIn: React.FC<Props> = ({ linkDrawerClose }) => {
         >
           <Code/>
         </IconButton>
-        <ListItemText primary="ゲーム" />
+        <ListItemText primary="マイゲーム" />
       </ListItem>
       <ListItem button onClick={() => linkDrawerClose('/user')}>
         <IconButton
