@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ThunkAPI } from 'utils/thunk'
 
-type HomeList = App.Game[]
+type HomeList = Omit<App.Game, 'userId'>[]
 
 export const getHomeGames = createAsyncThunk<HomeList | void, void, ThunkAPI>(
   'homeList/getHomeGames',
@@ -11,7 +11,7 @@ export const getHomeGames = createAsyncThunk<HomeList | void, void, ThunkAPI>(
 
     const params = {
       index: '0',
-      p: '1',
+      p: page.toString(),
     }
 
     const options: AxiosRequestConfig = {

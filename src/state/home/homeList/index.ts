@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getHomeGames } from 'state/home/homeList/getHomeGames'
 
 type homeList = {
-  list: App.Game[]
+  list: Omit<App.Game, 'userId'>[]
   page: number
 }
 
 const initialState: homeList = {
   list: [],
-  page: 0
+  page: 1
 }
 
 const homeListSlice = createSlice({
