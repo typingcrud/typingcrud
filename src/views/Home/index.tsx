@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch, thunkActions, actions } from 'state'
 import { PlayCircleFilled } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { Pagination } from '@material-ui/lab'
+import { Description } from './Description'
 
 const useStyles = makeStyles({
   tiles: {
@@ -35,7 +36,10 @@ const useStyles = makeStyles({
   },
   page: {
     margin: '2%',
-  }
+  },
+  header: {
+
+  },
 })
 
 const Home: React.FC = () => {
@@ -70,39 +74,42 @@ const Home: React.FC = () => {
   }
 
   return (
-    <Paper elevation={10} square>
-      <Grid container justify='center' className={classes.tiles}>
-        {list.map((game, index) => {
-          return (
-            <Grid item xs={4} className={classes.grid} key={index}>
-              <Card className={classes.card}>
-                <CardActions>
-                  <IconButton color='primary' onClick={link(`/games/${game.index}`)}>
-                    <PlayCircleFilled />
-                  </IconButton>
-                </CardActions>
-                <CardContent className={classes.cardContent}>
-                  <Grid container justify='space-around' alignItems='center' spacing={3}>
-                    <Grid item xs={8}>
-                      <Typography className={classes.title}>{game.title}</Typography>
+    <React.Fragment>
+      <Description />
+      <Paper elevation={10} square>
+        <Grid container justify='center' className={classes.tiles}>
+          {list.map((game, index) => {
+            return (
+              <Grid item xs={4} className={classes.grid} key={index}>
+                <Card className={classes.card}>
+                  <CardActions>
+                    <IconButton color='primary' onClick={link(`/games/${game.index}`)}>
+                      <PlayCircleFilled />
+                    </IconButton>
+                  </CardActions>
+                  <CardContent className={classes.cardContent}>
+                    <Grid container justify='space-around' alignItems='center' spacing={3}>
+                      <Grid item xs={8}>
+                        <Typography className={classes.title}>{game.title}</Typography>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Typography className={classes.lang}>{game.lang}</Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography className={classes.description}>{formatDescription(game.description)}</Typography>,
                     </Grid>
-                    <Grid item xs={4}>
-                      <Typography className={classes.lang}>{game.lang}</Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography className={classes.description}>{formatDescription(game.description)}</Typography>,
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-          )
-        })}
-      </Grid>
-      <Grid container justify='center'>
-        <Pagination color='primary' variant='outlined' count={maxPage} page={page} onChange={changePage} className={classes.page}/>
-      </Grid>
-    </Paper>
+                  </CardContent>
+                </Card>
+              </Grid>
+            )
+          })}
+        </Grid>
+        <Grid container justify='center'>
+          <Pagination color='primary' variant='outlined' count={maxPage} page={page} onChange={changePage} className={classes.page} />
+        </Grid>
+      </Paper>
+    </React.Fragment>
   )
 }
 
