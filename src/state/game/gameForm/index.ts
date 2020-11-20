@@ -5,11 +5,7 @@ import { create } from 'state/game/gameForm/create'
 import { update } from 'state/game/gameForm/update'
 
 type GameForm = {
-  title: string
-  description: string
-  lang: string
-  code: string
-  codeComment: string
+  game: App.Game
   valid: Valid
 }
 
@@ -19,11 +15,17 @@ type Valid = {
 }
 
 const initialState: GameForm = {
-  title: '',
-  description: '',
-  lang: '',
-  code: '',
-  codeComment: '',
+  game: {
+    title: '',
+    description: '',
+    lang: '',
+    code: '',
+    codeComment: '',
+    index: '',
+    userId: '',
+    createdAt: '',
+    updatedAt: '',
+  },
   valid: {
     isFilled: false,
     isAscii: true,
@@ -36,34 +38,30 @@ const gameFormSlice = createSlice({
   reducers: {
     reset: () => initialState,
     setTitle: (state, action: PayloadAction<string>) => {
-      state.title = action.payload
-      state.valid.isFilled = state.title !== "" && state.code !== ""
+      state.game.title = action.payload
+      state.valid.isFilled = state.game.title !== "" && state.game.code !== ""
     },
     setCode: (state, action: PayloadAction<string>) => {
-      state.code = action.payload
-      state.valid.isFilled = state.title !== "" && state.code !== ""
-      state.valid.isAscii = state.code.match(/[^\n\x20-\x7e]/) === null
+      state.game.code = action.payload
+      state.valid.isFilled = state.game.title !== "" && state.game.code !== ""
+      state.valid.isAscii = state.game.code.match(/[^\n\x20-\x7e]/) === null
     },
     setComment: (state, action: PayloadAction<string>) => {
-      state.codeComment = action.payload
+      state.game.codeComment = action.payload
     },
     setLang: (state, action: PayloadAction<string>) => {
-      state.lang = action.payload
+      state.game.lang = action.payload
     },
     setDescription: (state, action: PayloadAction<string>) => {
-      state.description = action.payload
+      state.game.description = action.payload
     },
   },
   extraReducers: builder => {
     builder.addCase(getGame.fulfilled, (state, action) => {
-      const { code, codeComment, description, title, lang } = action.payload ? action.payload : state
-      state.title = title
-      state.lang = lang
-      state.description = description
-      state.code = code
-      state.codeComment = codeComment
-      state.valid.isFilled = state.title !== "" && state.code !== ""
-      state.valid.isAscii = state.code.match(/[^\n\x20-\x7e]/) === null
+      state.game = action.payload ? action.payload : state.game
+      const { code, title } = action.payload ? action.payload : state.game
+      state.valid.isFilled = title !== "" && code !== ""
+      state.valid.isAscii = code.match(/[^\n\x20-\x7e]/) === null
     })
   }
 })

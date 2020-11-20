@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const NotSend: React.FC = () => {
-  const { valid } = useAppSelector(state => state.gameForm)
+  const { isAscii, isFilled } = useAppSelector(state => state.gameForm.valid)
 
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
@@ -62,12 +62,12 @@ export const NotSend: React.FC = () => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        { !valid.isAscii &&
+        { !isAscii &&
           <Typography>
             コードにかけるのは半角英数字及び記号のみです
           </Typography>
         }
-        { !valid.isFilled &&
+        { !isFilled &&
           <Typography>
             タイトルとソースコードは必須項目です
           </Typography>
