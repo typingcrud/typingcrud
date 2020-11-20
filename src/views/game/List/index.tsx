@@ -74,7 +74,7 @@ const GameList: React.FC = () => {
                 <Grid item xs={4}>
                   <Typography className={classes.lang}>{game.lang}</Typography>
                 </Grid>
-                <Grid item xs={12} spacing={4}>
+                <Grid item xs={12}>
                   <Typography className={classes.description}>{formatDescription(game.description)}</Typography>,
                 </Grid>
               </Grid>
