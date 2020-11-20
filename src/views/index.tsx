@@ -14,6 +14,7 @@ import GameList from 'views/game/List'
 import GamePlay from 'views/game/Play'
 import GameNew from 'views/game/New'
 import GameEdit from 'views/game/Edit'
+import NotFound from 'views/NotFound'
 
 export default {
   Home,
@@ -32,4 +33,5 @@ export default {
   GamePlay,
   GameNew,
   GameEdit,
+  NotFound,
 }
