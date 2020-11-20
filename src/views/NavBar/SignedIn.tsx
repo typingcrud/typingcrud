@@ -3,24 +3,25 @@ import React, { useCallback } from 'react'
 import { useAppDispatch, thunkActions } from 'state'
 import { Divider, ListItem, ListItemText, IconButton } from '@material-ui/core'
 import { Code, AccountCircle, ExitToApp } from '@material-ui/icons'
+import { useHistory } from 'react-router-dom'
 
 type Props = {
-  link: (path: string) => () => void
   linkDrawerClose: (path: string) => void
 }
 
-export const SignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
+export const SignedIn: React.FC<Props> = ({ linkDrawerClose }) => {
+  const history = useHistory()
   const dispatch = useAppDispatch()
   const signOut = useCallback(
     () => {
       dispatch(thunkActions.auth.signOut())
-      link('/')()
-    }, [dispatch, link]
+      history.push('/')
+    }, [dispatch, history]
   )
 
   return (
     <React.Fragment>
-      <ListItem button onClick={() => linkDrawerClose('games')}>
+      <ListItem button onClick={() => linkDrawerClose('/games')}>
         <IconButton
           color="inherit"
           edge="start"
@@ -29,7 +30,7 @@ export const SignedIn: React.FC<Props> = ({ link, linkDrawerClose }) => {
         </IconButton>
         <ListItemText primary="ゲーム" />
       </ListItem>
-      <ListItem button onClick={() => linkDrawerClose('user')}>
+      <ListItem button onClick={() => linkDrawerClose('/user')}>
         <IconButton
           color="inherit"
           edge="start"

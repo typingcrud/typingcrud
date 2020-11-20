@@ -100,9 +100,9 @@ const NavBar: React.FC = () => {
 
   const linkDrawerClose = useCallback(
     (path: string) => {
-      link(`/${path}`)()
+      history.push(path)
       setOpen(false)
-    }, [setOpen, link]
+    }, [history]
   )
 
   return (
@@ -124,17 +124,17 @@ const NavBar: React.FC = () => {
           >
             <Menu />
           </IconButton>
-          <Button onClick={link('/')} style={{padding: 0}}>
-          <img
-            src={`${process.env.PUBLIC_URL}/img/logo_transparent.png`}
-            style={{
-              fontSize: 18,
-              width: 130,
-              height: 90,
-              cursor: 'pointer'
-            }}
-            alt='logo'
-          />
+          <Button onClick={link('/')} style={{ padding: 0 }}>
+            <img
+              src={`${process.env.PUBLIC_URL}/img/logo_transparent.png`}
+              style={{
+                fontSize: 18,
+                width: 130,
+                height: 90,
+                cursor: 'pointer'
+              }}
+              alt='logo'
+            />
           </Button>
           {signIn ?
             <React.Fragment>
@@ -174,7 +174,7 @@ const NavBar: React.FC = () => {
         </div>
         <Divider />
         <List>
-          <ListItem button onClick={() => linkDrawerClose('')}>
+          <ListItem button onClick={() => linkDrawerClose('/')}>
             <IconButton
               color="inherit"
               edge="start"
@@ -183,14 +183,14 @@ const NavBar: React.FC = () => {
             </IconButton>
             <ListItemText primary="ホーム" />
           </ListItem>
-          {signIn ? <SignedIn link={link} linkDrawerClose={linkDrawerClose} /> : <NotSignedIn linkDrawerClose={linkDrawerClose} />}
+          {signIn ? <SignedIn linkDrawerClose={linkDrawerClose} /> : <NotSignedIn linkDrawerClose={linkDrawerClose} />}
         </List>
         <Divider />
         <List>
-          <ListItem button onClick={() => linkDrawerClose('terms')}>
+          <ListItem button onClick={() => linkDrawerClose('/terms')}>
             <ListItemText primary="規約" />
           </ListItem>
-          <ListItem button onClick={() => linkDrawerClose('help')}>
+          <ListItem button onClick={() => linkDrawerClose('/help')}>
             <IconButton
               color="inherit"
               edge="start"
