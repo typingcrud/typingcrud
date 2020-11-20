@@ -17,6 +17,7 @@ def get(id):
 def lambda_handler(event, context):
     #logger.warn(person)
     return {
+        "isBase64Encoded": False,
         'statusCode': 200,
         'headers': {
             "Access-Control-Allow-Origin": "*"
