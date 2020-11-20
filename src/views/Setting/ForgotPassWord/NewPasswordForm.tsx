@@ -2,15 +2,9 @@ import React, { useCallback } from 'react'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { Button, IconButton, Input, InputLabel, InputAdornment, FormControl } from '@material-ui/core'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,27 +30,27 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block'
     },
   }),
-);
+)
 
 interface State {
-  showPassword: boolean;
+  showPassword: boolean
 }
 
 export const NewPasswordForm: React.FC = () => {
   const { isSendEmailForm, ...forgotPassWordForm } = useAppSelector(state => state.authForm.forgotPasswordForm)
   
-  const classes = useStyles();
+  const classes = useStyles()
   const [values, setValues] = React.useState<State>({
     showPassword: false
-  });
+  })
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
+    setValues({ ...values, showPassword: !values.showPassword })
+  }
 
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   const dispatch = useAppDispatch()
   type ForgotPassWordForm = typeof forgotPassWordForm

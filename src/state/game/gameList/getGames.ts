@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ThunkAPI } from 'utils/thunk'
-import { thunkActions, AppState } from 'state'
+import { thunkActions } from 'state'
 
-type GameList = AppState['gameList']
+type GameList = App.Game[]
 
 export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
   'gameList/getGames',

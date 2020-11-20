@@ -27,14 +27,17 @@ export const changePassword = createAsyncThunk<void, void, ThunkAPI>(
         cognitoUser.changePassword(currentPassword, newPassword, (err, result) => {
           if (err) {
             alert(err.message || JSON.stringify(err))
+            thunkAPI.dispatch(actions.cognitoSubmit.setChangePassword(false))
             return
           }
           alert("Password changed: " + result)
+          thunkAPI.dispatch(actions.cognitoSubmit.setChangePassword(true))
           thunkAPI.dispatch(actions.setting.reset())
         })
       },
       onFailure: (err: Error) => {
         alert(err.message || JSON.stringify(err)) 
+        thunkAPI.dispatch(actions.cognitoSubmit.setChangePassword(false))
       }
     })
   }
