@@ -147,8 +147,8 @@ const NavBar: React.FC = () => {
             </React.Fragment>
             :
             <div style={{ marginLeft: 'auto' }}>
-              <Button onClick={link('/user/signin')} style={{ margin: 10 }}>ログイン</Button>
-              <Button onClick={link('/user/signup')} variant='outlined' style={{ margin: 10 }}>アカウント作成</Button>
+              <Button onClick={link('/signin')} style={{ margin: 10 }}>ログイン</Button>
+              <Button onClick={link('/signup')} variant='outlined' style={{ margin: 10 }}>アカウント作成</Button>
             </div>
           }
         </Toolbar>

@@ -28,23 +28,23 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Container>
         <Route path='/'><Views.NavBar /></Route>
-        <Route exact path='/'><Views.Home /></Route>
-        <Route exact path='/user'><Views.Setting /></Route>
-        <Route path='/user/signin'><Views.SignIn /></Route>
-        <Route path='/user/signup'><Views.SignUp /></Route>
-        <Route path='/user/change-password'><Views.ChangePassWord /></Route>
-        <Route path='/user/forgot-password'><Views.ForgotPassWord /></Route>
-        <Route path='/user/change-email'><Views.ChangeEmailForm /></Route>
-        <Route path='/user/delete'><Views.DeleteUser /></Route>
-        <Route path='/user/change-userinfo'><Views.ChangeUserInfo /></Route>
         <Switch>
+          <Route exact path='/'><Views.Home /></Route>
+          <Route path='/signin'><Views.SignIn /></Route>
+          <Route path='/signup'><Views.SignUp /></Route>
+          <Route path='/forgot-password'><Views.ForgotPassWord /></Route>
+          <Route exact path='/user'><Views.Setting /></Route>
+          <Route path='/user/change-userinfo'><Views.ChangeUserInfo /></Route>
+          <Route path='/user/change-email'><Views.ChangeEmailForm /></Route>
+          <Route path='/user/change-password'><Views.ChangePassWord /></Route>
+          <Route path='/user/delete'><Views.DeleteUser /></Route>
           <Route exact path='/games'><Views.GameList /></Route>
           <Route path='/games/new'><Views.GameNew /></Route>
           <Route path='/games/edit/:id'><Views.GameEdit /></Route>
           <Route path='/games/:id'><Views.GamePlay /></Route>
+          <Route path='/terms'><Views.Terms /></Route>
+          <Route path='/help'><Views.Help /></Route>
         </Switch>
-        <Route path='/terms'><Views.Terms /></Route> {/*規約ページ*/}
-        <Route path='/help'><Views.Help /></Route> {/*お問い合わせページ*/}
       </Container>
     </BrowserRouter>
   )
