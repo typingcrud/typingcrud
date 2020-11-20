@@ -39,7 +39,7 @@ const Help: React.FC = () => {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            
+                            使い方は<a href="https://www.ed.tus.ac.jp/eic/articles/typingCRUD_1/index.html" rel="noopener noreferrer" target="_blank" >こちらのページ</a>を御覧ください
                         </Typography>
                     </AccordionDetails>
                 </Accordion>

@@ -8,7 +8,7 @@ import { AccountIcon } from 'views/NavBar/AccountIcon'
 import clsx from 'clsx'
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles'
 import { Drawer, CssBaseline, AppBar, Toolbar, List, Divider, IconButton, ListItem, ListItemText, Button, Typography } from '@material-ui/core'
-import { Menu, ChevronLeft, ChevronRight, Home, Help } from '@material-ui/icons'
+import { Menu, ChevronLeft, ChevronRight, Home, Help, Assignment } from '@material-ui/icons'
 
 const drawerWidth = 240
 
@@ -188,6 +188,12 @@ const NavBar: React.FC = () => {
         <Divider />
         <List>
           <ListItem button onClick={() => linkDrawerClose('terms')}>
+            <IconButton
+              color="inherit"
+              edge="start"
+            >
+              <Assignment />
+            </IconButton>
             <ListItemText primary="規約・ポリシー" />
           </ListItem>
           <ListItem button onClick={() => linkDrawerClose('/help')}>
