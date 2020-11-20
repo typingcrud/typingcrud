@@ -1,6 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { CharMap } from 'views/game/Play/CodeRenderer'
 import { getGame } from 'state/game/gamePlay/getGame'
+
+type CharMap = {
+  l: number
+  t: number
+  c: number
+  character: string
+  token: App.CodeToken
+}[]
 
 type GamePrams = {
   cursor: number
