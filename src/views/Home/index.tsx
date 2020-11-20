@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { makeStyles, colors, Grid, Card, CardContent, CardActions, IconButton, Paper, Typography } from '@material-ui/core'
 import { useAppSelector, useAppDispatch, thunkActions, actions } from 'state'
 import { PlayCircleFilled } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
+import { Pagination } from '@material-ui/lab'
 
 const useStyles = makeStyles({
   tiles: {
@@ -32,10 +33,13 @@ const useStyles = makeStyles({
   cardContent: {
     textAlign: 'center'
   },
+  page: {
+    margin: '2%',
+  }
 })
 
 const Home: React.FC = () => {
-  const { list } = useAppSelector(state => state.homeList)
+  const { list, page } = useAppSelector(state => state.homeList)
   const classes = useStyles()
 
   const dispatch = useAppDispatch()
@@ -45,9 +49,15 @@ const Home: React.FC = () => {
     history.push(path)
   }
 
+  const changePage = useCallback(
+    (_, value: number) => {
+      dispatch(actions.homeList.setPage(value))
+    }, [dispatch]
+  )
+
   useEffect(() => {
     dispatch(thunkActions.homeList.getHomeGames())
-  }, [dispatch])
+  }, [dispatch, page])
 
   useEffect(() => {
     return () => { dispatch(actions.homeList.reset()) }
@@ -88,6 +98,9 @@ const Home: React.FC = () => {
             </Grid>
           )
         })}
+      </Grid>
+      <Grid container justify='center'>
+        <Pagination color='primary' variant='outlined' count={10} page={page} onChange={changePage} className={classes.page}/>
       </Grid>
     </Paper>
   )
