@@ -3,8 +3,14 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { ThunkAPI } from 'utils/thunk'
 
 type HomeList = Omit<App.Game, 'userId'>[]
+type Resdata = Array<Omit<App.Game, 'userId'> & { maxPage: string }>
 
-export const getHomeGames = createAsyncThunk<HomeList | void, void, ThunkAPI>(
+type Result = {
+  list: HomeList
+  maxPage: number
+}
+
+export const getHomeGames = createAsyncThunk<Result | void, void, ThunkAPI>(
   'homeList/getHomeGames',
   async (_, thunkAPI) => {
     const page = thunkAPI.getState().homeList.page
@@ -21,7 +27,16 @@ export const getHomeGames = createAsyncThunk<HomeList | void, void, ThunkAPI>(
     }
 
     const response = await axios(options)
-      .then((res) => { return res.data.Items as HomeList })
+      .then((res) => { 
+        const resdata = res.data.Items as Resdata
+        const list: HomeList = resdata.map((data) => {
+          const { maxPage, ...homelist } = data
+          return homelist
+        })
+        const elem = resdata.pop()
+        const maxPage = elem ? parseInt(elem.maxPage) : 1
+        return { list: list, maxPage: maxPage }
+      })
       .catch((err) => { console.error(err) })
     
     return response
