@@ -53,7 +53,8 @@ const Help: React.FC = () => {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            <p>規約・プライバシーポリシーやサイトに関する疑問点等ございましたら下記のフォームからお願いいたします</p>
+                            <p>規約・プライバシーポリシーやサイトに関する疑問点等ございましたら下記のフォーム、またはメールアドレスからお願いいたします</p>
+                            <p>連絡用メールアドレス：eictusnoda@gmail.com</p>
                             <iframe style={style} title="otoiawase" width="650" height="650" src="https://forms.gle/gH6HzEPbYCB3KbeN7" >読み込んでいます…</iframe>
                         </Typography>
                     </AccordionDetails>
