@@ -11,10 +11,22 @@ export const update = createAsyncThunk<(App.Game[] | void), string, ThunkAPI>(
   async (index, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
     const idToken = thunkAPI.getState().auth.tokens?.idToken
-    const { title, description, lang, code, codeComment, valid } = thunkAPI.getState().gameForm
+    const { title, description, lang, code, codeComment } = thunkAPI.getState().gameForm.game
+    const { isAscii, isFilled } = thunkAPI.getState().gameForm.valid
+    const { isCorrect } = thunkAPI.getState().gameForm
 
-    if (!valid.isAscii || !valid.isFilled) {
+    if (!isAscii || !isFilled) {
       console.error('Validation has been submitted despite the fact that it has failed')
+      return
+    }
+
+    if (!isCorrect.userId) {
+      console.error('異なるユーザのコードを編集しようとしています')
+      return
+    }
+
+    if (!isCorrect.exist) {
+      console.error('存在しないゲームをアップデートしようとしています')
       return
     }
 
