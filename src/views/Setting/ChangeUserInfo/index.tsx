@@ -5,6 +5,9 @@ import { useAppSelector, useAppDispatch, thunkActions, actions } from 'state'
 import { useDropzone } from 'react-dropzone'
 import './dropzone.css'
 
+let buttonFlag = true
+let b64 = ""
+
 const useStyles = makeStyles(() =>
   createStyles({
     form: {
@@ -18,10 +21,14 @@ const useStyles = makeStyles(() =>
       marginTop: 10,
       display: 'inline-block'
     },
+    imgBoxContainer: {
+      overflow: 'hidden',
+    },
+    imgBox: {
+      float: 'left'
+    }
   }),
 )
-
-const LIMITSIZE = 1024 * 1024
 
 const Image: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -38,6 +45,7 @@ const Image: React.FC = () => {
   const uploadImage = useCallback(
     () => {
       if (userName !== '' && img64 !== '') dispatch(thunkActions.setting.changeUserInfo('img'))
+      b64 = ""
     }, [dispatch, img64, userName]
   )
 
@@ -48,24 +56,22 @@ const Image: React.FC = () => {
   )
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles[0].size <= LIMITSIZE) {
-      const reader = new FileReader()
-      reader.onabort = () => console.error('こちらのファイルは対応していません')
-      reader.onerror = () => console.error('ファイルの受け取りに失敗しました')
-      reader.readAsDataURL(acceptedFiles[0])
-      reader.onload = () => {
-        const encodedImg: string | ArrayBuffer | null = reader.result
-        const imgType = acceptedFiles[0].type.split('image/')[1]
-        if (typeof (encodedImg) === 'string') {
-          dispatch(actions.setting.changeUserInfo({
-            userName: userName,
-            img64: encodedImg.replace(`data:image/${imgType};base64,`, ''),
-            imgType: imgType
-          }))
-        }
+    const reader = new FileReader()
+    reader.onabort = () => console.error('こちらのファイルは対応していません')
+    reader.onerror = () => console.error('ファイルの受け取りに失敗しました')
+    reader.readAsDataURL(acceptedFiles[0])
+    reader.onload = () => {
+      const encodedImg: string | ArrayBuffer | null = reader.result
+      const imgType = acceptedFiles[0].type.split('image/')[1]
+      buttonFlag = false
+      if (typeof (encodedImg) === 'string') {
+        b64 = encodedImg
+        dispatch(actions.setting.changeUserInfo({
+          userName: userName,
+          img64: encodedImg.replace(`data:image/${imgType};base64,`, ''),
+          imgType: imgType
+        }))
       }
-    } else {
-      console.warn('ファイルサイズが大きすぎます')
     }
   }, [dispatch, userName])
 
@@ -96,10 +102,15 @@ const Image: React.FC = () => {
         </Button>
       </div>
       <h1>アイコン画像変更</h1>
-      <div {...getRootProps({ className: 'dropzone' })} >
-        <input {...getInputProps()} accept="image/jpeg,image/png,image/jpg,image/gif,image/svg" />
+      <p>枠をクリックするかドラッグ&ドロップで画像を選択してください</p>
+      <p>アップロードできる画像の形式は「jpg(jpeg)、png、gif、svgです」</p>
+      <div className={classes.imgBoxContainer}>
+        <div {...getRootProps({ className: 'dropzone' })} >
+          <input {...getInputProps()} accept="image/jpeg,image/png,image/jpg,image/gif,image/svg" />
+        </div>
+        {b64 === "" ? null : <img className={classes.imgBox} src={b64} alt="img" width="300px" height="300px" />}
       </div>
-      <Button variant="outlined" className={classes.button} onClick={uploadImage}>
+      <Button variant="outlined" className={classes.button} onClick={uploadImage} disabled={buttonFlag} >
         アップロード
       </Button>
     </React.Fragment>
