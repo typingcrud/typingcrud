@@ -66,7 +66,7 @@ const GameList: React.FC = () => {
       <Grid container justify='center' className={classes.tiles}>
         {list.map((game, index) => {
           return (
-            <CardElem key={index} index={game.index}>
+            <CardElem key={index} index={game.index} gameUserId={game.userId}>
               <Grid container justify='space-around' alignItems='center' spacing={3}>
                 <Grid item xs={8}>
                   <Typography className={classes.title}>{game.title}</Typography>

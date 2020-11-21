@@ -12,7 +12,8 @@ export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
     const userId = thunkAPI.getState().auth.userId
 
     const params = {
-      userId: userId
+      userId: userId,
+      index: '0'
     }
 
     const options: AxiosRequestConfig = {

@@ -1,8 +1,7 @@
 import React from 'react'
-import { Popover, Typography, IconButton, colors } from '@material-ui/core'
-import { Send } from '@material-ui/icons'
+import { Popover, IconButton, List, ListItem, ListItemText } from '@material-ui/core'
+import { HelpOutline, Send } from '@material-ui/icons'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { useAppSelector } from 'state'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,9 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export const NotSend: React.FC = () => {
-  const { isAscii, isFilled } = useAppSelector(state => state.gameForm.valid)
-
+export const Help: React.FC = () => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
 
@@ -35,13 +32,13 @@ export const NotSend: React.FC = () => {
     <div>
       <IconButton
         size='medium'
-        style={{ color: colors.grey[700] }}
+        color='secondary'
         aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
       >
-        <Send />
+        <HelpOutline />
       </IconButton>
       <Popover
         id="mouse-over-popover"
@@ -62,17 +59,28 @@ export const NotSend: React.FC = () => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        { !isAscii &&
-          <Typography>
-            コードにかけるのは半角英数字及び記号のみです
-          </Typography>
-        }
-        { !isFilled &&
-          <Typography>
-            タイトルとソースコードは必須項目です
-          </Typography>
-        }
+        <List>
+          <ListItem>
+            <ListItemText primary='Title: タイトル 【必須】'/>
+          </ListItem>
+          <ListItem>
+            <ListItemText primary='Language: プログラミング言語'/>
+          </ListItem>
+          <ListItem>
+            <ListItemText primary='Description: コードの概要など'/>
+          </ListItem>
+          <ListItem>
+            <ListItemText primary='code: タイピング対象のソースコード 【必須】'/>
+          </ListItem>
+          <ListItem>
+            <ListItemText primary='comment: ソースコードの説明'/>
+          </ListItem>
+          <ListItem>
+            <Send /><ListItemText primary=': 送信ボタン （Title と code を入力しないと押せません）'/>
+          </ListItem>
+        </List> 
       </Popover>
     </div>
   )
 }
+

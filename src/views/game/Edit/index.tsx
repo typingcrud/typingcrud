@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 import GameForm from 'views/game/Form'
-import { useAppDispatch, thunkActions, actions } from 'state'
-import { useHistory, useParams } from 'react-router-dom'
+import { useAppDispatch, thunkActions, actions, useAppSelector } from 'state'
+import { useHistory, useParams, Redirect } from 'react-router-dom'
 
 const GameEdit: React.FC = () => {
+  const { isCorrect } = useAppSelector(state => state.gameForm)
+
   const dispatch = useAppDispatch()
   const history = useHistory()
   const { id: index } = useParams()
@@ -23,7 +25,9 @@ const GameEdit: React.FC = () => {
   }, [dispatch, index])
 
   return (
-    <GameForm submit={submit}/>
+    (isCorrect.exist && isCorrect.userId)
+    ? <GameForm submit={submit}/>
+    : <Redirect to='/games'/>
   )
 }
 
