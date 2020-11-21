@@ -1,27 +1,39 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
-import { AppState } from 'state'
+import { ThunkAPI } from 'utils/thunk'
 
-type Game = AppState['gamePlay']
+type Game = App.Game
 
-export const getGame = createAsyncThunk<Game | void, string, {}>(
+type Response = {
+  game: Game | undefined
+  userId: string
+}
+
+export const getGame = createAsyncThunk<Response | void, string, ThunkAPI>(
   'gameForm/getGame',
-  async (index) => {
+  async (index, thunkAPI) => {
+    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const userId = thunkAPI.getState().auth.userId
 
     const params = {
+      userId: userId,
       index: index,
-      page: '0',
     }
 
     const options: AxiosRequestConfig = {
       method: 'GET',
       params: params,
-      url: process.env.REACT_APP_API_BASE + "game/public",
+      headers: {
+        Authorization: idToken
+      },
+      url: process.env.REACT_APP_API_BASE + "game",
     }
 
     const response = await axios(options)
       .then((res) => {
-        return res.data as Game
+        const game = res.data?.[0] as (Game | undefined)
+        const response: Response = { game,  userId }
+        return response
       })
       .catch((err) => {
         console.log(err)
