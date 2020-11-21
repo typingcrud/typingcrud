@@ -5,9 +5,10 @@ import { Alert, AlertTitle } from '@material-ui/lab'
 import { langs } from 'utils/languages'
 import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
-import { Send, ArrowBack, HelpOutline } from '@material-ui/icons'
+import { Send, ArrowBack } from '@material-ui/icons'
 import { NotSend } from 'views/game/Form/NotSend'
 import { useHistory } from 'react-router-dom'
+import { Help } from './Help'
 
 const useStyles = makeStyles({
   item: {
@@ -105,9 +106,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
           </FormControl>
         </Grid>
         <Grid item xs={1} className={classes.icon}>
-          <IconButton size='medium' color='secondary'>
-            <HelpOutline />
-          </IconButton>
+          <Help />
         </Grid>
         <Grid item xs={12} className={classes.description}>
           <TextField
