@@ -108,7 +108,7 @@ const Image: React.FC = () => {
         <div {...getRootProps({ className: 'dropzone' })} >
           <input {...getInputProps()} accept="image/jpeg,image/png,image/jpg,image/gif,image/svg" />
         </div>
-        {b64 === "" ? null : <img className={classes.imgBox} src={b64} alt="image" width="300px" height="300px" />}
+        {b64 === "" ? null : <img className={classes.imgBox} src={b64} alt="img" width="300px" height="300px" />}
       </div>
       <Button variant="outlined" className={classes.button} onClick={uploadImage} disabled={buttonFlag} >
         アップロード
