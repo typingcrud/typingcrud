@@ -227,7 +227,7 @@ const Terms: React.FC = () => {
 
                                 <h2>第10条（お問い合わせ窓口）</h2>
                                 <p>本ポリシーに関するお問い合わせは，下記のリンクからお願いいたします。</p>
-                                <a href="https://typingcrud.work/help" target="_blank" rel="noopener noreferrer">https://typingcrud.work/help</a>
+                                <a href="https://typingcrud.it12.net/help" target="_blank" rel="noopener noreferrer">https://typingcrud.it12.net/help</a>
                             </div>
                         </Typography>
                     </AccordionDetails>

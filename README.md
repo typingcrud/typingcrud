@@ -2,7 +2,7 @@
 
 ## エンジニア向けタイピングゲーム
 
-https://typingcrud.work
+https://typingcrud.it12.net
 
 
 ## 使用技術
@@ -39,3 +39,6 @@ https://typingcrud.work
 
 [エンジニア向けタイピングゲームのサイトを作ってみた(前編)](https://www.ed.tus.ac.jp/eic/articles/typing_crud_1/index.html)  
 [エンジニア向けタイピングゲームのサイトを作ってみた(後編)](https://www.ed.tus.ac.jp/eic/articles/typing_crud_2/index.html)
+
+## 備忘録
+- ローカルのnodeのバージョンによっては`export NODE_OPTIONS=--openssl-legacy-provider`をした上でreact-scriptsを動かす必要あり
