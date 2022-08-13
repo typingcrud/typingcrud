@@ -2,9 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ThunkAPI } from 'utils/thunk'
 import { sha256 } from 'js-sha256'
-import moment from 'moment';
-import 'moment/locale/ja'
-moment.locale('ja')
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
+dayjs.locale('ja')
+dayjs.extend(timezone)
+dayjs.extend(utc)
+dayjs.tz.setDefault("Asia/Tokyo")
 
 export const create = createAsyncThunk<(App.Game[] | void), void, ThunkAPI>(
   'gameForm/create',
@@ -25,7 +30,7 @@ export const create = createAsyncThunk<(App.Game[] | void), void, ThunkAPI>(
     }
 
     const data: string = JSON.stringify({
-      createdAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
+      createdAt: dayjs().tz().format("YYYY MM/DD HH:mm:ss").toString(),
       title: title,
       description: description,
       lang: lang,

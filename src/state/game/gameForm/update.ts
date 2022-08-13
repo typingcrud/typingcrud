@@ -2,9 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ThunkAPI } from 'utils/thunk'
 
-import moment from 'moment';
-import 'moment/locale/ja'
-moment.locale('ja')
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
+dayjs.locale('ja')
+dayjs.extend(timezone)
+dayjs.extend(utc)
+dayjs.tz.setDefault("Asia/Tokyo")
 
 export const update = createAsyncThunk<(App.Game[] | void), string, ThunkAPI>(
   'gameForm/update',
@@ -36,7 +41,7 @@ export const update = createAsyncThunk<(App.Game[] | void), string, ThunkAPI>(
     }
 
     const data: string = JSON.stringify({
-      updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
+      updatedAt: dayjs().tz().format("YYYY MM/DD HH:mm:ss").toString(),
       title: title,
       description: description,
       lang: lang,
