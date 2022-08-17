@@ -16,7 +16,7 @@ import GameNew from 'views/game/New'
 import GameEdit from 'views/game/Edit'
 import NotFound from 'views/NotFound'
 
-export default {
+const exportedObject = {
   Home,
   NavBar,
   SignIn,
@@ -35,3 +35,5 @@ export default {
   GameEdit,
   NotFound,
 }
+
+export default exportedObject
