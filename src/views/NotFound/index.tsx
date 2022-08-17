@@ -45,7 +45,7 @@ const FoundPath: React.FC = () => {
 
   const classes = useStyles()
   return (
-    <Grid container justify='center' className={classes.grid} spacing={3}>
+    <Grid container justifyContent='center' className={classes.grid} spacing={3}>
       <Grid item xs={12}>
         <Typography variant='h3' color='secondary' className={classes.text}>
           サインインして下さい
@@ -77,7 +77,7 @@ const NotFoundPath: React.FC = () => {
 
   const classes = useStyles()
   return (
-    <Grid container justify='center' className={classes.grid} spacing={3}>
+    <Grid container justifyContent='center' className={classes.grid} spacing={3}>
       <Grid item xs={12}>
         <Typography variant='h3' color='secondary' className={classes.text}>
           ページが見つかりません

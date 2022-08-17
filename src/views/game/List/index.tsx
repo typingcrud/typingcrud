@@ -58,16 +58,16 @@ const GameList: React.FC = () => {
 
   return (
     <Paper elevation={10} square>
-      <Grid container justify='center'>
+      <Grid container justifyContent='center'>
         <Fab className={classes.add} color='secondary' size='small' onClick={link('/games/new')}>
           <Add />
         </Fab>
       </Grid>
-      <Grid container justify='center' className={classes.tiles}>
+      <Grid container justifyContent='center' className={classes.tiles}>
         {list.map((game, index) => {
           return (
             <CardElem key={index} index={game.index} gameUserId={game.userId}>
-              <Grid container justify='space-around' alignItems='center' spacing={3}>
+              <Grid container justifyContent='space-around' alignItems='center' spacing={3}>
                 <Grid item xs={8}>
                   <Typography className={classes.title}>{game.title}</Typography>
                 </Grid>
