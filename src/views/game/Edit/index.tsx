@@ -1,25 +1,25 @@
 import React, { useCallback, useEffect } from 'react'
 import GameForm from 'views/game/Form'
 import { useAppDispatch, thunkActions, actions, useAppSelector } from 'state'
-import { useHistory, useParams, Redirect } from 'react-router-dom'
+import { useNavigate, useParams, Navigate } from 'react-router-dom'
 
 const GameEdit: React.FC = () => {
   const { isCorrect } = useAppSelector(state => state.gameForm)
 
   const dispatch = useAppDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
 
   const submit = useCallback(
     () => {
-      dispatch(thunkActions.gameForm.update(id))
-        .then(() => { history.push('/games') })
+      dispatch(thunkActions.gameForm.update(id ? id : ''))
+        .then(() => { navigate('/games') })
         .catch((reason) => { console.error(reason) })
-    }, [dispatch, history, id]
+    }, [dispatch, navigate, id]
   )
 
   useEffect(() => {
-    dispatch(thunkActions.gameForm.getGame(id))
+    dispatch(thunkActions.gameForm.getGame(id ? id : ''))
 
     return () => { dispatch(actions.gameForm.reset()) }
   }, [dispatch, id])
@@ -27,7 +27,7 @@ const GameEdit: React.FC = () => {
   return (
     (isCorrect.exist && isCorrect.userId)
     ? <GameForm submit={submit}/>
-    : <Redirect to='/games'/>
+    : <Navigate to='/games'/>
   )
 }
 

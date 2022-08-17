@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 import { Typography, IconButton, Menu, MenuItem, Avatar } from '@material-ui/core'
 import { AccountCircle, ExitToApp } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector, thunkActions } from 'state'
 
 export const AccountIcon: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const userInfo = useAppSelector(state => state.auth.userInfo)
   let userImg = ''
@@ -26,17 +26,17 @@ export const AccountIcon: React.FC = () => {
 
   const linkClose = useCallback(
     (path: string) => {
-      history.push(path)
+      navigate(path)
       setAnchorEl(null)
-    }, [history]
+    }, [navigate]
   )
 
   const logoutClose = useCallback(
     () => {
       setAnchorEl(null)
       dispatch(thunkActions.auth.signOut())
-      history.push('/')
-    }, [dispatch, history]
+      navigate('/')
+    }, [dispatch, navigate]
   )
 
   return (

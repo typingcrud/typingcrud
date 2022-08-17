@@ -28,7 +28,7 @@ const GamePlay: React.FC = () => {
 
   const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(thunkActions.gamePlay.getGame({ index: id }))
+    dispatch(thunkActions.gamePlay.getGame({ index: id ? id : '' }))
 
     return () => { dispatch(actions.gamePlay.reset()) }
   }, [dispatch, id])

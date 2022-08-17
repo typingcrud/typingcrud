@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 
@@ -38,8 +38,8 @@ interface State {
 }
 
 const SignIn: React.FC = () => {
-  const history = useHistory()
-  const link = (path: string) => () => history.push(path)
+  const navigate = useNavigate()
+  const link = (path: string) => () => navigate(path)
   const classes = useStyles()
 
   const signInForm = useAppSelector(state => state.authForm.signInForm)
@@ -73,8 +73,8 @@ const SignIn: React.FC = () => {
   }
 
   useEffect(() => {
-    if (cognitoSubmit) history.push('/')
-  }, [cognitoSubmit, history])
+    if (cognitoSubmit) navigate('/')
+  }, [cognitoSubmit, navigate])
 
   useEffect(() => {
     return () => {

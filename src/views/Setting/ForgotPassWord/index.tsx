@@ -6,7 +6,7 @@ import { NewPasswordForm } from 'views/Setting/ForgotPassWord/NewPasswordForm'
 
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() =>
 )
 
 const ForgotPassWord: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const { isSendEmailForm } = useAppSelector( state => state.authForm.forgotPasswordForm )
   const { forgotPassword: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
 
@@ -33,8 +33,8 @@ const ForgotPassWord: React.FC = () => {
   )
 
   useEffect(() => {
-    if (cognitoSubmit) history.push('/signin')
-  }, [cognitoSubmit, history])
+    if (cognitoSubmit) navigate('/signin')
+  }, [cognitoSubmit, navigate])
 
   useEffect(() => {
     return () => {

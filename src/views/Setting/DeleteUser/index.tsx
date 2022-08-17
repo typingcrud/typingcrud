@@ -5,7 +5,7 @@ import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Button, IconButton, Input, InputLabel, InputAdornment, FormControl } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -28,7 +28,7 @@ interface State {
 }
 
 const DeleteUser: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const { confirmPassword } = useAppSelector(state => state.setting.deleteUserForm)
   const { deleteUser: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
 
@@ -57,8 +57,8 @@ const DeleteUser: React.FC = () => {
   )
 
   useEffect(() => {
-    if (cognitoSubmit) history.push('/')
-  }, [cognitoSubmit, history])
+    if (cognitoSubmit) navigate('/')
+  }, [cognitoSubmit, navigate])
 
   useEffect(() => {
     return () => {

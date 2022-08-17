@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect } from 'react'
 import GameForm from 'views/game/Form'
 import { useAppDispatch, thunkActions, actions } from 'state'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const GameNew: React.FC = () => {
   const dispatch = useAppDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
 
 
   const submit = useCallback(
     () => {
       dispatch(thunkActions.gameForm.create())
-        .then(() => { history.push('/games') })
+        .then(() => { navigate('/games') })
         .catch((reason) => { console.error(reason) })
-    }, [dispatch, history]
+    }, [dispatch, navigate]
   )
 
   useEffect(() => {
