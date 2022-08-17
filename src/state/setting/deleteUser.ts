@@ -10,7 +10,8 @@ export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
   'setting/deleteUser',
   async (_, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+    const idToken = tmpIdToken ? tmpIdToken : ''
     const { confirmPassword } = thunkAPI.getState().setting.deleteUserForm
     const cognitoUser = cognitoUserPool.getCurrentUser()
     if (cognitoUser === null) {
@@ -47,7 +48,11 @@ export const deleteUser = createAsyncThunk<void, void, ThunkAPI>(
             })
             .catch(async () => {
               thunkAPI.dispatch(thunkActions.auth.updateTokens())
-              options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
+              const tmpIdToken_ = thunkAPI.getState().auth.tokens?.idToken
+
+              if (options.headers) {
+                options.headers.Authorization = tmpIdToken_ ? tmpIdToken_ : ''
+              }
               await axios(options)
                 .then((res) => {
                   console.log(res)

@@ -2,15 +2,21 @@ import { ThunkAPI } from 'utils/thunk'
 import { thunkActions } from 'state'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
-import moment from 'moment';
-import 'moment/locale/ja'
-moment.locale('ja')
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
+dayjs.locale('ja')
+dayjs.extend(timezone)
+dayjs.extend(utc)
+dayjs.tz.setDefault("Asia/Tokyo")
 
 export const changeUserInfo = createAsyncThunk<void, ('name' | 'img'), ThunkAPI>(
   'setting/changeUserInfo',
   async (mode, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+    const idToken = tmpIdToken ? tmpIdToken : ''
     const changeUserInfo = thunkAPI.getState().setting.changeUserInfo
 
     const params = {
@@ -21,7 +27,7 @@ export const changeUserInfo = createAsyncThunk<void, ('name' | 'img'), ThunkAPI>
     }
 
     let data = {
-      updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
+      updatedAt: dayjs().tz().format("YYYY MM/DD HH:mm:ss").toString(),
       img64: (mode === 'name') ? '0' : changeUserInfo.img64
     }
 
@@ -43,7 +49,12 @@ export const changeUserInfo = createAsyncThunk<void, ('name' | 'img'), ThunkAPI>
       })
       .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
-        options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
+        const tmpIdToken_ = thunkAPI.getState().auth.tokens?.idToken
+
+        if (options.headers) {
+          options.headers.Authorization = tmpIdToken_ ? tmpIdToken_ : ''
+        }
+        
         await axios(options)
           .then((res) => {
             thunkAPI.dispatch(thunkActions.auth.getUserInfo())

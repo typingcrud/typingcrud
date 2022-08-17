@@ -1,6 +1,10 @@
 const aws = require('aws-sdk');
-const moment = require('moment-timezone');
-moment.tz.setDefault('Asia/Tokyo');
+const dayjs = require('dayjs');
+const timezone = require('dayjs/plugin/timezone');
+const utc = require('dayjs/plugin/utc');
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Tokyo");
 const ddb = new aws.DynamoDB({ apiVersion: '2012-10-08' });
 const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider();
 const crypto = require('crypto');
@@ -35,8 +39,8 @@ exports.handler = async (event, context, callback) => {
         Item: {
           'userId': { S: user.UserAttributes[2]['Value'] },
           'userName': { S: event.email.split('@')[0] },
-          'createdAt': { S: moment().format("YYYY MM/DD HH:mm:ss").toString() },
-          'updatedAt': { S: moment().format("YYYY MM/DD HH:mm:ss").toString() },
+          'createdAt': { S: dayjs().tz().format("YYYY MM/DD HH:mm:ss").toString() },
+          'updatedAt': { S: dayjs().tz().format("YYYY MM/DD HH:mm:ss").toString() },
           'imgOwn': { S: "0" }
         },
         TableName: tableName

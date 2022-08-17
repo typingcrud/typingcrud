@@ -80,7 +80,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
 
   return (
     <Paper elevation={10} square>
-      <Grid container justify='space-between' alignItems='center'>
+      <Grid container justifyContent='space-between' alignItems='center'>
         <Grid item xs={1} className={classes.icon}>
           <IconButton size='medium' color='secondary' onClick={back}>
             <ArrowBack />
@@ -119,7 +119,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
           />
         </Grid>
         <Container>
-          <Grid container justify='center' alignItems='flex-start' spacing={0}>
+          <Grid container justifyContent='center' alignItems='flex-start' spacing={0}>
             <Grid item xs={12} sm={6} className={classes.editor}>
               <Editor identifier='code' value={code} lang={lang} onValueChange={changeCode} />
             </Grid>

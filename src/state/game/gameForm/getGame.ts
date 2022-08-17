@@ -12,7 +12,8 @@ type Response = {
 export const getGame = createAsyncThunk<Response | void, string, ThunkAPI>(
   'gameForm/getGame',
   async (index, thunkAPI) => {
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+    const idToken = tmpIdToken ? tmpIdToken : ''
     const userId = thunkAPI.getState().auth.userId
 
     const params = {

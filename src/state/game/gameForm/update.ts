@@ -2,15 +2,21 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 import { ThunkAPI } from 'utils/thunk'
 
-import moment from 'moment';
-import 'moment/locale/ja'
-moment.locale('ja')
+import dayjs from 'dayjs'
+import 'dayjs/locale/ja'
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
+dayjs.locale('ja')
+dayjs.extend(timezone)
+dayjs.extend(utc)
+dayjs.tz.setDefault("Asia/Tokyo")
 
 export const update = createAsyncThunk<(App.Game[] | void), string, ThunkAPI>(
   'gameForm/update',
   async (index, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+    const idToken = tmpIdToken ? tmpIdToken : ''
     const { title, description, lang, code, codeComment } = thunkAPI.getState().gameForm.game
     const { isAscii, isFilled } = thunkAPI.getState().gameForm.valid
     const { isCorrect } = thunkAPI.getState().gameForm
@@ -36,7 +42,7 @@ export const update = createAsyncThunk<(App.Game[] | void), string, ThunkAPI>(
     }
 
     const data: string = JSON.stringify({
-      updatedAt: moment().format("YYYY MM/DD HH:mm:ss").toString(),
+      updatedAt: dayjs().tz().format("YYYY MM/DD HH:mm:ss").toString(),
       title: title,
       description: description,
       lang: lang,

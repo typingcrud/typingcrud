@@ -77,7 +77,7 @@ const Home: React.FC = () => {
     <React.Fragment>
       <Description />
       <Paper elevation={10} square>
-        <Grid container justify='center' className={classes.tiles}>
+        <Grid container justifyContent='center' className={classes.tiles}>
           {list.map((game, index) => {
             return (
               <Grid item xs={4} className={classes.grid} key={index}>
@@ -88,7 +88,7 @@ const Home: React.FC = () => {
                     </IconButton>
                   </CardActions>
                   <CardContent className={classes.cardContent}>
-                    <Grid container justify='space-around' alignItems='center' spacing={3}>
+                    <Grid container justifyContent='space-around' alignItems='center' spacing={3}>
                       <Grid item xs={8}>
                         <Typography className={classes.title}>{game.title}</Typography>
                       </Grid>
@@ -105,7 +105,7 @@ const Home: React.FC = () => {
             )
           })}
         </Grid>
-        <Grid container justify='center'>
+        <Grid container justifyContent='center'>
           <Pagination color='primary' variant='outlined' count={maxPage} page={page} onChange={changePage} className={classes.page} />
         </Grid>
       </Paper>

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         heading: {
             fontSize: theme.typography.pxToRem(20),
-            fontWeight: theme.typography.fontWeightRegular,
+            fontWeight: 400
         },
     }),
 )

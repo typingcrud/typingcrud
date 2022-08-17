@@ -8,7 +8,8 @@ type GameList = App.Game[]
 export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
   'gameList/getGames',
   async (_, thunkAPI) => {
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+    const idToken = tmpIdToken ? tmpIdToken : ''
     const userId = thunkAPI.getState().auth.userId
 
     const params = {
@@ -31,7 +32,12 @@ export const getGames = createAsyncThunk<GameList | void, void, ThunkAPI>(
       })
       .catch(() => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
-        options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
+        const tmpIdToken_ = thunkAPI.getState().auth.tokens?.idToken
+
+        if (options.headers) {
+          options.headers.Authorization = tmpIdToken_ ? tmpIdToken_ : ''
+        }
+
         return axios(options)
           .then((res) => {
             return res.data as GameList
