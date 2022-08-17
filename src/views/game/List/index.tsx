@@ -4,7 +4,7 @@ import { CardElem } from './CardElem'
 import { Grid, makeStyles, colors, Paper, Fab, Typography } from '@material-ui/core'
 import { useSignIn } from 'utils'
 import { Add } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles({
   tiles: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 })
 
 const GameList: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const { list, needToReload } = useAppSelector(state => state.gameList)
   const signIn = useSignIn()
   const classes = useStyles()
@@ -39,7 +39,7 @@ const GameList: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const link = (path: string) => () => {
-    history.push(path)
+    navigate(path)
   }
 
   const formatDescription = (description: string) => {

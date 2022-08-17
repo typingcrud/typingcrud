@@ -6,7 +6,7 @@ import { VerificationForm } from './VerificationForm'
 
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core/'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() =>
 )
 
 const ChangeEmail: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const { isNewEmailForm } = useAppSelector(state => state.setting.changeEmailForm)
   const { changeEmail: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
 
@@ -33,8 +33,8 @@ const ChangeEmail: React.FC = () => {
   )
 
   useEffect(() => {
-    if (cognitoSubmit) history.push('/user')
-  }, [cognitoSubmit, history])
+    if (cognitoSubmit) navigate('/user')
+  }, [cognitoSubmit, navigate])
 
   useEffect(() => {
     return () => {

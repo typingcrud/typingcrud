@@ -6,7 +6,7 @@ import { VerificationForm } from 'views/Auth/SignUp/VerificationForm'
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const SignUp: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const { isSignUpForm } = useAppSelector(state => state.authForm.signUpForm)
   const { signUp: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
   const classes = useStyles()
@@ -49,8 +49,8 @@ const SignUp: React.FC = () => {
   )
 
   useEffect(() => {
-    if (cognitoSubmit) history.push('/signin')
-  }, [cognitoSubmit, history])
+    if (cognitoSubmit) navigate('/signin')
+  }, [cognitoSubmit, navigate])
 
   useEffect(() => {
     return () => {

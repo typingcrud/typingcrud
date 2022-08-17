@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSignIn } from 'utils'
 import { SignedIn } from 'views/NavBar/SignedIn'
 import { NotSignedIn } from 'views/NavBar/NotSignedIn'
@@ -79,12 +79,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const NavBar: React.FC = () => {
   const signIn = useSignIn()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const link = useCallback(
     (path: string) => () => {
-      history.push(path)
-    }, [history]
+      navigate(path)
+    }, [navigate]
   )
   const classes = useStyles()
   const theme = useTheme()
@@ -100,9 +100,9 @@ const NavBar: React.FC = () => {
 
   const linkDrawerClose = useCallback(
     (path: string) => {
-      history.push(path)
+      navigate(path)
       setOpen(false)
-    }, [history]
+    }, [navigate]
   )
 
   return (

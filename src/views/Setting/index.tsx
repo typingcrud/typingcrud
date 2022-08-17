@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { List, ListItem, ListItemText, Divider } from '@material-ui/core/'
 
 const Setting: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const link = useCallback(
     (path: string) => () => {
-      history.push(path)
-    }, [history]
+      navigate(path)
+    }, [navigate]
   )
 
   return (

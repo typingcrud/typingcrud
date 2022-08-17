@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { makeStyles, colors, Grid, Card, CardContent, CardActions, IconButton, Menu, MenuItem } from '@material-ui/core'
 import { PlayCircleFilled, Delete, MoreHoriz, Edit } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, thunkActions, useAppSelector } from 'state'
 
 const useStales = makeStyles({
@@ -25,12 +25,13 @@ const useStales = makeStyles({
 type Props = {
   index: string
   gameUserId: string
+  children: any
 }
 
 export const CardElem: React.FC<Props> = ({ gameUserId, index, children }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const link = (index: string) => () => {
-    history.push('/games/' + index)
+    navigate('/games/' + index)
   }
 
   const { isExist } = useAppSelector(state => state.gameList)
@@ -64,8 +65,8 @@ export const CardElem: React.FC<Props> = ({ gameUserId, index, children }) => {
   const editGame = useCallback(
     () => {
       handleClose()
-      history.push('/games/edit/' + index)
-    }, [history, index]
+      navigate('/games/edit/' + index)
+    }, [navigate, index]
   )
 
   return (

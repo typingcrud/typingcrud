@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import { makeStyles, colors, Grid, Card, CardContent, CardActions, IconButton, Paper, Typography } from '@material-ui/core'
 import { useAppSelector, useAppDispatch, thunkActions, actions } from 'state'
 import { PlayCircleFilled } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Pagination } from '@material-ui/lab'
 import { Description } from './Description'
 
@@ -48,13 +48,13 @@ const Home: React.FC = () => {
 
   const dispatch = useAppDispatch()
 
-  const history = useHistory()
+  const navigate = useNavigate()
   const link = (path: string) => () => {
-    history.push(path)
+    navigate(path)
   }
 
   const changePage = useCallback(
-    (_, value: number) => {
+    (_: any, value: number) => {
       dispatch(actions.homeList.setPage(value))
     }, [dispatch]
   )

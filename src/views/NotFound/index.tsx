@@ -1,6 +1,6 @@
 import React from 'react'
 import { Paper, Typography, Grid, makeStyles, Button } from '@material-ui/core'
-import { useLocation, useRouteMatch, useHistory } from 'react-router-dom'
+import { useLocation, useMatch, useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles({
   grid: {
@@ -27,7 +27,7 @@ const knownPath = [
 const NotFound: React.FC = () => {
   const location = useLocation()
   const matchKnownPath: boolean = knownPath.filter((path) => location.pathname === path).length > 0
-  const match = useRouteMatch('/games/edit/:id')
+  const match = useMatch('/games/edit/:id')
   const isFound = matchKnownPath || (match !== null)
 
   return (
@@ -38,9 +38,9 @@ const NotFound: React.FC = () => {
 }
 
 const FoundPath: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const link = (path: string) => () => {
-    history.push(path)
+    navigate(path)
   }
 
   const classes = useStyles()
@@ -70,9 +70,9 @@ const FoundPath: React.FC = () => {
 }
 
 const NotFoundPath: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const link = (path: string) => () => {
-    history.push(path)
+    navigate(path)
   }
 
   const classes = useStyles()

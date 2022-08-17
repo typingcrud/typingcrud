@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch, actions } from 'state'
 import { Editor } from './Editor'
 import { Send, ArrowBack } from '@material-ui/icons'
 import { NotSend } from 'views/game/Form/NotSend'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Help } from './Help'
 
 const useStyles = makeStyles({
@@ -41,7 +41,7 @@ type Props = {
 }
 
 const GameForm: React.FC<Props> = ({ submit }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const classes = useStyles()
 
   const { title, lang, code, codeComment, description } = useAppSelector(state => state.gameForm.game)
@@ -75,7 +75,7 @@ const GameForm: React.FC<Props> = ({ submit }) => {
   )
 
   const back = () => {
-    history.goBack()
+    navigate(-1)
   }
 
   return (

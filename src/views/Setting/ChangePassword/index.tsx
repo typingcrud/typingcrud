@@ -5,7 +5,7 @@ import { actions, thunkActions, useAppSelector, useAppDispatch } from 'state'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Button, IconButton, Input, InputLabel, InputAdornment, FormControl } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +38,7 @@ interface State {
 }
 
 const ChangePassword: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const changePasswordForm = useAppSelector(state => state.setting.changePasswordForm)
   const { changePassword: cognitoSubmit } = useAppSelector(state => state.cognitoSubmit)
 
@@ -72,8 +72,8 @@ const ChangePassword: React.FC = () => {
   )
 
   useEffect(() => {
-    if (cognitoSubmit) history.push('/user')
-  }, [cognitoSubmit, history])
+    if (cognitoSubmit) navigate('/user')
+  }, [cognitoSubmit, navigate])
 
   useEffect(() => {
     return () => {
