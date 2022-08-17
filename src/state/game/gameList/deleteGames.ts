@@ -12,7 +12,8 @@ export const deleteGame = createAsyncThunk<App.Game[] | void, Args, ThunkAPI>(
   'gameList/deleteGame',
   async ({ index, gameUserId }, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+    const idToken = tmpIdToken ? tmpIdToken : ''
 
     if (userId === gameUserId) {
       const params = {

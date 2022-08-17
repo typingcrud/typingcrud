@@ -8,21 +8,21 @@ const GameEdit: React.FC = () => {
 
   const dispatch = useAppDispatch()
   const history = useHistory()
-  const { id: index } = useParams()
+  const { id } = useParams<{ id: string }>()
 
   const submit = useCallback(
     () => {
-      dispatch(thunkActions.gameForm.update(index))
+      dispatch(thunkActions.gameForm.update(id))
         .then(() => { history.push('/games') })
         .catch((reason) => { console.error(reason) })
-    }, [dispatch, history, index]
+    }, [dispatch, history, id]
   )
 
   useEffect(() => {
-    dispatch(thunkActions.gameForm.getGame(index))
+    dispatch(thunkActions.gameForm.getGame(id))
 
     return () => { dispatch(actions.gameForm.reset()) }
-  }, [dispatch, index])
+  }, [dispatch, id])
 
   return (
     (isCorrect.exist && isCorrect.userId)

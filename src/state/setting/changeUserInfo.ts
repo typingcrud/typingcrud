@@ -15,7 +15,8 @@ export const changeUserInfo = createAsyncThunk<void, ('name' | 'img'), ThunkAPI>
   'setting/changeUserInfo',
   async (mode, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+    const idToken = tmpIdToken ? tmpIdToken : ''
     const changeUserInfo = thunkAPI.getState().setting.changeUserInfo
 
     const params = {
@@ -48,7 +49,12 @@ export const changeUserInfo = createAsyncThunk<void, ('name' | 'img'), ThunkAPI>
       })
       .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
-        options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
+        const tmpIdToken_ = thunkAPI.getState().auth.tokens?.idToken
+
+        if (options.headers) {
+          options.headers.Authorization = tmpIdToken_ ? tmpIdToken_ : ''
+        }
+        
         await axios(options)
           .then((res) => {
             thunkAPI.dispatch(thunkActions.auth.getUserInfo())

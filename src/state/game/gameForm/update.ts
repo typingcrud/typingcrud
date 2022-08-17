@@ -15,7 +15,8 @@ export const update = createAsyncThunk<(App.Game[] | void), string, ThunkAPI>(
   'gameForm/update',
   async (index, thunkAPI) => {
     const userId = thunkAPI.getState().auth.userId
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+    const idToken = tmpIdToken ? tmpIdToken : ''
     const { title, description, lang, code, codeComment } = thunkAPI.getState().gameForm.game
     const { isAscii, isFilled } = thunkAPI.getState().gameForm.valid
     const { isCorrect } = thunkAPI.getState().gameForm

@@ -40,30 +40,33 @@ export const establishSession = createAsyncThunk<void, void, ThunkAPI>(
       thunkAPI.dispatch(actions.auth.setUserId(localStorageDatas.userId))
       thunkAPI.dispatch(actions.auth.setUserInfo(JSON.parse(localStorageDatas.userInfo)))
     } else {
-      cognitoUser.getSession((err: Error, session: CognitoUserSession) => {
+      cognitoUser.getSession((err: Error, session: CognitoUserSession | null) => {
         if (err) {
           alert(err.message || JSON.stringify(err))
           return
         }
-        const idToken = session.getIdToken().getJwtToken()
-        const accessToken = session.getAccessToken().getJwtToken()
-        const refreshToken = session.getRefreshToken().getToken()
-        const userId = session.getIdToken().payload['custom:typing_userID']
 
-        thunkAPI.dispatch(actions.auth.setCognitoUser(true))
-        thunkAPI.dispatch(actions.auth.setTokens({
-          idToken: idToken,
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-        }))
-        thunkAPI.dispatch(actions.auth.setUserId(userId))
-        
-        localStorage.setItem('idToken', idToken)
-        localStorage.setItem('accessToken', accessToken)
-        localStorage.setItem('refreshToken', refreshToken)
-        localStorage.setItem('userId', userId)
+        if (session) {
+          const idToken = session?.getIdToken().getJwtToken()
+          const accessToken = session?.getAccessToken().getJwtToken()
+          const refreshToken = session?.getRefreshToken().getToken()
+          const userId = session?.getIdToken().payload['custom:typing_userID']
 
-        thunkAPI.dispatch(thunkActions.auth.getUserInfo())
+          thunkAPI.dispatch(actions.auth.setCognitoUser(true))
+          thunkAPI.dispatch(actions.auth.setTokens({
+            idToken: idToken,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          }))
+          thunkAPI.dispatch(actions.auth.setUserId(userId))
+          
+          localStorage.setItem('idToken', idToken)
+          localStorage.setItem('accessToken', accessToken)
+          localStorage.setItem('refreshToken', refreshToken)
+          localStorage.setItem('userId', userId)
+
+          thunkAPI.dispatch(thunkActions.auth.getUserInfo())
+        }
       })
     }
   }

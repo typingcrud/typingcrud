@@ -22,16 +22,16 @@ const useStyles = makeStyles({
 })
 
 const GamePlay: React.FC = () => {
-  const { id: index } = useParams()
+  const { id } = useParams<{ id: string }>()
   const game = useAppSelector(state => state.gamePlay)
   const classes = useStyles()
 
   const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(thunkActions.gamePlay.getGame({ index }))
+    dispatch(thunkActions.gamePlay.getGame({ index: id }))
 
     return () => { dispatch(actions.gamePlay.reset()) }
-  }, [dispatch, index])
+  }, [dispatch, id])
 
   return (
     <Paper elevation={10} square>

@@ -6,8 +6,11 @@ import axios, { AxiosRequestConfig } from 'axios'
 export const getUserInfo = createAsyncThunk<void, void, ThunkAPI>(
   'auth/getUserInfo',
   async (_, thunkAPI) => {
-    const userId = thunkAPI.getState().auth.userId
-    const idToken = thunkAPI.getState().auth.tokens?.idToken
+    const tmpUserId = thunkAPI.getState().auth.userId
+    const tmpIdToken = thunkAPI.getState().auth.tokens?.idToken
+
+    const userId = tmpUserId ? tmpUserId : ''
+    const idToken = tmpIdToken ? tmpIdToken : ''
 
     const params = {
       userId: userId
@@ -31,7 +34,11 @@ export const getUserInfo = createAsyncThunk<void, void, ThunkAPI>(
       })
       .catch(async () => {
         thunkAPI.dispatch(thunkActions.auth.updateTokens())
-        options.headers.Authorization = thunkAPI.getState().auth.tokens?.idToken
+        const tmpIdToken_ = thunkAPI.getState().auth.tokens?.idToken
+
+        if (options.headers) {
+          options.headers.Authorization = tmpIdToken_ ? tmpIdToken_ : ''
+        }
         await axios(options)
           .then((res) => {
             if (res.data.body.imgOwn) {
