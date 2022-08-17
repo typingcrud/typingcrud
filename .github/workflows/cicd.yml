@@ -1,33 +1,36 @@
-name: Deploy TypingCRUD
-
+name: TypingCRUD
 on:
   push:
+    branches:
+      - master
     tags:
       - v1
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
-
+    name: build
     strategy:
       matrix:
-        node-version: ['12.X']
+        node-version: ['18.X']
 
     steps:
-    - uses: actions/checkout@v1
-      with:
-        ref: 'v1'
+    - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Yarn Install
-      run: yarn install
+    - uses: actions/cache@v2
+      id: node_modules_cache
+      with:
+        path: node_modules
+        key: ${{ matrix.os }}-node-v${{ matrix.nodeVersion }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-    - name: Yarn Build
-      run: yarn build
+    - if: steps.node_modules_cache.outputs.cache-hit != 'true'
+      run: yarn
+
+    - run: yarn build
       env:
         REACT_APP_COGNITO_REGION: ${{ secrets.REGION }}
         REACT_APP_COGNITO_IDENTITY_POOL_ID: ${{ secrets.IDENTITY_POOL_ID }}
@@ -36,38 +39,25 @@ jobs:
         REACT_APP_API_BASE: ${{ secrets.API_BASE }}
         REACT_APP_TRACKING_ID: ${{ secrets.TRACKING_ID }}
 
-    - name: Upload build result
-      uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v2
       with:
         name: build
         path: ./build
 
-  deploy:
-    needs: build
-
+  CD:
+    needs: CI
     runs-on: ubuntu-latest
     
     steps:
-    - name: Download build result
-      uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v2
       with:
         name: build
         path: ./build
 
-    - name: S3 sync
-      uses: jakejarvis/s3-sync-action@master
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.REGION }}
-        SOURCE_DIR: './build'
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-
-    - name: Clear cache in CloudFront
-      uses: chetan/invalidate-cloudfront-action@v1.2
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        DISTRIBUTION: ${{ secrets.CF_DISTRIBUTION }}
-        PATHS: "/*"
-        AWS_REGION: ${{ secrets.REGION }}
+    - uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.REGION }}
+    - run: aws s3 sync ./dist s3://${{ secrets.S3_BUCKET }}/
+    - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION }} --paths "/*"
